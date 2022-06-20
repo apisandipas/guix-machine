@@ -133,30 +133,30 @@
         (feature-sway
          #:extra-config
          `((include ,(local-file "./config/sway/config"))))
-              ;; (feature-sway-run-on-tty
-        ;;  #:sway-tty-number 2)
-        ;; (feature-sway-screenshot)
-        ;; ;; (feature-sway-statusbar
-        ;; ;;  #:use-global-fonts? #f)
-        ;; (feature-waybar
-        ;;  #:waybar-modules
-        ;;  (list
-        ;;   (waybar-sway-workspaces)
-        ;;   ;; (waybar-sway-window)
-        ;;   (waybar-tray)
-        ;;   (waybar-idle-inhibitor)
-        ;;   ;; (waybar-temperature)
-        ;;   (waybar-sway-language)
-        ;;   (waybar-battery #:intense? #f)
-        ;;   (waybar-clock)))
-        ;; (feature-swayidle)
-        ;; (feature-swaylock
-        ;;  #:swaylock (@ (gnu packages wm) swaylock-effects)
-        ;;  ;; The blur on lock screen is not privacy-friendly.
-        ;;  #:extra-config '( ;; (screenshots)
-        ;;                   ;; (effect-blur . 7x5)
-        ;;                   (clock)))
-        ;; (feature-rofi)
+        (feature-sway-run-on-tty
+         #:sway-tty-number 2)
+        (feature-sway-screenshot)
+        ;; (feature-sway-statusbar
+        ;;  #:use-global-fonts? #f)
+        (feature-waybar
+         #:waybar-modules
+         (list
+          (waybar-sway-workspaces)
+          ;; (waybar-sway-window)
+          (waybar-tray)
+          (waybar-idle-inhibitor)
+          ;; (waybar-temperature)
+          (waybar-sway-language)
+          (waybar-battery #:intense? #f)
+          (waybar-clock)))
+        (feature-swayidle)
+        (feature-swaylock
+         #:swaylock (@ (gnu packages wm) swaylock-effects)
+         ;; The blur on lock screen is not privacy-friendly.
+         #:extra-config '( ;; (screenshots)
+                          ;; (effect-blur . 7x5)
+                          (clock)))
+        (feature-rofi)
 
         (feature-emacs
          #:emacs

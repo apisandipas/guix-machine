@@ -25,7 +25,6 @@
   #:use-module (rde features mail)
   #:use-module (rde features networking)
   #:use-module (gnu services)
-  #:use-module (rde home services i2p)
   #:use-module (gnu system keyboard)
   #:use-module (gnu system file-systems)
   #:use-module (gnu system mapped-devices)
@@ -108,103 +107,113 @@
 
 (define %main-features
   (list (feature-base-services)
-   (feature-desktop-services)
-   (feature-docker)
+        (feature-desktop-services)
+        (feature-docker)
 
-   (feature-pipewire)
-   (feature-fonts
-    #:font-monospace (font "Iosevka" #:size 11 #:weight 'regular)
-    #:font-packages (list font-iosevka font-fira-mono))
+        (feature-pipewire)
+        (feature-fonts
+         #:font-monospace (font "Iosevka" #:size 11 #:weight 'regular)
+         #:font-packages (list font-iosevka font-fira-mono))
 
-   ;; TODO: Consider making a `feature-kitty` if this does work ok enough.
-   (feature-alacritty
-    #:config-file (local-file "./config/alacritty/alacritty.yml")
-    #:default-terminal? #f
-    #:backup-terminal? #t
-    #:software-rendering? #f)
-   (feature-vterm)
-   (feature-tmux
-    #:config-file (local-file "./config/tmux/tmux.conf"))
-   (feature-zsh
-    #:enable-zsh-autosuggestions? #t)
-   (feature-bash)
-   (feature-direnv)
-   (feature-git)
-   (feature-ssh)
-   (feature-sway
-    #:xwayland? #f
-    #:extra-config
-    `(
-      (workspace 1 output DP-1)
-      (workspace 2 output DP-1)
-      (workspace 3 output DP-1)
-      (workspace 4 output DP-2)
-      (workspace 5 output DP-2)
-      (workspace 6 output DP-2)
-      (workspace 7 output DP-2)
-      (workspace 8 output HDMI-1)
-      (workspace 9 output HDMI-1)
-      (workspace 10 output HDMI-1)
+        ;; TODO: Consider making a `feature-kitty` if this does work ok enough.
+        (feature-alacritty
+         #:config-file (local-file "./config/alacritty/alacritty.yml")
+         #:default-terminal? #f
+         #:backup-terminal? #t
+         #:software-rendering? #f)
+        (feature-vterm)
+        (feature-tmux
+         #:config-file (local-file "./config/tmux/tmux.conf"))
+        (feature-zsh
+         #:enable-zsh-autosuggestions? #t)
+        (feature-bash)
+        (feature-direnv)
+        (feature-git)
+        (feature-ssh)
+        (feature-sway
+         #:extra-config
+         `((include ,(local-file "./config/sway/config"))))
+              ;; (feature-sway-run-on-tty
+        ;;  #:sway-tty-number 2)
+        ;; (feature-sway-screenshot)
+        ;; ;; (feature-sway-statusbar
+        ;; ;;  #:use-global-fonts? #f)
+        ;; (feature-waybar
+        ;;  #:waybar-modules
+        ;;  (list
+        ;;   (waybar-sway-workspaces)
+        ;;   ;; (waybar-sway-window)
+        ;;   (waybar-tray)
+        ;;   (waybar-idle-inhibitor)
+        ;;   ;; (waybar-temperature)
+        ;;   (waybar-sway-language)
+        ;;   (waybar-battery #:intense? #f)
+        ;;   (waybar-clock)))
+        ;; (feature-swayidle)
+        ;; (feature-swaylock
+        ;;  #:swaylock (@ (gnu packages wm) swaylock-effects)
+        ;;  ;; The blur on lock screen is not privacy-friendly.
+        ;;  #:extra-config '( ;; (screenshots)
+        ;;                   ;; (effect-blur . 7x5)
+        ;;                   (clock)))
+        ;; (feature-rofi)
 
-      (bindsym
-       --locked $mod+Shift+p exec
-       ,(file-append (@ (gnu packages music) playerctl) "/bin/playerctl")
-       play-pause)
-      (bindsym $mod+Shift+Return exec emacs)))
-   (feature-sway-run-on-tty
-    #:sway-tty-number 2)
-   (feature-sway-screenshot)
-   ;; (feature-sway-statusbar
-   ;;  #:use-global-fonts? #f)
-   (feature-waybar
-    #:waybar-modules
-    (list
-     (waybar-sway-workspaces)
-     ;; (waybar-sway-window)
-     (waybar-tray)
-     (waybar-idle-inhibitor)
-     ;; (waybar-temperature)
-     (waybar-sway-language)
-     (waybar-battery #:intense? #f)
-     (waybar-clock)))
-   (feature-swayidle)
-   (feature-swaylock
-    #:swaylock (@ (gnu packages wm) swaylock-effects)
-    ;; The blur on lock screen is not privacy-friendly.
-    #:extra-config '( ;; (screenshots)
-                     ;; (effect-blur . 7x5)
-                     (clock)))
-   (feature-rofi)
+        (feature-emacs
+         #:emacs
+         (if (string=? (or (getenv "BUILD_SUBMITTER") "") "git.sr.ht")
+             (@ (gnu packages emacs) emacs-next-pgtk)
+             emacs-next-pgtk-latest)
+         #:extra-init-el `()
+         #:additional-elisp-packages
+         (append
+          (list emacs-consult-dir)
+          (pkgs "emacs-elfeed" "emacs-hl-todo"
+                "emacs-ytdl"
+                "emacs-ement"
+                "emacs-restart-emacs"
+                "emacs-org-present")))
+        ;; (feature-emacs-appearance)
+        ;; (feature-emacs-faces)
+        ;; (feature-emacs-completion
+        ;;  #:mini-frame? #f)
+        ;; (feature-emacs-vertico)
+        ;; (feature-emacs-project)
+        ;; (feature-emacs-perspective)
+        ;; (feature-emacs-input-methods)
+        ;; (feature-emacs-which-key)
+        ;; (feature-emacs-keycast #:turn-on? #f)
 
-   (feature-emacs
-    #:emacs
-    (if (string=? (or (getenv "BUILD_SUBMITTER") "") "git.sr.ht")
-        (@ (gnu packages emacs) emacs-next-pgtk)
-        emacs-next-pgtk-latest)
-    #:extra-init-el `()
-    #:additional-elisp-packages
+        ;; (feature-emacs-dired)
+        ;; (feature-emacs-eshell)
+        ;; (feature-emacs-monocle)
+        ;; (feature-emacs-message)
+        ;;  (feature-xdg
+    #:xdg-user-directories-configuration
+    (home-xdg-user-directories-configuration
+     (music "$HOME/music")
+     (videos "$HOME/vids")
+     (pictures "$HOME/pics")
+     (documents "$HOME/docs")
+     (download "$HOME/dl")
+     (desktop "$HOME")
+     (publicshare "$HOME")
+     (templates "$HOME")))
+   (feature-base-packages
+    #:home-packages
     (append
-     (list emacs-consult-dir)
-     (pkgs "emacs-elfeed" "emacs-hl-todo"
-           "emacs-ytdl"
-           "emacs-ement"
-           "emacs-restart-emacs"
-           "emacs-org-present")))
-   (feature-emacs-appearance)
-   (feature-emacs-faces)
-   (feature-emacs-completion
-    #:mini-frame? #f)
-   (feature-emacs-vertico)
-   (feature-emacs-project)
-   (feature-emacs-perspective)
-   (feature-emacs-input-methods)
-   (feature-emacs-which-key)
-   (feature-emacs-keycast #:turn-on? #f)
-
-   (feature-emacs-dired)
-   (feature-emacs-eshell)
-   (feature-emacs-monocle)
-   (feature-emacs-message)))
+     (pkgs-vanilla
+      "icecat" "nyxt"
+      "ungoogled-chromium-wayland" "ublock-origin-chromium")
+     (pkgs
+      "alsa-utils" "youtube-dl" "imv"
+      "obs" "obs-wlrobs"
+      "recutils"
+      "fheroes2"
+      ;; TODO: Enable pipewire support to chromium by default
+      ;; chrome://flags/#enable-webrtc-pipewire-capturer
+      "hicolor-icon-theme" "adwaita-icon-theme" "gnome-themes-standard"
+      "ripgrep" "curl" "make")))
+        ))
 
 ;;; System-specific configurations
 

@@ -31,6 +31,8 @@
   #:use-module (gnu system file-systems)
   #:use-module (gnu system mapped-devices)
   #:use-module (gnu packages)
+  #:use-module (gnu packages emacs)
+  #:use-module (gnu packages emacs-xyz)
   #:use-module (rde packages)
   #:use-module (rde packages emacs)
   #:use-module (rde packages emacs-xyz)

@@ -84,7 +84,7 @@
                                (mail-lst 'guix-patches "guix-patches@gnu.org"
                                          '("https://yhetil.org/guix-patches/1"))))
         (feature-keyboard
-         #:keyboard-layout (keyboard-layout "us"))
+         #:keyboard-layout (keyboard-layout "us" "qwerty"))
         ;; (feature-keyboard
         ;;  #:keyboard-layout
         ;;  (keyboard-layout

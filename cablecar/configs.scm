@@ -257,5 +257,4 @@
       ("norrin-system" norrin-os)
       (_ norrin-he))))
 
-;; (dispatcher)
-(norrin-os)
+(dispatcher)

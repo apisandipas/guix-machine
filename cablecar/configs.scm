@@ -54,7 +54,7 @@
             (urls urls)))))
 
 (define %bryan-features
-  '((feature-user-info
+  (list (feature-user-info
      #:user-name "bryan"
      #:full-name "Bryan Paronto"
      #:email "bryan@cablecar.digital"
@@ -79,8 +79,7 @@
     #:keyboard-layout
     (keyboard-layout
      "us" "qwerty"
-     #:options '("grp:shifts_toggle" "ctrl:nocaps")))
-    ))
+     #:options '("grp:shifts_toggle" "ctrl:nocaps")))))
 
 ;;; Generic features should be applicable for various hosts/users/etc
 
@@ -101,32 +100,33 @@
     (car (lookup-inferior-packages inferior pkg-name)))
 
    (map get-inferior-pkg lst))
+
 (define %main-features
-  '((feature-base-services)
-    (feature-desktop-services)
-    (feature-docker)
+  (list (feature-base-services)
+   (feature-desktop-services)
+   (feature-docker)
 
-    (feature-pipewire)
-    (feature-fonts
-     #:font-monospace (font "Iosevka" #:size 11 #:weight 'regular)
-     #:font-packages (list font-iosevka font-fira-mono))
+   (feature-pipewire)
+   (feature-fonts
+    #:font-monospace (font "Iosevka" #:size 11 #:weight 'regular)
+    #:font-packages (list font-iosevka font-fira-mono))
 
-    ;; TODO: Consider making a `feature-kitty` if this does work ok enough.
-    (feature-alacritty
-     #:config-file (local-file "./config/alacritty/alacritty.yml")
-     #:default-terminal? #f
-     #:backup-terminal? #t
-     #:software-rendering? #f)
-    (feature-vterm)
-    (feature-tmux
-     #:config-file (local-file "./config/tmux/tmux.conf"))
-    (feature-zsh
-     #:enable-zsh-autosuggestions? #t)
-    (feature-bash)
-    (feature-direnv)
-    (feature-git)
-    (feature-ssh)
- (feature-sway
+   ;; TODO: Consider making a `feature-kitty` if this does work ok enough.
+   (feature-alacritty
+    #:config-file (local-file "./config/alacritty/alacritty.yml")
+    #:default-terminal? #f
+    #:backup-terminal? #t
+    #:software-rendering? #f)
+   (feature-vterm)
+   (feature-tmux
+    #:config-file (local-file "./config/tmux/tmux.conf"))
+   (feature-zsh
+    #:enable-zsh-autosuggestions? #t)
+   (feature-bash)
+   (feature-direnv)
+   (feature-git)
+   (feature-ssh)
+   (feature-sway
     #:xwayland? #f
     #:extra-config
     `(
@@ -166,7 +166,7 @@
    (feature-swaylock
     #:swaylock (@ (gnu packages wm) swaylock-effects)
     ;; The blur on lock screen is not privacy-friendly.
-    #:extra-config '(;; (screenshots)
+    #:extra-config '( ;; (screenshots)
                      ;; (effect-blur . 7x5)
                      (clock)))
    (feature-rofi)
@@ -199,13 +199,12 @@
    (feature-emacs-dired)
    (feature-emacs-eshell)
    (feature-emacs-monocle)
-   (feature-emacs-message)
-    ))
+   (feature-emacs-message)))
 
 ;;; System-specific configurations
 
 (define norrin-file-systems
-  '((file-system
+  (list (file-system
           (mount-point "/boot/efi")
           (device (file-system-label "EFI_PART"))
           (type "vfat"))
@@ -221,7 +220,7 @@
           (type "ext4"))))
 
 (define %norrin-features
-  '((feature-host-info
+  (list (feature-host-info
      #:host-name "norrin"
      #:timezone  "America/Chicago")
     (feature-file-systems

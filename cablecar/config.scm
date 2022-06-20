@@ -162,8 +162,8 @@
    ;; (feature-sway-run-on-tty
    ;;  #:sway-tty-number 2)
    (feature-sway-screenshot)
-   (feature-sway-statusbar
-    #:use-global-fonts? #t)
+   ;; (feature-sway-statusbar
+   ;;  #:use-global-fonts? #t)
    (feature-waybar
     #:waybar-modules
     (list

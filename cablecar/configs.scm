@@ -106,72 +106,90 @@
    (map get-inferior-pkg lst))
 
 (define %main-features
-  (list (feature-base-services)
-        (feature-desktop-services)
-        (feature-docker)
+  (list
+   (feature-custom-services
+    #:system-services
+    (list
+     (service mate-desktop-service-type)
+     ;; (service nix-service-type)
+     )
+    #:home-services
+    (list
+     ;; ((@ (gnu services) simple-service)
+     ;;  'extend-shell-profile
+     ;;  (@ (gnu home-services shells) home-shell-profile-service-type)
+     ;;  (list
+     ;;   #~(string-append
+     ;;      "alias superls="
+     ;;      #$(file-append (@ (gnu packages base) coreutils) "/bin/ls"))))
+     ))
 
-        (feature-pipewire)
-        (feature-fonts
-         #:font-monospace (font "Iosevka" #:size 11 #:weight 'regular)
-         #:font-packages (list font-iosevka font-fira-mono))
+   (feature-base-services)
+   (feature-desktop-services)
+   (feature-docker)
 
-        ;; TODO: Consider making a `feature-kitty` if this does work ok enough.
-        (feature-alacritty
-         #:config-file (local-file "./config/alacritty/alacritty.yml")
-         #:default-terminal? #f
-         #:backup-terminal? #t
-         #:software-rendering? #f)
-        (feature-vterm)
-        (feature-tmux
-         #:config-file (local-file "./config/tmux/tmux.conf"))
-        (feature-zsh
-         #:enable-zsh-autosuggestions? #t)
-        (feature-bash)
-        (feature-direnv)
-        (feature-git)
-        (feature-ssh)
-        (feature-sway
-         #:extra-config
-         `((include ,(local-file "./config/sway/config"))))
-        (feature-sway-run-on-tty
-         #:sway-tty-number 2)
-        (feature-sway-screenshot)
-        ;; (feature-sway-statusbar
-        ;;  #:use-global-fonts? #f)
-        (feature-waybar
-         #:waybar-modules
-         (list
-          (waybar-sway-workspaces)
-          ;; (waybar-sway-window)
-          (waybar-tray)
-          (waybar-idle-inhibitor)
-          ;; (waybar-temperature)
-          (waybar-sway-language)
-          (waybar-battery #:intense? #f)
-          (waybar-clock)))
-        (feature-swayidle)
-        (feature-swaylock
-         #:swaylock (@ (gnu packages wm) swaylock-effects)
-         ;; The blur on lock screen is not privacy-friendly.
-         #:extra-config '( ;; (screenshots)
-                          ;; (effect-blur . 7x5)
-                          (clock)))
-        (feature-rofi)
+   (feature-pipewire)
+   (feature-fonts
+    #:font-monospace (font "Iosevka" #:size 11 #:weight 'regular)
+    #:font-packages (list font-iosevka font-fira-mono))
 
-        (feature-emacs
-         #:emacs
-         (if (string=? (or (getenv "BUILD_SUBMITTER") "") "git.sr.ht")
-             (@ (gnu packages emacs) emacs-next-pgtk)
-             emacs-next-pgtk-latest)
-         #:extra-init-el `()
-         #:additional-elisp-packages
-         (append
-          (list emacs-consult-dir)
-          (pkgs "emacs-elfeed" "emacs-hl-todo"
-                "emacs-ytdl"
-                "emacs-ement"
-                "emacs-restart-emacs"
-                "emacs-org-present")))
+   ;; TODO: Consider making a `feature-kitty` if this does work ok enough.
+   (feature-alacritty
+    #:config-file (local-file "./config/alacritty/alacritty.yml")
+    #:default-terminal? #f
+    #:backup-terminal? #t
+    #:software-rendering? #f)
+   (feature-vterm)
+   (feature-tmux
+    #:config-file (local-file "./config/tmux/tmux.conf"))
+   (feature-zsh
+    #:enable-zsh-autosuggestions? #t)
+   (feature-bash)
+   (feature-direnv)
+   (feature-git)
+   (feature-ssh)
+   (feature-sway
+    #:extra-config
+    `((include ,(local-file "./config/sway/config"))))
+   (feature-sway-run-on-tty
+    #:sway-tty-number 2)
+   (feature-sway-screenshot)
+   ;; (feature-sway-statusbar
+   ;;  #:use-global-fonts? #f)
+   (feature-waybar
+    #:waybar-modules
+    (list
+     (waybar-sway-workspaces)
+     ;; (waybar-sway-window)
+     (waybar-tray)
+     (waybar-idle-inhibitor)
+     ;; (waybar-temperature)
+     (waybar-sway-language)
+     (waybar-battery #:intense? #f)
+     (waybar-clock)))
+   (feature-swayidle)
+   (feature-swaylock
+    #:swaylock (@ (gnu packages wm) swaylock-effects)
+    ;; The blur on lock screen is not privacy-friendly.
+    #:extra-config '( ;; (screenshots)
+                     ;; (effect-blur . 7x5)
+                     (clock)))
+   (feature-rofi)
+
+   (feature-emacs
+    #:emacs
+    (if (string=? (or (getenv "BUILD_SUBMITTER") "") "git.sr.ht")
+        (@ (gnu packages emacs) emacs-next-pgtk)
+        emacs-next-pgtk-latest)
+    #:extra-init-el `()
+    #:additional-elisp-packages
+    (append
+     (list emacs-consult-dir)
+     (pkgs "emacs-elfeed" "emacs-hl-todo"
+           "emacs-ytdl"
+           "emacs-ement"
+           "emacs-restart-emacs"
+           "emacs-org-present")))
 
    (feature-xdg
     #:xdg-user-directories-configuration
@@ -199,23 +217,23 @@
       ;; chrome://flags/#enable-webrtc-pipewire-capturer
       "hicolor-icon-theme" "adwaita-icon-theme" "gnome-themes-standard"
       "ripgrep" "curl" "make")))
-        ;; (feature-emacs-appearance)
-        ;; (feature-emacs-faces)
-        ;; (feature-emacs-completion
-        ;;  #:mini-frame? #f)
-        ;; (feature-emacs-vertico)
-        ;; (feature-emacs-project)
-        ;; (feature-emacs-perspective)
-        ;; (feature-emacs-input-methods)
-        ;; (feature-emacs-which-key)
-        ;; (feature-emacs-keycast #:turn-on? #f)
+   (feature-emacs-appearance)
+   (feature-emacs-faces)
+   (feature-emacs-completion
+    #:mini-frame? #f)
+   (feature-emacs-vertico)
+   (feature-emacs-project)
+   (feature-emacs-perspective)
+   (feature-emacs-input-methods)
+   (feature-emacs-which-key)
+   (feature-emacs-keycast #:turn-on? #f)
 
-        ;; (feature-emacs-dired)
-        ;; (feature-emacs-eshell)
-        ;; (feature-emacs-monocle)
-        ;; (feature-emacs-message)
-        ;; 
-        ))
+   (feature-emacs-dired)
+   (feature-emacs-eshell)
+   (feature-emacs-monocle)
+   (feature-emacs-message)
+   ;;
+   ))
 
 ;;; System-specific configurations
 

@@ -187,7 +187,7 @@
     #:extra-init-el `()
     #:additional-elisp-packages
     (append
-     (list emacs-consult-dir)
+     (list emacs-consult-dir emacs-exwm emacs-desktop-environment)
      (pkgs "emacs-elfeed" "emacs-hl-todo"
            "emacs-ytdl"
            "emacs-ement"

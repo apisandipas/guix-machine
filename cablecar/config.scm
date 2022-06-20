@@ -1,4 +1,4 @@
-(define-module (cablecar configs)
+(define-module (cablecar config)
   #:use-module (rde features)
   #:use-module (rde features base)
   #:use-module (rde features gnupg)
@@ -114,8 +114,8 @@
    (feature-custom-services
     #:system-services
     (list
-     (service mate-desktop-service-type)
-     (service sddm-service-type)
+     ;; (service mate-desktop-service-type)
+     ;; (service sddm-service-type)
      ;; (service nix-service-type)
      )
     #:home-services
@@ -140,13 +140,13 @@
 
    ;; TODO: Consider making a `feature-kitty` if this does work ok enough.
    (feature-alacritty
-    #:config-file (local-file "./config/alacritty/alacritty.yml")
+    #:config-file (local-file "./files/alacritty/alacritty.yml")
     #:default-terminal? #f
     #:backup-terminal? #t
     #:software-rendering? #f)
    (feature-vterm)
    (feature-tmux
-    #:config-file (local-file "./config/tmux/tmux.conf"))
+    #:config-file (local-file "./files/tmux/tmux.conf"))
    (feature-zsh
     #:enable-zsh-autosuggestions? #t)
    (feature-bash)
@@ -155,7 +155,7 @@
    (feature-ssh)
    (feature-sway
     #:extra-config
-    `((include ,(local-file "./config/sway/config"))))
+    `((include ,(local-file "./files/sway/config"))))
    (feature-sway-run-on-tty
     #:sway-tty-number 2)
    (feature-sway-screenshot)
@@ -189,7 +189,7 @@
     #:extra-init-el `()
     #:additional-elisp-packages
     (append
-     (list emacs-consult-dir emacs-exwm emacs-desktop-environment)
+     (list emacs-consult-dir)
      (pkgs "emacs-elfeed" "emacs-hl-todo"
            "emacs-ytdl"
            "emacs-ement"
@@ -214,6 +214,7 @@
       "icecat" "nyxt"
       "ungoogled-chromium-wayland" "ublock-origin-chromium")
      (pkgs
+      "emacs-exwm" "emacs-desktop-environment" "arandr"
       "alsa-utils" "youtube-dl" "imv"
       "obs" "obs-wlrobs"
       "recutils"
@@ -225,13 +226,13 @@
    (feature-emacs-appearance)
    (feature-emacs-faces)
    (feature-emacs-completion
-    #:mini-frame? #f)
+    #:mini-frame? #t)
    (feature-emacs-vertico)
    (feature-emacs-project)
    (feature-emacs-perspective)
    (feature-emacs-input-methods)
    (feature-emacs-which-key)
-   (feature-emacs-keycast #:turn-on? #f)
+   (feature-emacs-keycast #:turn-on? #t)
 
    (feature-emacs-dired)
    (feature-emacs-eshell)

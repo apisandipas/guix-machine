@@ -1,4 +1,4 @@
-CONFIG_FILE = ./bp/configs.scm
+CONFIG_FILE = ./cablecar/configs.scm
 HOSTS = norrin
 GLP = ../rde
 

@@ -114,7 +114,7 @@
    (feature-custom-services
     #:system-services
     (list
-     ;; (service mate-desktop-service-type)
+     (service mate-desktop-service-type)
      ;; (service sddm-service-type)
      ;; (service nix-service-type)
      )
@@ -156,8 +156,8 @@
    (feature-sway
     #:extra-config
     `((include ,(local-file "./files/sway/config"))))
-   (feature-sway-run-on-tty
-    #:sway-tty-number 2)
+   ;; (feature-sway-run-on-tty
+   ;;  #:sway-tty-number 2)
    (feature-sway-screenshot)
    ;; (feature-sway-statusbar
    ;;  #:use-global-fonts? #f)

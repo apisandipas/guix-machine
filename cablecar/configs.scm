@@ -25,6 +25,7 @@
   #:use-module (rde features mail)
   #:use-module (rde features networking)
   #:use-module (gnu services)
+  #:use-module (gnu services desktop)
   #:use-module (gnu system keyboard)
   #:use-module (gnu system file-systems)
   #:use-module (gnu system mapped-devices)

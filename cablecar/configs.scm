@@ -172,22 +172,8 @@
                 "emacs-ement"
                 "emacs-restart-emacs"
                 "emacs-org-present")))
-        ;; (feature-emacs-appearance)
-        ;; (feature-emacs-faces)
-        ;; (feature-emacs-completion
-        ;;  #:mini-frame? #f)
-        ;; (feature-emacs-vertico)
-        ;; (feature-emacs-project)
-        ;; (feature-emacs-perspective)
-        ;; (feature-emacs-input-methods)
-        ;; (feature-emacs-which-key)
-        ;; (feature-emacs-keycast #:turn-on? #f)
 
-        ;; (feature-emacs-dired)
-        ;; (feature-emacs-eshell)
-        ;; (feature-emacs-monocle)
-        ;; (feature-emacs-message)
-        ;;  (feature-xdg
+   (feature-xdg
     #:xdg-user-directories-configuration
     (home-xdg-user-directories-configuration
      (music "$HOME/music")
@@ -213,6 +199,22 @@
       ;; chrome://flags/#enable-webrtc-pipewire-capturer
       "hicolor-icon-theme" "adwaita-icon-theme" "gnome-themes-standard"
       "ripgrep" "curl" "make")))
+        ;; (feature-emacs-appearance)
+        ;; (feature-emacs-faces)
+        ;; (feature-emacs-completion
+        ;;  #:mini-frame? #f)
+        ;; (feature-emacs-vertico)
+        ;; (feature-emacs-project)
+        ;; (feature-emacs-perspective)
+        ;; (feature-emacs-input-methods)
+        ;; (feature-emacs-which-key)
+        ;; (feature-emacs-keycast #:turn-on? #f)
+
+        ;; (feature-emacs-dired)
+        ;; (feature-emacs-eshell)
+        ;; (feature-emacs-monocle)
+        ;; (feature-emacs-message)
+        ;; 
         ))
 
 ;;; System-specific configurations

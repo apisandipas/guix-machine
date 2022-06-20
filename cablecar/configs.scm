@@ -37,6 +37,8 @@
   #:use-module (guix gexp)
   #:use-module (guix inferior)
   #:use-module (guix channels)
+  #:use-module (nongnu packages linux)
+  #:use-module (nongnu system linux-initrd)
   #:use-module (ice-9 match))
 
 ;;; User-specfics settings
@@ -226,6 +228,10 @@
   (list (feature-host-info
      #:host-name "norrin"
      #:timezone  "America/Chicago")
+   (feature-kernel
+    #:kernel linux
+    #:initrd microcode-initrd
+    #:firmware '(linux-firmware))
     (feature-file-systems
      ;; #:mapped-devices norrin-mapped-devices
      #:file-systems norrin-file-systems)))
@@ -251,5 +257,4 @@
       ("norrin-system" norrin-os)
       (_ norrin-he))))
 
-;; (dispatcher)
-(norrin-os)
+(dispatcher)

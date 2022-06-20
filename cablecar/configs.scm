@@ -26,6 +26,7 @@
   #:use-module (rde features networking)
   #:use-module (gnu services)
   #:use-module (gnu services desktop)
+  #:use-module (gnu services sddm)
   #:use-module (gnu system keyboard)
   #:use-module (gnu system file-systems)
   #:use-module (gnu system mapped-devices)
@@ -112,6 +113,7 @@
     #:system-services
     (list
      (service mate-desktop-service-type)
+     (service sddm-service-type)
      ;; (service nix-service-type)
      )
     #:home-services

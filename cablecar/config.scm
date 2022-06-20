@@ -86,8 +86,8 @@
    (feature-keyboard
     #:keyboard-layout
     (keyboard-layout
-     "us" "qwerty"
-     #:options '("grp:shifts_toggle" "ctrl:nocaps")))))
+     "us"
+     #:options '("ctrl:nocaps")))))
 
 ;;; Generic features should be applicable for various hosts/users/etc
 

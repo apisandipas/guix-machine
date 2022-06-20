@@ -63,31 +63,33 @@
 
 (define %bryan-features
   (list (feature-user-info
-     #:user-name "bryan"
-     #:full-name "Bryan Paronto"
-     #:email "bryan@cablecar.digital"
-     #:user-initial-password-hash
-     "$6$abc$3SAZZQGdvQgAscM2gupP1tC.SqnsaLSPoAnEOb2k6jXMhzQqS1kCSplAJ/vUy2rrnpHtt6frW2Ap5l/tIvDsz."
-     #:emacs-advanced-user? #f)
-    (feature-gnupg
-     #:gpg-primary-key "1447CBC3E2E68A6A"
-     #:gpg-smart-card? #f)
-    (feature-password-store
-     #:remote-password-store-url "ssh://git@github.com:apisandipas/passcrypt.git")
-    (feature-mail-settings
-     #:mail-accounts (list (mail-acc 'work       "bryan@cablecar.digital")
-                           (mail-acc 'personal   "bparonto@gmail.com"))
-     #:mailing-lists (list (mail-lst 'guix-devel "guix-devel@gnu.org"
-                                     '("https://yhetil.org/guix-devel/0"))
-                           (mail-lst 'guix-bugs "guix-bugs@gnu.org"
-                                     '("https://yhetil.org/guix-bugs/0"))
-                           (mail-lst 'guix-patches "guix-patches@gnu.org"
-                                     '("https://yhetil.org/guix-patches/1"))))
-   (feature-keyboard
-    #:keyboard-layout
-    (keyboard-layout
-     "us"
-     #:options '("ctrl:nocaps")))))
+         #:user-name "bryan"
+         #:full-name "Bryan Paronto"
+         #:email "bryan@cablecar.digital"
+         #:user-initial-password-hash
+         "$6$abc$3SAZZQGdvQgAscM2gupP1tC.SqnsaLSPoAnEOb2k6jXMhzQqS1kCSplAJ/vUy2rrnpHtt6frW2Ap5l/tIvDsz."
+         #:emacs-advanced-user? #f)
+        (feature-gnupg
+         #:gpg-primary-key "1447CBC3E2E68A6A"
+         #:gpg-smart-card? #f)
+        (feature-password-store
+         #:remote-password-store-url "ssh://git@github.com:apisandipas/passcrypt.git")
+        (feature-mail-settings
+         #:mail-accounts (list (mail-acc 'work       "bryan@cablecar.digital")
+                               (mail-acc 'personal   "bparonto@gmail.com"))
+         #:mailing-lists (list (mail-lst 'guix-devel "guix-devel@gnu.org"
+                                         '("https://yhetil.org/guix-devel/0"))
+                               (mail-lst 'guix-bugs "guix-bugs@gnu.org"
+                                         '("https://yhetil.org/guix-bugs/0"))
+                               (mail-lst 'guix-patches "guix-patches@gnu.org"
+                                         '("https://yhetil.org/guix-patches/1"))))
+        (feature-keyboard "us")
+        ;; (feature-keyboard
+        ;;  #:keyboard-layout
+        ;;  (keyboard-layout
+        ;;   "us"
+        ;;   #:options '("ctrl:nocaps")))
+        ))
 
 ;;; Generic features should be applicable for various hosts/users/etc
 
@@ -156,8 +158,8 @@
    (feature-sway
     #:extra-config
     `((include ,(local-file "./files/sway/config"))))
-   ;; (feature-sway-run-on-tty
-   ;;  #:sway-tty-number 2)
+   (feature-sway-run-on-tty
+    #:sway-tty-number 2)
    (feature-sway-screenshot)
    ;; (feature-sway-statusbar
    ;;  #:use-global-fonts? #f)

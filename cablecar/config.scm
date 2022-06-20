@@ -83,7 +83,8 @@
                                          '("https://yhetil.org/guix-bugs/0"))
                                (mail-lst 'guix-patches "guix-patches@gnu.org"
                                          '("https://yhetil.org/guix-patches/1"))))
-        (feature-keyboard "us")
+        (feature-keyboard
+         #:keyboard-layout (keyboard-layout "us"))
         ;; (feature-keyboard
         ;;  #:keyboard-layout
         ;;  (keyboard-layout

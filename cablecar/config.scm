@@ -156,8 +156,8 @@
    (feature-sway
     #:extra-config
     `((include ,(local-file "./files/sway/config"))))
-   (feature-sway-run-on-tty
-    #:sway-tty-number 2)
+   ;; (feature-sway-run-on-tty
+   ;;  #:sway-tty-number 2)
    (feature-sway-screenshot)
    ;; (feature-sway-statusbar
    ;;  #:use-global-fonts? #f)

@@ -231,7 +231,7 @@
    (feature-kernel
     #:kernel linux
     #:initrd microcode-initrd
-    #:firmware '(linux-firmware))
+    #:firmware (list linux-firmware))
     (feature-file-systems
      ;; #:mapped-devices norrin-mapped-devices
      #:file-systems norrin-file-systems)))

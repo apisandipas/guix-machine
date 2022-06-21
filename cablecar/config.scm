@@ -68,7 +68,7 @@
          #:email "bryan@cablecar.digital"
          #:user-initial-password-hash
          "$6$abc$3SAZZQGdvQgAscM2gupP1tC.SqnsaLSPoAnEOb2k6jXMhzQqS1kCSplAJ/vUy2rrnpHtt6frW2Ap5l/tIvDsz."
-         #:emacs-advanced-user? #f)
+         #:emacs-advanced-user? #t)
         (feature-gnupg
          #:gpg-primary-key "1447CBC3E2E68A6A"
          #:gpg-smart-card? #f)

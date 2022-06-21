@@ -138,7 +138,7 @@
 
    (feature-pipewire)
    (feature-fonts
-    #:font-monospace (font "Iosevka" #:size 11 #:weight 'regular)
+    #:font-monospace (font "Iosevka" #:size 16 #:weight 'regular)
     #:font-packages (list font-iosevka font-fira-mono))
 
    ;; TODO: Consider making a `feature-kitty` if this does work ok enough.

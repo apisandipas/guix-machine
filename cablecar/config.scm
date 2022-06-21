@@ -84,13 +84,9 @@
                                (mail-lst 'guix-patches "guix-patches@gnu.org"
                                          '("https://yhetil.org/guix-patches/1"))))
         (feature-keyboard
-         #:keyboard-layout (keyboard-layout "us"))
-        ;; (feature-keyboard
-        ;;  #:keyboard-layout
-        ;;  (keyboard-layout
-        ;;   "us"
-        ;;   #:options '("ctrl:nocaps")))
-        ))
+         #:keyboard-layout
+         (keyboard-layout "us"
+                          #:options '("ctrl:nocaps")))))
 
 ;;; Generic features should be applicable for various hosts/users/etc
 

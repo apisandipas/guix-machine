@@ -157,7 +157,6 @@
    (feature-git)
    (feature-ssh)
    (feature-sway
-    #:add-keyboard-layout-to-config? #f
     #:extra-config
     `((include ,(local-file "./files/sway/config"))))
    ;; (feature-sway-run-on-tty

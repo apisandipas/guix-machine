@@ -144,7 +144,7 @@
    ;; TODO: Consider making a `feature-kitty` if this does work ok enough.
    (feature-alacritty
     #:config-file (local-file "./files/alacritty/alacritty.yml")
-    #:default-terminal? #f
+    #:default-terminal? #t
     #:backup-terminal? #t
     #:software-rendering? #f)
    (feature-vterm)
@@ -157,6 +157,7 @@
    (feature-git)
    (feature-ssh)
    (feature-sway
+    #:add-keyboard-layout-to-config? #f
     #:extra-config
     `((include ,(local-file "./files/sway/config"))))
    ;; (feature-sway-run-on-tty

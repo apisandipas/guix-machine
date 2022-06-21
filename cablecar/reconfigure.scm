@@ -1,4 +1,4 @@
-(define-module (cablecar config)
+(define-module (cablecar reconfigure)
   #:use-module (rde features)
   #:use-module (rde features base)
   #:use-module (rde features gnupg)
@@ -286,8 +286,8 @@
 (define (dispatcher)
   (let ((rde-target (getenv "RDE_TARGET")))
     (match rde-target
-      ("norrin-home" cablecar-he)
-      ("norrin-system" cablecar-os)
+      ("home" cablecar-he)
+      ("system" cablecar-os)
       (_ cablecar-he))))
 
 (dispatcher)

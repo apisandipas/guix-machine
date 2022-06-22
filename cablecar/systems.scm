@@ -10,16 +10,34 @@
   #:use-module (gnu bootloader grub)
   #:use-module (nongnu packages linux)
   #:use-module (nongnu system linux-initrd)
-  ;; #:export (
-  ;;           %cablecar-timezone
-  ;;           %cablecar-locale
-  ;;           %cablecar-initial-os)
+  #:export (
+            %cablecar-timezone
+            %cablecar-locale
+            %cablecar-generic-file-systems
+            %cablecar-initial-os)
   )
 
-(define-public %cablecar-timezone "America/Chicago")
-(define-public %cablecar-locale "en_US.utf8")
+(define %cablecar-timezone "America/Chicago")
+(define %cablecar-locale "en_US.utf8")
 
-(define-public %cablecar-initial-os
+(define %cablecar-generic-file-systems
+  (list
+   (file-system
+     (mount-point "/boot/efi")
+     (device (file-system-label "EFI_PART"))
+     (type "vfat"))
+   (file-system
+     (mount-point "/")
+     (device
+      (file-system-label "root_partition"))
+     (type "ext4"))
+   (file-system
+     (mount-point "/home")
+     (device
+      (file-system-label "home_partition"))
+     (type "ext4"))))
+
+(define %cablecar-initial-os
   (operating-system
     (host-name "cablecar")
     (kernel linux)

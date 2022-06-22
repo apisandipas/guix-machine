@@ -1,4 +1,4 @@
-(define-module (cablecar config)
+(define-module (cablecar reconfigure)
   #:use-module (rde features)
   #:use-module (rde features base)
   #:use-module (rde features gnupg)
@@ -27,9 +27,12 @@
   #:use-module (gnu services)
   #:use-module (gnu services desktop)
   #:use-module (gnu services sddm)
+  #:use-module (gnu system)
   #:use-module (gnu system keyboard)
   #:use-module (gnu system file-systems)
   #:use-module (gnu system mapped-devices)
+  #:use-module (gnu bootloader)
+  #:use-module (gnu bootloader grub)
   #:use-module (gnu packages)
   #:use-module (gnu packages emacs)
   #:use-module (gnu packages emacs-xyz)
@@ -42,7 +45,10 @@
   #:use-module (guix channels)
   #:use-module (nongnu packages linux)
   #:use-module (nongnu system linux-initrd)
-  #:use-module (ice-9 match))
+  #:use-module (ice-9 match)
+  #:use-module (cablecar systems)
+  )
+
 
 ;;; User-specfics settings
 (define* (mail-acc id user #:optional (type 'gmail))
@@ -61,7 +67,7 @@
             (name (symbol->string id))
             (urls urls)))))
 
-(define %bryan-features
+(define %user-features
   (list (feature-user-info
          #:user-name "bryan"
          #:full-name "Bryan Paronto"
@@ -108,7 +114,7 @@
 
    (map get-inferior-pkg lst))
 
-(define %main-features
+(define %base-features
   (list
    (feature-custom-services
     #:system-services
@@ -159,8 +165,8 @@
    (feature-sway-run-on-tty
     #:sway-tty-number 2)
    (feature-sway-screenshot)
-   (feature-sway-statusbar
-    #:use-global-fonts? #t)
+   ;; (feature-sway-statusbar
+   ;;  #:use-global-fonts? #t)
    (feature-waybar
     #:waybar-modules
     (list
@@ -241,55 +247,123 @@
    ;;
    ))
 
+;; (define-public %cablecar-timezone "America/Chicago")
+;; (define-public %cablecar-locale "en_US.utf8")
+
+;; (define-public %cablecar-initial-os
+;;   (operating-system
+;;     (host-name "cablecar")
+;;     (kernel linux)
+;;     (locale  %cablecar-locale)
+;;     (timezone %cablecar-timezone)
+;;     (firmware (list linux-firmware))
+;;     (initrd microcode-initrd)
+;;     (bootloader (bootloader-configuration
+;;                  (bootloader grub-efi-bootloader)
+;;                  (targets '("/boot/efi"))))
+;;     (services '())
+;;     (file-systems %base-file-systems)
+;;     (issue "This is the GNU/Linux+Cablecar system. Welcome.\n")))
 ;;; System-specific configurations
 
-(define norrin-file-systems
-  (list (file-system
-          (mount-point "/boot/efi")
-          (device (file-system-label "EFI_PART"))
-          (type "vfat"))
-         (file-system
-          (mount-point "/")
-          (device
-           (file-system-label "root_partition"))
-          (type "ext4"))
-         (file-system
-          (mount-point "/home")
-          (device
-           (file-system-label "home_partition"))
-          (type "ext4"))))
+;; systems/norrin.scm
 
-(define %norrin-features
-  (list (feature-host-info
-     #:host-name "norrin"
-     #:timezone  "America/Chicago")
+(define %cablecar-generic-file-systems
+  (list
+   (file-system
+     (mount-point "/boot/efi")
+     (device (file-system-label "EFI_PART"))
+     (type "vfat"))
+   (file-system
+     (mount-point "/")
+     (device
+      (file-system-label "root_partition"))
+     (type "ext4"))
+   (file-system
+     (mount-point "/home")
+     (device
+      (file-system-label "home_partition"))
+     (type "ext4"))))
+
+(define-public %system-swap
+  (swap-space
+   (target (file-system-label "swap_partition"))))
+
+(define %system-features
+  (list
+   (feature-host-info
+    #:host-name "norrin"
+    #:timezone  "America/Chicago")
    (feature-kernel
     #:kernel linux
     #:initrd microcode-initrd
     #:firmware (list linux-firmware))
-    (feature-file-systems
-     ;; #:mapped-devices norrin-mapped-devices
-     #:file-systems norrin-file-systems)))
+   (feature-file-systems
+    ;; #:mapped-devices norrin-mapped-devices
+    #:file-systems %cablecar-generic-file-systems)))
 
-(define-public norrin-config
-  (rde-config
-   (features
-    (append
-     %bryan-features
-     %main-features
-     %norrin-features))))
 
-(define-public norrin-os
-  (rde-config-operating-system norrin-config))
+;; reconfigure.scm
 
-(define norrin-he
-  (rde-config-home-environment norrin-config))
 
-(define (dispatcher)
-  (let ((rde-target (getenv "RDE_TARGET")))
-    (match rde-target
-      ("norrin-home" norrin-he)
-      ("norrin-system" norrin-os)
-      (_ norrin-he))))
+;; Allows dynamic loading of configuration modules based on file name.
+(define* (dynamic-load sub mod var-name #:key (throw? #t))
+  (let ((var (module-variable
+              (resolve-module `(engstrand ,sub ,(string->symbol mod))) var-name)))
+    (if (or (not var) (not (variable-bound? var)))
+        (when throw?
+          (raise-exception
+           (make-exception-with-message
+            (string-append "reconfigure: could not load module '" mod "'"))))
+        (variable-ref var))))
 
-(dispatcher)
+;; Finds a list of needed user supplementary groups for feature with
+;; a value of name. Returns an empty list if no groups are found.
+(define (get-feature-kernel-arguments name config)
+  (let ((arguments (get-value name config)))
+    (if arguments arguments '())))
+
+
+(define* (make-config
+         #:key
+         (target (getenv "RDE_TARGET"))
+         (initial-os %cablecar-initial-os))
+
+  (define %initial-os
+    (if (or (unspecified? %system-swap) (null? %system-swap))
+        initial-os
+        (operating-system
+          (inherit initial-os)
+          (swap-devices
+           (list %system-swap)))))
+
+    (define %generated-config
+      (rde-config
+       (initial-os %initial-os)
+       (features
+        (append
+         %user-features
+         %base-features
+         %system-features))))
+
+    (define %cablecar-he
+      (rde-config-home-environment %generated-config))
+
+    (define %cablecar-os
+      (operating-system
+        (inherit (rde-config-operating-system %generated-config))
+        (kernel-arguments
+         (append
+          (get-value
+           'kernel-arguments %generated-config
+           (operating-system-user-kernel-arguments %initial-os))
+          (get-feature-kernel-arguments 'kernel-arguments-radios %generated-config)))
+        (issue (operating-system-issue %initial-os))))
+
+
+  (match target
+    ("home" %cablecar-he)
+    ("system" %cablecar-os)
+    (_ %cablecar-he)))
+
+(make-config)

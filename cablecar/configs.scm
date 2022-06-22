@@ -48,6 +48,7 @@
   #:use-module (nongnu system linux-initrd)
   #:use-module (ice-9 match)
   #:use-module (cablecar configs)
+  ;; #:use-module (cablecar features emacs)
   #:use-module (engstrand features emacs)
   #:export (%base-features))
 
@@ -95,7 +96,7 @@
 
    (feature-pipewire)
    (feature-fonts
-    #:font-monospace (font "Iosevka" #:size 16 #:weight 'regular)
+    #:font-monospace (font "Iosevka" #:size 18 #:weight 'regular)
     #:font-packages (list font-iosevka font-fira-mono))
 
    ;; TODO: Consider making a `feature-kitty` if this does work ok enough.
@@ -142,21 +143,6 @@
                      (clock)))
    (feature-rofi)
 
-   (feature-emacs
-    #:emacs
-    (if (string=? (or (getenv "BUILD_SUBMITTER") "") "git.sr.ht")
-        (@ (gnu packages emacs) emacs-next-pgtk)
-        emacs-next-pgtk-latest)
-    #:extra-init-el `()
-    #:additional-elisp-packages
-    (append
-     (list emacs-consult-dir)
-     (pkgs "emacs-elfeed" "emacs-hl-todo"
-           "emacs-ytdl"
-           "emacs-ement"
-           "emacs-restart-emacs"
-           "emacs-org-present")))
-
    (feature-xdg
     #:xdg-user-directories-configuration
     (home-xdg-user-directories-configuration
@@ -180,25 +166,39 @@
       "obs" "obs-wlrobs"
       "recutils"
       "fheroes2"
-      ;; TODO: Enable pipewire support to chromium by default
-      ;; chrome://flags/#enable-webrtc-pipewire-capturer
+      "feh"
       "hicolor-icon-theme" "adwaita-icon-theme" "gnome-themes-standard"
       "ripgrep" "curl" "make")))
-   (feature-emacs-appearance)
+
+   (feature-emacs
+    #:emacs emacs-next-pgtk-latest
+    #:extra-init-el `()
+    #:additional-elisp-packages
+    (append
+     (list emacs-consult-dir)
+     (pkgs "emacs-elfeed" "emacs-hl-todo"
+           "emacs-ytdl"
+           "emacs-ement"
+           "emacs-restart-emacs"
+           "emacs-org-present")))
+
    (feature-emacs-evil)
+   (feature-emacs-appearance)
    (feature-emacs-faces)
    (feature-emacs-completion
     #:mini-frame? #t)
    (feature-emacs-vertico)
    (feature-emacs-project)
    (feature-emacs-perspective)
+   (feature-emacs-git)
    (feature-emacs-input-methods)
    (feature-emacs-which-key)
-   (feature-emacs-keycast #:turn-on? #t)
-
+   (feature-emacs-keycast
+    #:turn-on? #t)
    (feature-emacs-dired)
    (feature-emacs-eshell)
    (feature-emacs-monocle)
    (feature-emacs-message)
+   ;; (feature-emacs-exwm)
    ;;
    ))

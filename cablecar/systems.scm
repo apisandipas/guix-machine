@@ -1,3 +1,8 @@
+;; This module is responsible for configuring an operating system,
+;; i.e. kernel, microcode, hostname, keyboard layout, etc.
+;;
+;; Base packages, services and other features should be defined in
+;; cablecar/configs, or in one of the custom configs at cablecar/configs/.
 (define-module (cablecar systems)
   #:use-module (rde features)
   #:use-module (rde features base)
@@ -17,37 +22,46 @@
             %cablecar-keyboard-layout
             %cablecar-initial-os
             %cablecar-system-base-features
-           ))
+
+            %cablecar-timezone
+            %cablecar-locale
+            %cablecar-kernel-arguments
+            %cablecar-keyboard-layout
+            %cablecar-initial-os
+            %cablecar-system-base-features
+            ))
 
 
-(define %cablecar-timezone "America/Chicago")
-(define %cablecar-locale "en_US.utf8")
+(define-public %cablecar-timezone "America/Chicago")
+(define-public %cablecar-locale "en_US.utf8")
 
-(define %cablecar-kernel-arguments
+(define-public %cablecar-kernel-arguments
   (list "modprobe.blacklist=pcspkr,snd_pcsp"
         "quiet"))
 
-(define %cablecar-keyboard-layout
-  (keyboard-layout "us"))
+(define-public %cablecar-keyboard-layout
+  (keyboard-layout "us" "qwerty"
+                   #:options
+                   '("ctrl:nocaps")))
 
-;; (define %cablecar-initial-os
-;;   (operating-system
-;;    (host-name "cablecar")
-;;    (locale  %cablecar-locale)
-;;    (timezone  %cablecar-timezone)
-;;    (kernel linux)
-;;    (firmware (list linux-firmware))
-;;    (initrd microcode-initrd)
-;;    (kernel-arguments %cablecar-kernel-arguments)
-;;    (keyboard-layout %cablecar-keyboard-layout)
-;;    (bootloader (bootloader-configuration
-;;                 (bootloader grub-efi-bootloader)
-;;                 (targets '("/boot/efi"))))
-;;    (services '())
-;;    (file-systems %base-file-systems)
-;;    (issue "This is the GNU/Linux+Cablecar system. Welcome.\n")))
+(define-public %cablecar-initial-os
+  (operating-system
+   (host-name "cablecar")
+   (locale  %cablecar-locale)
+   (timezone  %cablecar-timezone)
+   (kernel linux)
+   (firmware (list linux-firmware))
+   (initrd microcode-initrd)
+   (kernel-arguments %cablecar-kernel-arguments)
+   (keyboard-layout %cablecar-keyboard-layout)
+   (bootloader (bootloader-configuration
+                (bootloader grub-efi-bootloader)
+                (targets '("/boot/efi"))))
+   (services '())
+   (file-systems %base-file-systems)
+   (issue "This is the GNU/Linux+Cablecar system. Welcome.\n")))
 
-;; (define %cablecar-system-base-features
-;;   (list
-;;    (feature-keyboard
-;;     #:keyboard-layout %cablecar-keyboard-layout)))
+(define-public %cablecar-system-base-features
+  (list
+   (feature-keyboard
+    #:keyboard-layout %cablecar-keyboard-layout)))

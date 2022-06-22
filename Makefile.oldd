@@ -25,7 +25,6 @@ targets-system = $(addsuffix -system, $(HOSTS))
 $(targets-home): %-home-reconfigure
 $(targets-system): %-system-reconfigure
 
-$(targets-home): %-home-reconfigure
 .PHONY: help
 
 help:

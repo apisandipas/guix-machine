@@ -1,20 +1,32 @@
-CONFIG_FILE = ./cablecar/reconfigure.scm
+CONFIG_FILE = ./cablecar/config.scm
+HOSTS = norrin
 GLP = ../rde
-RDE_USER=bryan
 
-home-build:
-	GUILE_LOAD_PATH=$(GLP) RDE_USER=$(RDE_USER) RDE_TARGET=home \
+targets-home = $(addsuffix -home, $(HOSTS))
+targets-system = $(addsuffix -system, $(HOSTS))
+
+# https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables
+%-home-build:
+	GUILE_LOAD_PATH=$(GLP) RDE_TARGET=$*-home \
 	guix home build $(CONFIG_FILE)
 
-home-reconfigure:
-	GUILE_LOAD_PATH=$(GLP) RDE_USER=$(RDE_USER) RDE_TARGET=home \
+%-home-reconfigure:
+	GUILE_LOAD_PATH=$(GLP) RDE_TARGET=$*-home \
 	guix home reconfigure $(CONFIG_FILE)
 
-system-build:
-	GUILE_LOAD_PATH=$(GLP) RDE_USER=$(RDE_USER) RDE_TARGET=system \
+%-system-build:
+	GUILE_LOAD_PATH=$(GLP) RDE_TARGET=$*-system \
 	guix system build $(CONFIG_FILE)
 
-system-reconfigure:
-	GUILE_LOAD_PATH=$(GLP) RDE_USER=$(RDE_USER) RDE_TARGET=system \
+%-system-reconfigure:
+	GUILE_LOAD_PATH=$(GLP) RDE_TARGET=$*-system \
 	guix system reconfigure $(CONFIG_FILE)
 
+$(targets-home): %-home-reconfigure
+$(targets-system): %-system-reconfigure
+
+$(targets-home): %-home-reconfigure
+.PHONY: help
+
+help:
+	$(info The targets are '$(targets-home)' and '$(targets-system)')

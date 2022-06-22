@@ -1,75 +1,18 @@
 (define-module (cablecar reconfigure)
   #:use-module (ice-9 match)
-  #:use-module (gnu services)
-  #:use-module (gnu services desktop)
-  #:use-module (gnu services sddm)
-  #:use-module (gnu system keyboard)
-  #:use-module (gnu system file-systems)
-  #:use-module (gnu system mapped-devices)
-
-  #:use-module (gnu packages)
-  #:use-module (gnu packages emacs)
-  #:use-module (gnu packages emacs-xyz)
-  #:use-module (gnu packages fonts)
-
-  #:use-module (guix gexp)
-  #:use-module (guix inferior)
-  #:use-module (guix channels)
-
-  #:use-module (nongnu packages linux)
-  #:use-module (nongnu system linux-initrd)
-
+  #:use-module (ice-9 exceptions)
+  #:use-module (ice-9 pretty-print)
+  #:use-module (gnu system)
+  #:use-module (gnu system accounts)
   #:use-module (rde features)
   #:use-module (rde features predicates)
-
-  #:use-module (rde features base)
-  #:use-module (rde features gnupg)
-  #:use-module (rde features keyboard)
-  #:use-module (rde features system)
-  #:use-module (rde features wm)
-  #:use-module (rde features xdisorg)
-  #:use-module (rde features xdg)
-  #:use-module (rde features password-utils)
-  #:use-module (rde features version-control)
-  #:use-module (rde features fontutils)
-  #:use-module (rde features terminals)
-  #:use-module (rde features tmux)
-  #:use-module (rde features shells)
-  #:use-module (rde features shellutils)
-  #:use-module (rde features ssh)
-  #:use-module (rde features emacs)
-  #:use-module (rde features linux)
-  #:use-module (rde features bittorrent)
-  #:use-module (rde features docker)
-  #:use-module (rde features video)
-  #:use-module (rde features finance)
-  #:use-module (rde features markup)
-  #:use-module (rde features mail)
-  #:use-module (rde features networking)
-
-  #:use-module (gnu services)
-  #:use-module (gnu services desktop)
-  #:use-module (gnu services sddm)
-  #:use-module (gnu system)
-  #:use-module (gnu system keyboard)
-  #:use-module (gnu system file-systems)
-  #:use-module (gnu system mapped-devices)
-
-  #:use-module (gnu packages)
-  #:use-module (gnu packages emacs)
-  #:use-module (gnu packages emacs-xyz)
-
-  #:use-module (rde packages)
-  #:use-module (rde packages emacs)
-  #:use-module (rde packages emacs-xyz)
-
   #:use-module (cablecar systems)
   #:export (make-config))
 
 ;; Allows dynamic loading of configuration modules based on file name.
 (define* (dynamic-load sub mod var-name #:key (throw? #t))
   (let ((var (module-variable
-              (resolve-module `(cablecar ,sub ,(string->symbol mod))) var-name)))
+              (resolve-module `(arden ,sub ,(string->symbol mod))) var-name)))
     (if (or (not var) (not (variable-bound? var)))
         (when throw?
           (raise-exception
@@ -83,40 +26,59 @@
   (let ((arguments (get-value name config)))
     (if arguments arguments '())))
 
-
+;; Create a system or home configuration based on some parameters.
+;; Generally, you want to call this procedure with no arguments.
 (define* (make-config
           #:key
           (user (getenv "RDE_USER"))
           (system (gethostname))
-          (target (getenv "RDE_TARGET")))
+          (target (getenv "RDE_TARGET"))
+          (initial-os %arden-initial-os))
 
-  ;; (ensure-pred string? user)
-  ;; (ensure-pred string? system)
-  ;; (ensure-pred operating-system? initial-os)
+  (ensure-pred string? user)
+  (ensure-pred string? system)
+  (ensure-pred operating-system? initial-os)
 
   (define %user-features (dynamic-load 'configs user '%user-features))
   (define %system-features (dynamic-load 'systems system '%system-features))
+  (define %system-swap (dynamic-load 'systems system '%system-swap #:throw? #f))
 
-  (define-public %generated-config
+  ;; Check if a swap device has been set in the system configuration.
+  ;; If this is the case, we must extend the initial os to make sure
+  ;; that it is included in the system configuration.
+  (define %initial-os
+    (if (or (unspecified? %system-swap) (null? %system-swap))
+        initial-os
+        (operating-system
+         (inherit initial-os)
+         (swap-devices
+          (list %system-swap)))))
+
+  ;; All is good, create the configuration
+  (define %generated-config
     (rde-config
+     (initial-os %initial-os)
      (features
       (append
        %user-features
-       ;; %cablecar-base-features
+       %cablecar-system-base-features
        %system-features))))
 
-
-  (define %cablecar-home-environment
+  (define %arden-he
     (rde-config-home-environment %generated-config))
 
-  (define %cablecar-system
-    (rde-config-operating-system %generated-config))
-
+  (define %arden-system
+    (operating-system
+     (inherit (rde-config-operating-system %generated-config))
+     (kernel-arguments
+      (append
+       (get-value
+        'kernel-arguments %generated-config
+        (operating-system-user-kernel-arguments %initial-os))
+       (get-feature-kernel-arguments 'kernel-arguments-radios %generated-config)))
+     (issue (operating-system-issue %initial-os))))
 
   (match target
-    ("home" %cablecar-home-environment)
-    ("system" %cablecar-system)
-    (_ %cablecar-home-environment)))
-
-
-(make-config #:user "bryan")
+    ("home" %arden-he)
+    ("system" %arden-system)
+    (_ %arden-system)))

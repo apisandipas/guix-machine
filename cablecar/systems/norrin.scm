@@ -1,13 +1,14 @@
 (define-module (cablecar systems norrin)
+  #:use-module (cablecar  utils)
+  #:use-module (cablecar systems)
+  #:use-module (rde features system)
   #:use-module (gnu bootloader)
   #:use-module (gnu bootloader grub)
-  #:use-module (gnu system file-systems)
-  #:use-module (nongnu packages linux)
-  #:use-module (nongnu system linux-initrd)
-  #:use-module (rde features base)
-  #:use-module (rde features system))
+  #:use-module (gnu system file-systems))
 
-(define %file-systems
+;;; System-specific configurations
+
+(define generic-file-systems
   (list (file-system
           (mount-point "/boot/efi")
           (device (file-system-label "EFI_PART"))
@@ -25,12 +26,11 @@
 
 (define-public %system-features
   (list (feature-host-info
-         #:host-name "norrin"
-         #:timezone  "America/Chicago")
-        (feature-kernel
-         #:kernel linux
-         #:initrd microcode-initrd
-         #:firmware (list linux-firmware))
-        (feature-file-systems
-         #:file-systems %file-systems)))
-
+     #:host-name "norrin"
+     #:timezone  "America/Chicago")
+   (feature-kernel
+    #:kernel linux
+    #:initrd microcode-initrd
+    #:firmware (list linux-firmware))
+    (feature-file-systems
+     #:file-systems generic-file-systems)))

@@ -159,19 +159,19 @@
    (feature-sway-run-on-tty
     #:sway-tty-number 2)
    (feature-sway-screenshot)
-   ;; (feature-sway-statusbar
-   ;;  #:use-global-fonts? #t)
-   ;; (feature-waybar
-   ;;  #:waybar-modules
-   ;;  (list
-   ;;   (waybar-sway-workspaces)
-   ;;   ;; (waybar-sway-window)
-   ;;   (waybar-tray)
-   ;;   (waybar-idle-inhibitor)
-   ;;   ;; (waybar-temperature)
-   ;;   (waybar-sway-language)
-   ;;   (waybar-battery #:intense? #f)
-   ;;   (waybar-clock)))
+   (feature-sway-statusbar
+    #:use-global-fonts? #t)
+   (feature-waybar
+    #:waybar-modules
+    (list
+     (waybar-sway-workspaces)
+     ;; (waybar-sway-window)
+     (waybar-tray)
+     (waybar-idle-inhibitor)
+     ;; (waybar-temperature)
+     (waybar-sway-language)
+     (waybar-battery #:intense? #f)
+     (waybar-clock)))
    (feature-swayidle)
    (feature-swaylock
     #:swaylock (@ (gnu packages wm) swaylock-effects)

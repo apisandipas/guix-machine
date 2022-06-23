@@ -2,13 +2,9 @@
   #:use-module (gnu services)
   #:use-module (rde features)
   #:use-module (rde features base)
-  ;; #:use-module (rde features gnupg)
-  ;; #:use-module (rde features keyboard)
-  ;; #:use-module (rde features system)
   #:use-module (rde features wm)
   #:use-module (rde features xdisorg)
   #:use-module (rde features xdg)
-  ;; #:use-module (rde features password-utils)
   #:use-module (rde features version-control)
   #:use-module (rde features fontutils)
   #:use-module (rde features terminals)
@@ -47,28 +43,12 @@
   #:use-module (nongnu packages linux)
   #:use-module (nongnu system linux-initrd)
   #:use-module (ice-9 match)
+  #:use-module (cablecar utils)
   #:use-module (cablecar configs)
-  ;; #:use-module (cablecar features emacs)
+  #:use-module (cablecar features emacs)
   #:use-module (engstrand features emacs)
   #:export (%base-features))
 
-(define* (pkgs #:rest lst)
-  (map specification->package+output lst))
-
-(define* (pkgs-vanilla #:rest lst)
-  "Packages from guix channel."
-  (define channel-guix
-    (list (channel
-           (name 'guix)
-           (url "https://git.savannah.gnu.org/git/guix.git")
-           (commit
-            "2b6af630d61dd5b16424be55088de2b079e9fbaf"))))
-
-  (define inferior (inferior-for-channels channel-guix))
-  (define (get-inferior-pkg pkg-name)
-    (car (lookup-inferior-packages inferior pkg-name)))
-
-   (map get-inferior-pkg lst))
 
 (define-public %base-features
   (append
@@ -100,7 +80,7 @@
      #:font-packages (list font-iosevka font-fira-mono))
     (feature-alacritty
      #:config-file (local-file "./files/alacritty/alacritty.yml")
-     #:default-terminal? #t
+     #:default-terminal? #f
      #:backup-terminal? #t
      #:software-rendering? #f)
     (feature-tmux

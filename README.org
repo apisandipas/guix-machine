@@ -4,3 +4,6 @@ This are my Guix System configurations for myself and my Guix-powered computer(s
 The work here is based heavily on [[https://github.com/abcdw/rde][Andrew Tropin's RDE]], and the [[https://github.com/engstrand-config/guix-dotfiles][Engstrand bros' system configs]].
 
 Or as I've taken to calling it, the GNU/Linux + Cablecar System.
+
+* This is the keyring branch.
+It is intended for authenticating the channel via Guix.

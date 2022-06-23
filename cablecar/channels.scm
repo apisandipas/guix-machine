@@ -2,7 +2,7 @@
   #:use-module (guix channels))
 
 (list
- (channel
+  (channel
   (name 'rekahsoft)
   (url "https://git.rekahsoft.ca/rekahsoft/rekahsoft-guix")
   (branch "master")

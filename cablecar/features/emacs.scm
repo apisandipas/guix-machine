@@ -1,5 +1,7 @@
 (define-module (cablecar features emacs)
-  #:use-module (rde features))
+  #:use-module (rde features)
+  #:export (feature-emacs-exwm
+            %cablecar-base-emacs-packages))
 
 (define* (make-emacs-feature base-name
                              #:key
@@ -77,3 +79,38 @@
 
   (make-emacs-feature emacs-f-name
                       #:home-services get-home-services))
+
+
+
+(define %cablecar-base-emacs-packages
+  (list
+   (feature-emacs
+    #:emacs emacs-next-pgtk-latest
+    #:extra-init-el `()
+    #:additional-elisp-packages
+    (append
+     (list emacs-consult-dir)
+     (pkgs "emacs-elfeed" "emacs-hl-todo"
+           "emacs-ytdl"
+           "emacs-ement"
+           "emacs-restart-emacs"
+           "emacs-org-present")))
+
+   (feature-emacs-evil)
+   (feature-emacs-appearance)
+   (feature-emacs-faces)
+   (feature-emacs-completion
+    #:mini-frame? #t)
+   (feature-vterm)
+   (feature-emacs-vertico)
+   (feature-emacs-project)
+   (feature-emacs-perspective)
+   (feature-emacs-git)
+   (feature-emacs-input-methods)
+   (feature-emacs-which-key)
+   (feature-emacs-keycast
+    #:turn-on? #t)
+   (feature-emacs-dired)
+   (feature-emacs-eshell)
+   (feature-emacs-monocle)
+   (feature-emacs-message)))

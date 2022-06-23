@@ -10,7 +10,7 @@
   (introduction
    (make-channel-introduction
     "ce7db55fc8920e2c7d4d79b945b35fc678dd35ea"
-    (opengpg-fingerprint
+    (openpgp-fingerprint
      "7ADC 2A21 674D A808 BF72  EC48 1447 CBC3 E2E6 8A6A"))))
  (channel
   (name 'guix)

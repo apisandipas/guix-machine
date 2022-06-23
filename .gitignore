@@ -1,0 +1,7 @@
+.local/share/*
+*.iso
+*.pdf
+*.tex
+*.html
+\#*\#
+.\#*

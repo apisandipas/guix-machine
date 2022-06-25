@@ -45,9 +45,10 @@
   #:use-module (ice-9 match)
   #:use-module (cablecar utils)
   #:use-module (cablecar configs)
+  #:use-module (cablecar features state)
   #:use-module (cablecar features emacs)
-  #:use-module (engstrand features emacs)
   #:use-module (cablecar packages emacs-xyz)
+  #:use-module (engstrand features emacs)
   #:export (%base-features))
 
 
@@ -59,7 +60,6 @@
      (list
       ;; (service mate-desktop-service-type)
       (service sddm-service-type)
-      ;; (service nix-service-type)
       )
      #:home-services
      (list
@@ -92,33 +92,6 @@
     (feature-direnv)
     (feature-git)
     (feature-ssh)
-    ;; (feature-sway
-    ;;  #:add-keyboard-layout-to-config? #f
-    ;;  #:extra-config
-    ;;  `((include ,(local-file "./files/sway/config"))))
-    ;; (feature-sway-run-on-tty
-    ;;  #:sway-tty-number 2)
-    ;; (feature-sway-screenshot)
-    ;; ;; (feature-sway-statusbar
-    ;; ;;  #:use-global-fonts? #t)
-    ;; (feature-waybar
-    ;;  #:waybar-modules
-    ;;  (list
-    ;;   (waybar-sway-workspaces)
-    ;;   ;; (waybar-sway-window)
-    ;;   (waybar-tray)
-    ;;   (waybar-idle-inhibitor)
-    ;;   ;; (waybar-temperature)
-    ;;   (waybar-sway-language)
-    ;;   (waybar-battery #:intense? #f)
-    ;;   (waybar-clock)))
-    ;; (feature-swayidle)
-    ;; (feature-swaylock
-    ;;  #:swaylock (@ (gnu packages wm) swaylock-effects)
-    ;;  ;; The blur on lock screen is not privacy-friendly.
-    ;;  #:extra-config '( ;; (screenshots)
-    ;;                   ;; (effect-blur . 7x5)
-    ;;                   (clock)))
     (feature-rofi)
 
     (feature-xdg
@@ -151,7 +124,12 @@
        "feh"
        "hicolor-icon-theme" "adwaita-icon-theme" "gnome-themes-standard"
        "ripgrep" "curl" "make")))
-
+    (feature-dotfiles
+     #:dotfiles
+     `(
+       (".exwm" ,(local-file "files/emacs/exwm"))
+       ))
     )
+
     %cablecar-base-emacs-packages
    ))

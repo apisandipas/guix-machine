@@ -22,50 +22,47 @@
      (system-services-getter system-services))))
 
 
-(define* (feature-emacs-exwm)
-  "Add and configure EXWM for Emacs."
-  (define emacs-f-name 'exwm)
+;; (define* (feature-emacs-exwm)
+;;   "Add and configure EXWM for Emacs."
+;;   (define emacs-f-name 'exwm)
 
-  (define (get-home-services config)
-    (list
-     (rde-elisp-configuration-service
-      emacs-f-name
-      config
-      `((require 'exwm)
-        (defun bp/run-in-background (command)
-          (let ((command-parts (split-string command "[ ]+")))
-            (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+;;   (define (get-home-services config)
+;;     (list
+;;      (rde-elisp-configuration-service
+;;       emacs-f-name
+;;       config
+;;       `((require 'exwm)
+;;         (defun bp/run-in-background (command)
+;;           (let ((command-parts (split-string command "[ ]+")))
+;;             (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
-        (defun exwm-async-run (name)
-          "Run a process asynchronously"
-          (interactive)
-          (start-process name nil name))
+;;         (defun exwm-async-run (name)
+;;           "Run a process asynchronously"
+;;           (interactive)
+;;           (start-process name nil name))
 
-        (defun bp/exwm-init-hook ()
+;;         (defun bp/exwm-init-hook ()
 
-          (modify-all-frames-parameters
-           '((right-divider-width . 24)
-             (alpha . (100 . 100))
-             (mouse-color . "white")
-             (internal-border-width . 24)))
-          )
-        (exwm-enable)
-        )
-      #:elisp-packages (list emacs-exwm emacs-desktop-environment))))
+;;           (modify-all-frames-parameters
+;;            '((right-divider-width . 24)
+;;              (alpha . (100 . 100))
+;;              (mouse-color . "white")
+;;              (internal-border-width . 24)))
+;;           )
+;;         (exwm-enable)
+;;         )
+;;       #:elisp-packages (list
+;;                         emacs-exwm emacs-desktop-environment))))
 
-  (define (get-system-services config)
-    #:elisp-packages (list emacs-exwm))
-
-  (make-emacs-feature emacs-f-name
-                      #:system-services get-system-services
-                      #:home-services get-home-services))
+;;   (make-emacs-feature emacs-f-name
+;;                       #:home-services get-home-services))
 
 
 
 (define %cablecar-base-emacs-packages
   (list
    (feature-emacs
-    #:emacs emacs
+    #:emacs emacs-next-pgtk-latest
     #:extra-init-el '(;; no fringes
                       (fringe-mode 0)
                       ;; do not open the Emacs welcome screen when we pass an
@@ -109,7 +106,7 @@
            "emacs-ement"
            "emacs-restart-emacs"
            "emacs-org-present")))
-   (feature-emacs-exwm)
+   ;; (feature-emacs-exwm)
    ;; (feature-emacs-evil)
    (feature-emacs-appearance)
    (feature-emacs-faces)

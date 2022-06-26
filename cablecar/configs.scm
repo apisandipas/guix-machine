@@ -59,7 +59,7 @@
      #:system-services
      (list
       ;; (service mate-desktop-service-type)
-      (service sddm-service-type)
+      ;; (service sddm-service-type)
       )
      #:home-services
      (list
@@ -92,6 +92,45 @@
     (feature-direnv)
     (feature-git)
     (feature-ssh)
+    (feature-sway
+     #:add-keyboard-layout-to-config? #f
+     #:xwayland? #f
+     #:extra-config
+     `((output DP-2 scale 2)
+       (workspace 9 output DP-2)
+       (workspace 10 output DP-2)
+
+       (bindsym
+        --locked $mod+Shift+p exec
+        ,(file-append (@ (gnu packages music) playerctl) "/bin/playerctl")
+        play-pause)
+       ;; (input type:touchpad
+       ;;            ((tap enabled)
+       ;;             (natural_scroll enabled)))
+       (bindsym $mod+Shift+Return exec emacs)))
+    (feature-sway-run-on-tty
+     #:sway-tty-number 2)
+    (feature-sway-screenshot)
+    ;; (feature-sway-statusbar
+    ;;  #:use-global-fonts? #f)
+    (feature-waybar
+     #:waybar-modules
+     (list
+      (waybar-sway-workspaces)
+      ;; (waybar-sway-window)
+      (waybar-tray)
+      (waybar-idle-inhibitor)
+      ;; (waybar-temperature)
+      (waybar-sway-language)
+      (waybar-battery #:intense? #f)
+      (waybar-clock)))
+    (feature-swayidle)
+    (feature-swaylock
+     #:swaylock (@ (gnu packages wm) swaylock-effects)
+     ;; The blur on lock screen is not privacy-friendly.
+     #:extra-config '( ;; (screenshots)
+                      ;; (effect-blur . 7x5)
+                      (clock)))
     (feature-rofi)
 
     (feature-xdg
@@ -106,10 +145,10 @@
       (publicshare "$HOME")
       (templates "$HOME")))
     (feature-base-packages
-     ;; #:system-packages
-     ;; (append
-     ;;  (list cablecar-emacs-exwm)
-     ;;  (pkgs "emacs-desktop-environment"))
+     #:system-packages
+     (append
+      (list cablecar-emacs-exwm)
+      (pkgs "emacs-desktop-environment"))
      #:home-packages
      (append
       (pkgs-vanilla
@@ -124,12 +163,12 @@
        "feh"
        "hicolor-icon-theme" "adwaita-icon-theme" "gnome-themes-standard"
        "ripgrep" "curl" "make")))
-    (feature-dotfiles
-     #:dotfiles
-     `(
-       (".exwm" ,(local-file "files/emacs/exwm"))
-       ))
+    ;; (feature-dotfiles
+    ;;  #:dotfiles
+    ;;  `(
+    ;;    (".exwm" ,(local-file "files/emacs/exwm"))
+    ;;    ))
     )
 
-    %cablecar-base-emacs-packages
+   %cablecar-base-emacs-packages
    ))

@@ -8,6 +8,7 @@
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages glib)
   #:use-module (gnu packages texinfo)
+  #:use-module (rde packages emacs)
   #:use-module ((guix licenses) #:prefix license:))
 
 (define-public cablecar-emacs-exwm
@@ -15,7 +16,7 @@
     (inherit emacs-exwm)
     (name "cablecar-emacs-exwm")
     (arguments
-     `(#:emacs ,emacs
+     `(#:emacs ,emacs-next-pgtk-latest
        #:phases
        (modify-phases %standard-phases
          (add-after 'build 'install-xsession

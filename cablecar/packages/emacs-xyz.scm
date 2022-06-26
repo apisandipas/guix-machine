@@ -39,7 +39,7 @@
                     #t
                     "#!~a ~@
                      ~a +SI:localuser:$USER ~@
-                     exec ~a --exit-with-session ~a \"$@\" -mm --debug-init -fn iosevka-20 ~%"
+                     exec ~a --exit-with-session ~a \"$@\" -mm --debug-init -l ~/.exwm -fn iosevka-20 ~%"
                     (string-append (assoc-ref inputs "bash") "/bin/sh")
                     (string-append (assoc-ref inputs "xhost") "/bin/xhost")
                     (string-append (assoc-ref inputs "dbus") "/bin/dbus-launch")

@@ -3,6 +3,7 @@
   #:use-module (rde features emacs)
   #:use-module (rde features terminals)
   #:use-module (rde packages emacs)
+  #:use-module (rde packages emacs-xyz)
   #:use-module (gnu packages emacs)
   #:use-module (gnu packages emacs-xyz)
   #:use-module (engstrand features emacs)
@@ -122,4 +123,10 @@
     #:turn-on? #t)
    (feature-emacs-dired)
    (feature-emacs-eshell)
+   (feature-emacs-org
+    #:org-directory "~/docs/notes")
+   (feature-emacs-org-agenda
+    #:org-agenda-files '("~/docs/agenda/todo.org"))
+   ;; (feature-emacs-smartparens
+   ;;  #:show-smartparens? #t)
    (feature-emacs-monocle)))

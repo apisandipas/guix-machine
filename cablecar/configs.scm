@@ -59,7 +59,7 @@
      #:system-services
      (list
       ;; (service mate-desktop-service-type)
-      ;; (service sddm-service-type)
+      (service sddm-service-type)
       )
      #:home-services
      (list
@@ -95,8 +95,8 @@
     (feature-sway
      #:add-keyboard-layout-to-config? #f
      #:xwayland? #f)
-    (feature-sway-run-on-tty
-     #:sway-tty-number 2)
+    ;; (feature-sway-run-on-tty
+    ;;  #:sway-tty-number 2)
     (feature-sway-screenshot)
     ;; (feature-sway-statusbar
     ;;  #:use-global-fonts? #f)

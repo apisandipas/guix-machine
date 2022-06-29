@@ -5,9 +5,9 @@
   #:use-module (rde packages emacs)
   #:use-module (gnu packages emacs)
   #:use-module (gnu packages emacs-xyz)
+  #:use-module (engstrand features emacs)
   #:use-module (cablecar utils)
-  #:export (feature-emacs-exwm
-            %cablecar-base-emacs-packages))
+  #:export (%cablecar-base-emacs-packages))
 
 (define* (make-emacs-feature base-name
                              #:key
@@ -106,12 +106,11 @@
            "emacs-ement"
            "emacs-restart-emacs"
            "emacs-org-present")))
-   ;; (feature-emacs-exwm)
-   ;; (feature-emacs-evil)
+   ;;(feature-emacs-exwm)
+   (feature-emacs-evil)
    (feature-emacs-appearance)
    (feature-emacs-faces)
-   (feature-emacs-completion
-    #:mini-frame? #t)
+   (feature-emacs-completion)
    (feature-vterm)
    (feature-emacs-vertico)
    (feature-emacs-project)

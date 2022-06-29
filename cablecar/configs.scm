@@ -94,20 +94,7 @@
     (feature-ssh)
     (feature-sway
      #:add-keyboard-layout-to-config? #f
-     #:xwayland? #f
-     #:extra-config
-     `((output DP-2 scale 2)
-       (workspace 9 output DP-2)
-       (workspace 10 output DP-2)
-
-       (bindsym
-        --locked $mod+Shift+p exec
-        ,(file-append (@ (gnu packages music) playerctl) "/bin/playerctl")
-        play-pause)
-       ;; (input type:touchpad
-       ;;            ((tap enabled)
-       ;;             (natural_scroll enabled)))
-       (bindsym $mod+Shift+Return exec emacs)))
+     #:xwayland? #f)
     (feature-sway-run-on-tty
      #:sway-tty-number 2)
     (feature-sway-screenshot)

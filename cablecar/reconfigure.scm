@@ -4,6 +4,7 @@
   #:use-module (gnu system)
   #:use-module (gnu system file-systems)
   #:use-module (ice-9 match)
+  #:use-module (ice-9 exceptions)
   #:use-module (cablecar configs)
   #:use-module (cablecar systems)
   #:export (make-config))

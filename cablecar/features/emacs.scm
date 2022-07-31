@@ -63,7 +63,7 @@
 (define %cablecar-base-emacs-packages
   (list
    (feature-emacs
-    #:emacs emacs-next-pgtk-latest
+    #:emacs emacs
     #:extra-init-el '(;; no fringes
                       (fringe-mode 0)
                       ;; do not open the Emacs welcome screen when we pass an

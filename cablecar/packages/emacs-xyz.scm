@@ -29,7 +29,7 @@
                (mkdir-p bin)
                (make-desktop-entry-file
                 (string-append xsessions "/exwm.desktop")
-                #:name "Emacs"
+                #:name "Emacs EXWM"
                 #:exec exwm-executable
                 #:try-exec exwm-executable)
                ;; Add a shell wrapper to bin

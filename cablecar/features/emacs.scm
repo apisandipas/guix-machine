@@ -63,8 +63,8 @@
 (define %cablecar-base-emacs-packages
   (list
    (feature-emacs
-    #:emacs emacs-next
-    #:extra-init-el '(;; no fringes
+    #:emacs emacs
+    #:extra-init-el '( ;; no fringes
                       (fringe-mode 0)
                       ;; do not open the Emacs welcome screen when we pass an
                       ;; existing file as a command-line argument
@@ -82,8 +82,8 @@
                       ;; Olivetti mode when working with text
                       (add-hook 'text-mode-hook 'olivetti-mode)
                       ;; Nicer mouse scrolling
-                      (setq mouse-wheel-progressive-speed nil)
-                      (setq mouse-wheel-scroll-amount '(3))
+                      ;; (setq mouse-wheel-progressive-speed nil)
+                      ;; (setq mouse-wheel-scroll-amount '(3))
                       ;; Configure the look of  tabs
                       (setq tab-bar-close-button-show nil
                             tab-bar-new-button-show nil
@@ -98,7 +98,20 @@
                       ;; Clean up white space
                       (add-hook 'before-save-hook 'whitespace-cleanup)
                       ;; Allow execution of src blocks without asking
-                      (setq org-confirm-babel-evaluate nil))
+                      (setq org-confirm-babel-evaluate nil)
+
+                    ;; wmctrl responds "Name:..." with name of running window manager
+                    ;; or "Cannot get window manager..." if there isn't one
+                    (when (and (equal window-system 'x)
+                               (string= (substring (shell-command-to-string "wmctrl -m")
+                                                   0 1)
+                                        "C"))
+                      (require 'exwm)
+                      (require 'exwm-config)
+
+                      ;; delete the following line and replace with your exwm configuration
+                      (exwm-config-example)
+                      ))
     #:additional-elisp-packages
     (append
      (list emacs-consult-dir)

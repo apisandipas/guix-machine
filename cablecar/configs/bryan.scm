@@ -56,4 +56,4 @@
         (feature-keyboard
          #:keyboard-layout
          (keyboard-layout "us"
-                          #:options '("ctrl:nocaps")))))
+                          #:options '("ctrl:nocaps" "acer_laptop")))))

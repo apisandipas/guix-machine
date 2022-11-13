@@ -36,7 +36,7 @@
          #:emacs-advanced-user? #t)
         (feature-gnupg
          #:gpg-primary-key "1447CBC3E2E68A6A"
-         #:gpg-smart-card? #f)
+         )
         ;; TODO pull down passcrypt repo
         (feature-password-store
          #:remote-password-store-url "ssh://git@github.com:apisandipas/passcrypt.git")

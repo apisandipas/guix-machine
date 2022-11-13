@@ -1,7 +1,5 @@
-(define-module (cablecar channels)
-  #:use-module (guix channels))
 
-(list
+(cons*
  (channel
   (name 'rekahsoft)
   (url "https://git.rekahsoft.ca/rekahsoft/rekahsoft-guix")
@@ -45,8 +43,7 @@
   (name 'nonguix)
   (url "https://gitlab.com/nonguix/nonguix")
   (branch "master")
-  (commit
-   "1a122e06fe046caebf39395edc797515861acd3b")
+  (commit "16b645772bf115de06b390cd7ec476a8f267d28a")
   (introduction
    (make-channel-introduction
     "897c1a470da759236cc11798f4e0a5f7d4d59fbc"

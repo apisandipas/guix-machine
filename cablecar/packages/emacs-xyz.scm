@@ -40,9 +40,18 @@
                     "#!~a ~@
                      ~a +SI:localuser:$USER ~@
                      exec ~a --exit-with-session ~a \"$@\" -mm --debug-init -l ~/.config/emacs/init.el -fn iosevka-20 ~%"
-                    (string-append (assoc-ref inputs "bash") "/bin/sh")
-                    (string-append (assoc-ref inputs "xhost") "/bin/xhost")
-                    (string-append (assoc-ref inputs "dbus") "/bin/dbus-launch")
-                    (string-append (assoc-ref inputs "emacs") "/bin/emacs"))))
+                    (search-input-file inputs "/bin/sh")
+                    (search-input-file inputs "/bin/xhost")
+                    (search-input-file inputs "/bin/dbus-launch")
+                    (search-input-file inputs "/bin/emacs")
+                    '(cond
+                      ((file-exists-p "~/.exwm")
+                       (load-file "~/.exwm"))
+                      ((not (feature 'exwm))
+                       (require 'exwm)
+                       (require 'exwm-config)
+                       (exwm-config-default)
+                       (message (concat "exwm config not found. "
+                                        "Falling back to default config..")))))))
                (chmod exwm-executable #o555)
                #t))))))))

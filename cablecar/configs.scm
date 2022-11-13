@@ -121,7 +121,7 @@
        "recutils"
        "fheroes2"
        "feh"
-       "hicolor-icon-theme" "adwaita-icon-theme" "gnome-themes-standard"
+       "hicolor-icon-theme" "adwaita-icon-theme" "gnome-themes-extra"
        "ripgrep" "curl" "make")))
     ;; (feature-dotfiles
     ;;  #:dotfiles

@@ -48,7 +48,7 @@
   #:use-module (cablecar features state)
   #:use-module (cablecar features emacs)
   #:use-module (cablecar packages emacs-xyz)
-  ;; #:use-module (engstrand features emacs)
+  #:use-module (engstrand features emacs)
   #:export (%base-features))
 
 
@@ -123,11 +123,11 @@
        "feh"
        "hicolor-icon-theme" "adwaita-icon-theme" "gnome-themes-extra"
        "ripgrep" "curl" "make")))
-    ;; (feature-dotfiles
-    ;;  #:dotfiles
-    ;;  `(
-    ;;    (".exwm" ,(local-file "files/emacs/exwm"))
-    ;;    ))
+    (feature-dotfiles
+     #:dotfiles
+     `(
+       (".exwm" ,(local-file "files/emacs/exwm"))
+       ))
     )
 
    %cablecar-base-emacs-packages

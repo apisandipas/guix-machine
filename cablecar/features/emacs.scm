@@ -20,7 +20,7 @@
   #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix transformations)
-  ;; #:use-module (engstrand features emacs)
+  #:use-module (engstrand features emacs)
   #:use-module (cablecar gexp)
   #:use-module (cablecar utils)
   #:use-module (cablecar packages emacs-xyz)

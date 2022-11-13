@@ -1,5 +1,5 @@
 (define-module (cablecar reconfigure)
-  #:use-module (rde features)
+  ;; #:use-module (rde features)
   #:use-module (gnu services)
   #:use-module (gnu system)
   #:use-module (gnu system file-systems)

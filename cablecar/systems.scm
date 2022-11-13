@@ -1,5 +1,5 @@
 (define-module (cablecar systems)
-  ;; #:use-module (rde features)
+  #:use-module (rde features)
   #:use-module (rde features base)
   #:use-module (rde features system)
   #:use-module (rde features keyboard)
@@ -34,7 +34,7 @@
    (file-system
      (mount-point "/home")
      (device
-      (file-system-label "system-homehome"))
+      (file-system-label "system-home"))
      (type "ext4"))))
 
 (define %cablecar-initial-os

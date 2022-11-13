@@ -1,7 +1,7 @@
 CONFIG_FILE = ./cablecar/reconfigure.scm
-HOSTS = norrin
+HOSTS=norrin
 RDE_USER=bryan
-GLP = ./
+GLP=./
 
 home-build:
 	GUILE_LOAD_PATH=$(GLP) RDE_USER=$(RDE_USER) RDE_TARGET=home \

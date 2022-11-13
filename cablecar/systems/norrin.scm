@@ -11,7 +11,7 @@
 
 (define-public %system-swap
   (swap-space
-   (target (file-system-label "swap_partition"))))
+   (target (file-system-label "swap-partition"))))
 
 (define-public %system-features
   (list

@@ -29,12 +29,12 @@
    (file-system
      (mount-point "/")
      (device
-      (file-system-label "root_partition"))
+      (file-system-label "system-root"))
      (type "ext4"))
    (file-system
      (mount-point "/home")
      (device
-      (file-system-label "home_partition"))
+      (file-system-label "system-homehome"))
      (type "ext4"))))
 
 (define %cablecar-initial-os

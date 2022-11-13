@@ -1,3 +1,5 @@
+(define-module (cablecar channels)
+  #:use-module (guix channels))
 
 (cons*
  (channel

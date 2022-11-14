@@ -30,7 +30,7 @@
 (define* (make-config
           #:key
           (user (getenv "RDE_USER"))
-          (system ("norrin"))
+          (system "norrin")
           (target (getenv "RDE_TARGET"))
           (initial-os %cablecar-initial-os))
 

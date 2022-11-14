@@ -359,7 +359,7 @@ It can contain settings not yet moved to separate features."
                 '())))
    (home-services-getter emacs-home-services)))
 
-(define* %cablecar-base-emacs-packages
+(define %cablecar-base-emacs-packages
   (list
    (feature-emacs-cablecar
     #:extra-init-el '( ;; no fringes
@@ -412,6 +412,7 @@ It can contain settings not yet moved to separate features."
                         )
                       )
     #:additional-elisp-packages
+    (list
     (append
      (list emacs-consult-dir)
      (pkgs "emacs-elfeed" "emacs-hl-todo"
@@ -442,4 +443,4 @@ It can contain settings not yet moved to separate features."
     #:org-agenda-files '("~/docs/agenda/todo.org"))
    ;; (feature-emacs-smartparens
    ;;  #:show-smartparens? #t)
-   (feature-emacs-monocle)))
+   (feature-emacs-monocle))))

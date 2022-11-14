@@ -54,7 +54,7 @@
 
 (define* %base-features
   (append
-   (list
+   (cons*
     (feature-custom-services
      #:system-services
      (list

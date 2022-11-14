@@ -54,6 +54,7 @@
 
 (define* %base-features
   (append
+   %cablecar-base-emacs-packages
    (list
     (feature-custom-services
      #:system-services
@@ -155,5 +156,4 @@
      `((".exwm" ,(local-file "files/emacs/exwm"))))
     )
 
-   %cablecar-base-emacs-packages
    ))

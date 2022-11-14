@@ -20,5 +20,5 @@ system-reconfigure:
 	guix system reconfigure $(CONFIG_FILE)
 
 system-init:
-	GUILE_LOAD_PATH=$(GLP) RDE_USER=$(RDE_USER) RDE_TARGET=system \
+	HOSTS=$(HOSTS) GUILE_LOAD_PATH=$(GLP) RDE_USER=$(RDE_USER) RDE_TARGET=system \
 	guix system init $(CONFIG_FILE) /mnt --substitute-urls="https://bordeaux.guix.gnu.org"

@@ -359,7 +359,7 @@ It can contain settings not yet moved to separate features."
                 '())))
    (home-services-getter emacs-home-services)))
 
-(define %cablecar-base-emacs-packages
+(define* %cablecar-base-emacs-packages
   (list
    (feature-emacs-cablecar
     #:extra-init-el '( ;; no fringes

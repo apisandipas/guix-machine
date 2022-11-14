@@ -155,5 +155,5 @@
      `((".exwm" ,(local-file "files/emacs/exwm"))))
     )
 
-   %cablecar-base-emacs-packages
+   ;; %cablecar-base-emacs-packages
    ))

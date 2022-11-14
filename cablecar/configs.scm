@@ -54,7 +54,7 @@
 
 (define* %base-features
   (append
-   (cons*
+   (list
     (feature-custom-services
      #:system-services
      (list
@@ -152,10 +152,8 @@
        "ripgrep" "curl" "make")))
     (feature-dotfiles
      #:dotfiles
-     `(
-       (".exwm" ,(local-file "files/emacs/exwm"))
-       ))
+     `((".exwm" ,(local-file "files/emacs/exwm"))))
     )
 
-   %cablecar-base-emacs-packages
+   ;; %cablecar-base-emacs-packages
    ))

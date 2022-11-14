@@ -30,7 +30,7 @@
 (define* (make-config
           #:key
           (user (getenv "RDE_USER"))
-          (system (getenv "HOSTS"))
+          (system (getenv "HOST"))
           (target (getenv "RDE_TARGET"))
           (initial-os %cablecar-initial-os))
 

@@ -1,5 +1,5 @@
 CONFIG_FILE = ./cablecar/reconfigure.scm
-HOSTS=norrin
+HOST=norrin
 RDE_USER=bryan
 GLP=./
 
@@ -20,5 +20,5 @@ system-reconfigure:
 	guix system reconfigure $(CONFIG_FILE)
 
 system-init:
-	HOSTS=$(HOSTS) GUILE_LOAD_PATH=$(GLP) RDE_USER=$(RDE_USER) RDE_TARGET=system \
+	HOST=$(HOST) GUILE_LOAD_PATH=$(GLP) RDE_USER=$(RDE_USER) RDE_TARGET=system \
 	guix system init $(CONFIG_FILE) /mnt --substitute-urls="https://bordeaux.guix.gnu.org"

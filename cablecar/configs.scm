@@ -150,11 +150,11 @@
        "feh"
        "hicolor-icon-theme" "adwaita-icon-theme" "gnome-themes-extra"
        "ripgrep" "curl" "make")))
-    ;; (feature-dotfiles
-    ;;  #:dotfiles
-    ;;  `(
-    ;;    (".exwm" ,(local-file "files/emacs/exwm"))
-    ;;    ))
+    (feature-dotfiles
+     #:dotfiles
+     `(
+       (".exwm" ,(local-file "files/emacs/exwm"))
+       ))
     )
 
    %cablecar-base-emacs-packages

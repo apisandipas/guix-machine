@@ -400,16 +400,16 @@ It can contain settings not yet moved to separate features."
 
                       ;; wmctrl responds "Name:..." with name of running window manager
                       ;; or "Cannot get window manager..." if there isn't one
-                      (when (and (equal window-system 'x)
-                                 (string= (substring (shell-command-to-string "wmctrl -m")
-                                                     0 1)
-                                          "C"))
-                        (require 'exwm)
-                        (require 'exwm-config)
+                      ;; (when (and (equal window-system 'x)
+                      ;;            (string= (substring (shell-command-to-string "wmctrl -m")
+                      ;;                                0 1)
+                      ;;                     "C"))
+                      ;;   ;; (require 'exwm)
+                      ;;   ;; (require 'exwm-config)
 
-                        ;; delete the following line and replace with your exwm configuration
-                        (exwm-config-example)
-                        )
+                      ;;   ;; ;; delete the following line and replace with your exwm configuration
+                      ;;   ;; (exwm-config-example)
+                      ;;   )
                       )
     #:additional-elisp-packages
     (list
@@ -419,7 +419,7 @@ It can contain settings not yet moved to separate features."
            "emacs-ytdl"
            "emacs-ement"
            "emacs-restart-emacs"
-           "emacs-org-present")))
+           "emacs-org-present"))
    ;; (feature-emacs-exwm)
    (feature-emacs-evil)
    (feature-emacs-appearance
@@ -443,4 +443,4 @@ It can contain settings not yet moved to separate features."
     #:org-agenda-files '("~/docs/agenda/todo.org"))
    ;; (feature-emacs-smartparens
    ;;  #:show-smartparens? #t)
-   (feature-emacs-monocle))))
+   (feature-emacs-monocle)))))

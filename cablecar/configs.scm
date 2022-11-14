@@ -52,7 +52,7 @@
   #:export (%base-features))
 
 
-(define %base-features
+(define* %base-features
   (append
    (list
     (feature-custom-services

@@ -1,5 +1,5 @@
 (define-module (cablecar systems)
-  #:use-module (rde features)
+  ;; #:use-module (rde features)
   #:use-module (rde features base)
   #:use-module (rde features system)
   #:use-module (rde features keyboard)

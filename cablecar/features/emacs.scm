@@ -11,6 +11,7 @@
   #:use-module (rde packages emacs)
   #:use-module (rde packages emacs-xyz)
   #:use-module (rde features emacs)
+  #:use-module (rde features emacs-xyz)
   #:use-module (rde features terminals)
 
   #:use-module (gnu packages emacs)
@@ -421,9 +422,9 @@ It can contain settings not yet moved to separate features."
            "emacs-org-present")))
    ;; (feature-emacs-exwm)
    (feature-emacs-evil)
-   (feature-emacs-faces)
    (feature-emacs-appearance
     #:dark? #t)
+   (feature-emacs-faces)
    (feature-emacs-completion)
    (feature-vterm)
    (feature-emacs-vertico)

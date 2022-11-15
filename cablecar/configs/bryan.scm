@@ -31,7 +31,8 @@
          #:user-name "bryan"
          #:full-name "Bryan Paronto"
          #:email "bryan@cablecar.digital"
-         #:user-initial-password-hash "$6$abc$MzYD0nNWVhSPKUohL2rXBInSYrLx2qua8Ls2hYaW0Hop49GOPkfKKcAlVdTiyyxb91XLec6Li8qSqzf6tUI2F0"
+         #:user-initial-password-hash
+         "$6$abc$MzYD0nNWVhSPKUohL2rXBInSYrLx2qua8Ls2hYaW0Hop49GOPkfKKcAlVdTiyyxb91XLec6Li8qSqzf6tUI2F0"
          #:emacs-advanced-user? #t)
         (feature-gnupg
          #:gpg-primary-key "1447CBC3E2E68A6A")

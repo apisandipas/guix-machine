@@ -13,7 +13,6 @@
   #:use-module (rde features shellutils)
   #:use-module (rde features ssh)
   #:use-module (rde features emacs)
-  #:use-module (rde features emacs-xyz)
   #:use-module (rde features linux)
   #:use-module (rde features bittorrent)
   #:use-module (rde features docker)
@@ -75,7 +74,7 @@
 
     (feature-base-services)
     (feature-desktop-services)
-    ;; (feature-docker)
+    (feature-docker)
     (feature-pipewire)
     (feature-fonts
      #:font-monospace (font "Iosevka" #:size 18 #:weight 'regular)
@@ -156,26 +155,5 @@
      `((".exwm" ,(local-file "files/emacs/exwm"))))
     )
 
-
-   (feature-emacs-evil)
-   (feature-emacs-appearance
-    #:dark? #t)
-   (feature-emacs-faces)
-   (feature-emacs-completion)
-   (feature-vterm)
-   (feature-emacs-vertico)
-   (feature-emacs-project)
-   (feature-emacs-perspective)
-   (feature-emacs-git)
-   (feature-emacs-input-methods)
-   (feature-emacs-which-key)
-   (feature-emacs-keycast
-    #:turn-on? #t)
-   (feature-emacs-dired)
-   (feature-emacs-eshell)
-   (feature-emacs-org
-    #:org-directory "~/docs/notes")
-   (feature-emacs-org-agenda
-    #:org-agenda-files '("~/docs/agenda/todo.org"))
-   ;; %cablecar-base-emacs-packages
+   %cablecar-base-emacs-packages
    ))

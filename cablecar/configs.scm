@@ -13,6 +13,7 @@
   #:use-module (rde features shellutils)
   #:use-module (rde features ssh)
   #:use-module (rde features emacs)
+  #:use-module (rde features emacs-xyz)
   #:use-module (rde features linux)
   #:use-module (rde features bittorrent)
   #:use-module (rde features docker)

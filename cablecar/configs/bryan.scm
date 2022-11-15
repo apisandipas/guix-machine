@@ -31,12 +31,10 @@
          #:user-name "bryan"
          #:full-name "Bryan Paronto"
          #:email "bryan@cablecar.digital"
-         #:user-initial-password-hash
-         "$6$abc$3SAZZQGdvQgAscM2gupP1tC.SqnsaLSPoAnEOb2k6jXMhzQqS1kCSplAJ/vUy2rrnpHtt6frW2Ap5l/tIvDsz."
+         #:user-initial-password-hash "$6$abc$MzYD0nNWVhSPKUohL2rXBInSYrLx2qua8Ls2hYaW0Hop49GOPkfKKcAlVdTiyyxb91XLec6Li8qSqzf6tUI2F0"
          #:emacs-advanced-user? #t)
         (feature-gnupg
-         #:gpg-primary-key "1447CBC3E2E68A6A"
-         )
+         #:gpg-primary-key "1447CBC3E2E68A6A")
         ;; TODO pull down passcrypt repo
         (feature-password-store
          #:remote-password-store-url "ssh://git@github.com:apisandipas/passcrypt.git")

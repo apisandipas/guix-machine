@@ -155,5 +155,26 @@
      `((".exwm" ,(local-file "files/emacs/exwm"))))
     )
 
+
+   (feature-emacs-evil)
+   (feature-emacs-appearance
+    #:dark? #t)
+   (feature-emacs-faces)
+   (feature-emacs-completion)
+   (feature-vterm)
+   (feature-emacs-vertico)
+   (feature-emacs-project)
+   (feature-emacs-perspective)
+   (feature-emacs-git)
+   (feature-emacs-input-methods)
+   (feature-emacs-which-key)
+   (feature-emacs-keycast
+    #:turn-on? #t)
+   (feature-emacs-dired)
+   (feature-emacs-eshell)
+   (feature-emacs-org
+    #:org-directory "~/docs/notes")
+   (feature-emacs-org-agenda
+    #:org-agenda-files '("~/docs/agenda/todo.org"))
    ;; %cablecar-base-emacs-packages
    ))

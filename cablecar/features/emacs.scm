@@ -366,7 +366,7 @@ It can contain settings not yet moved to separate features."
         (home-emacs-configuration
          (package emacs)
          (elisp-packages additional-elisp-packages)
-         (emacs-servers (if emacs-server-mode? '(server) '()))
+         ;; (emacs-servers (if emacs-server-mode? '(server) '()))
          (xdg-flavor? #t)
          (early-init-el
           `(,(slurp-file-like (local-file "./emacs/early-init.el"))))

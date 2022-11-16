@@ -326,7 +326,7 @@ It can contain settings not yet moved to separate features."
         (home-emacs-configuration
          (package emacs)
          (elisp-packages additional-elisp-packages)
-         ;; (server-mode? emacs-server-mode?)
+         (server-mode? emacs-server-mode?)
          (xdg-flavor? #t)
          (init-el extra-init-el)
          (early-init-el
@@ -363,55 +363,56 @@ It can contain settings not yet moved to separate features."
 (define %cablecar-base-emacs-packages
   (list
    (feature-emacs-cablecar
-    #:extra-init-el '( ;; no fringes
-                      (fringe-mode 0)
-                      ;; do not open the Emacs welcome screen when we pass an
-                      ;; existing file as a command-line argument
-                      (defun my-inhibit-startup-screen-file ()
-                        (ignore
-                         (setq inhibit-startup-screen
-                               (file-exists-p
-                                (expand-file-name argi command-line-default-directory)))))
-                      (add-hook 'command-line-functions 'my-inhibit-startup-screen-file)
-                      ;; ignore warnings from native-comp
-                      ;; (setq native-comp-async-report-warnings-errors nil)
-                      ;; Relative line numbers, but only when relevant
-                      (setq-default display-line-numbers-type 'relative)
-                      (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-                      ;; Olivetti mode when working with text
-                      (add-hook 'text-mode-hook 'olivetti-mode)
-                      ;; Nicer mouse scrolling
-                      ;; (setq mouse-wheel-progressive-speed nil)
-                      ;; (setq mouse-wheel-scroll-amount '(3))
-                      ;; Configure the look of  tabs
-                      (setq tab-bar-close-button-show nil
-                            tab-bar-new-button-show nil
-                            tab-bar-new-tab-choice "*scratch*")
-                      ;; Move to future C feature
-                      (setq c-default-style "linux")
-                      (add-hook 'c-mode-common-hook '(lambda () (setq indent-tabs-mode t)))
-                      ;; Delete whitespace from indentations immediately
-                      (setq backward-delete-char-untabify-method 'hungry)
-                      ;; Transparency - laggy when window large
-                      ;; (add-to-list 'default-frame-alist '(alpha 93 . 93))
-                      ;; Clean up white space
-                      (add-hook 'before-save-hook 'whitespace-cleanup)
-                      ;; Allow execution of src blocks without asking
-                      (setq org-confirm-babel-evaluate nil)
+    #:emacs-server-mode? #f
+    ;; #:extra-init-el '( ;; no fringes
+    ;;                   (fringe-mode 0)
+    ;;                   ;; do not open the Emacs welcome screen when we pass an
+    ;;                   ;; existing file as a command-line argument
+    ;;                   (defun my-inhibit-startup-screen-file ()
+    ;;                     (ignore
+    ;;                      (setq inhibit-startup-screen
+    ;;                            (file-exists-p
+    ;;                             (expand-file-name argi command-line-default-directory)))))
+    ;;                   (add-hook 'command-line-functions 'my-inhibit-startup-screen-file)
+    ;;                   ;; ignore warnings from native-comp
+    ;;                   ;; (setq native-comp-async-report-warnings-errors nil)
+    ;;                   ;; Relative line numbers, but only when relevant
+    ;;                   (setq-default display-line-numbers-type 'relative)
+    ;;                   (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+    ;;                   ;; Olivetti mode when working with text
+    ;;                   (add-hook 'text-mode-hook 'olivetti-mode)
+    ;;                   ;; Nicer mouse scrolling
+    ;;                   ;; (setq mouse-wheel-progressive-speed nil)
+    ;;                   ;; (setq mouse-wheel-scroll-amount '(3))
+    ;;                   ;; Configure the look of  tabs
+    ;;                   (setq tab-bar-close-button-show nil
+    ;;                         tab-bar-new-button-show nil
+    ;;                         tab-bar-new-tab-choice "*scratch*")
+    ;;                   ;; Move to future C feature
+    ;;                   (setq c-default-style "linux")
+    ;;                   (add-hook 'c-mode-common-hook '(lambda () (setq indent-tabs-mode t)))
+    ;;                   ;; Delete whitespace from indentations immediately
+    ;;                   (setq backward-delete-char-untabify-method 'hungry)
+    ;;                   ;; Transparency - laggy when window large
+    ;;                   ;; (add-to-list 'default-frame-alist '(alpha 93 . 93))
+    ;;                   ;; Clean up white space
+    ;;                   (add-hook 'before-save-hook 'whitespace-cleanup)
+    ;;                   ;; Allow execution of src blocks without asking
+    ;;                   (setq org-confirm-babel-evaluate nil)
 
-                      ;; wmctrl responds "Name:..." with name of running window manager
-                      ;; or "Cannot get window manager..." if there isn't one
-                      (when (and (equal window-system 'x)
-                                 (string= (substring (shell-command-to-string "wmctrl -m")
-                                                     0 1)
-                                          "C"))
-                        (require 'exwm)
-                        (require 'exwm-config)
+    ;;                   ;; wmctrl responds "Name:..." with name of running window manager
+    ;;                   ;; or "Cannot get window manager..." if there isn't one
+    ;;                   (when (and (equal window-system 'x)
+    ;;                              (string= (substring (shell-command-to-string "wmctrl -m")
+    ;;                                                  0 1)
+    ;;                                       "C"))
+    ;;                     (require 'exwm)
+    ;;                     (require 'exwm-config)
 
-                        ;; delete the following line and replace with your exwm configuration
-                        (exwm-config-example)
-                        )
-                      )
+    ;;                     ;; delete the following line and replace with your exwm configuration
+    ;;                     (exwm-config-example)
+    ;;                     )
+    ;;                   )
     #:additional-elisp-packages
     (append
      (list emacs-consult-dir)

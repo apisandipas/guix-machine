@@ -712,7 +712,7 @@ It can contain settings not yet moved to separate features."
      #:additional-elisp-packages
     (append
      (list emacs-consult-dir)
-     (string->packages "emacs-elfeed" "emacs-hl-todo"
+     (pkgs "emacs-elfeed" "emacs-hl-todo"
            "emacs-ytdl"
            "emacs-ement"
            "emacs-restart-emacs"

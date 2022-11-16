@@ -83,6 +83,19 @@ of it, otherwise adds a require to @file{init.el}."
       ;; inputs have lowest priority on collisions, that's why we have
       ;; to list those package here in addition to propagated-inputs.
       (elisp-packages (append elisp-packages (list configure-package)))))))
+;;;
+;;; Emacs features.
+;;;
+
+(define emacs-configure-rde-keymaps
+  (rde-emacs-configuration-package
+   'rde-keymaps
+   `((defvar rde-app-map nil "Prefix keymap for applications.")
+     (define-prefix-command 'rde-app-map nil)
+     (defvar rde-toggle-map nil "\
+Prefix keymap for binding various minor modes for toggling functionalitty.")
+     (define-prefix-command 'rde-toggle-map nil))
+   #:summary "Keymaps inteded for reuse among configure-* packages"))
 
 ;; MAYBE: make handler to be actions instead of desktop entries?
 (define* (emacs-xdg-service

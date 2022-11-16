@@ -326,7 +326,7 @@ It can contain settings not yet moved to separate features."
         (home-emacs-configuration
          (package emacs)
          (elisp-packages additional-elisp-packages)
-         (server-mode? emacs-server-mode?)
+         ;; (server-mode? emacs-server-mode?)
          (xdg-flavor? #t)
          (init-el extra-init-el)
          (early-init-el

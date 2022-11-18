@@ -462,7 +462,7 @@ It can contain settings not yet moved to separate features."
    (feature-emacs-faces)
    ;; (feature-emacs-completion)
    ;; (feature-vterm)
-   (feature-emacs-vertico)
+   ;; (feature-emacs-vertico)
    ;; (feature-emacs-project)
    ;; (feature-emacs-perspective)
    ;; (feature-emacs-git)

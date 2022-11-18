@@ -457,9 +457,9 @@ It can contain settings not yet moved to separate features."
   (list
    ;; (feature-emacs-exwm)
    ;; (feature-emacs-evil)
-   ;; (feature-emacs-appearance
-   ;;  #:dark? #t)
-   ;; (feature-emacs-faces)
+   (feature-emacs-appearance
+    #:dark? #t)
+   (feature-emacs-faces)
    ;; (feature-emacs-completion)
    ;; (feature-vterm)
    ;; (feature-emacs-vertico)

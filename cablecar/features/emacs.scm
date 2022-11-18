@@ -472,10 +472,10 @@ It can contain settings not yet moved to separate features."
     #:turn-on? #t)
    (feature-emacs-dired)
    (feature-emacs-eshell)
-   ;; (feature-emacs-org
-   ;;  #:org-directory "~/docs/notes")
-   ;; (feature-emacs-org-agenda
-   ;;  #:org-agenda-files '("~/docs/agenda/todo.org"))
+   (feature-emacs-org
+    #:org-directory "~/docs/notes")
+   (feature-emacs-org-agenda
+    #:org-agenda-files '("~/docs/agenda/todo.org"))
    ;; (feature-emacs-smartparens
    ;;  #:show-smartparens? #t)
    (feature-emacs-monocle)

@@ -460,14 +460,14 @@ It can contain settings not yet moved to separate features."
    (feature-emacs-appearance
     #:dark? #t)
    (feature-emacs-faces)
-   (feature-emacs-completion)
+   ;; (feature-emacs-completion)
    ;; (feature-vterm)
-   ;; (feature-emacs-vertico)
+   (feature-emacs-vertico)
    ;; (feature-emacs-project)
    ;; (feature-emacs-perspective)
    ;; (feature-emacs-git)
    ;; (feature-emacs-input-methods)
-   ;; (feature-emacs-which-key)
+   (feature-emacs-which-key)
    ;; (feature-emacs-keycast
    ;;  #:turn-on? #t)
    ;; (feature-emacs-dired)
@@ -478,7 +478,7 @@ It can contain settings not yet moved to separate features."
    ;;  #:org-agenda-files '("~/docs/agenda/todo.org"))
    ;; ;; (feature-emacs-smartparens
    ;; ;;  #:show-smartparens? #t)
-   (feature-emacs-monocle)
+   ;; (feature-emacs-monocle)
    (feature-emacs-cablecar
     #:additional-elisp-packages
     (append

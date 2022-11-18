@@ -461,7 +461,7 @@ It can contain settings not yet moved to separate features."
     #:dark? #t)
    (feature-emacs-faces)
    ;; (feature-emacs-completion)
-   (feature-vterm)
+   ;; (feature-vterm)
    (feature-emacs-vertico)
    ;; (feature-emacs-project)
    ;; (feature-emacs-perspective)

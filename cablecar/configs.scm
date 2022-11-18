@@ -1,5 +1,6 @@
 (define-module (cablecar configs)
   #:use-module (gnu services)
+  #:use-module (rde packages)
   #:use-module (rde features)
   #:use-module (rde features base)
   #:use-module (rde features wm)
@@ -58,23 +59,13 @@
     (feature-custom-services
      #:system-services
      (list
-      ;; (service mate-desktop-service-type)
-      (service sddm-service-type)
-      )
-     #:home-services
-     (list
-      ;; ((@ (gnu services) simple-service)
-      ;;  'extend-shell-profile
-      ;;  (@ (gnu home-services shells) home-shell-profile-service-type)
-      ;;  (list
-      ;;   #~(string-append
-      ;;      "alias superls="
-      ;;      #$(file-append (@ (gnu packages base) coreutils) "/bin/ls"))))
-      ))
+      ;;(service mate-desktop-service-type)
+      (service sddm-service-type)))
 
     (feature-base-services)
     (feature-desktop-services)
     (feature-docker)
+    (feature-pulseaudio-control)
     (feature-pipewire)
     (feature-fonts
      #:font-monospace (font "Iosevka" #:size 18 #:weight 'regular)
@@ -107,13 +98,13 @@
      #:system-packages
      (append
       (list cablecar-emacs-exwm)
-      (pkgs "emacs-desktop-environment"))
+      (string->packages "emacs-desktop-environment"))
      #:home-packages
      (append
-      (pkgs-vanilla
+      (strings->packages-vanilla
        "icecat" "nyxt"
        "ungoogled-chromium" "ublock-origin-chromium")
-      (pkgs
+      (string->packages
        "arandr"
        "alsa-utils" "youtube-dl" "imv"
        "obs" "obs-wlrobs"

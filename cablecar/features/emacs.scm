@@ -455,36 +455,60 @@ It can contain settings not yet moved to separate features."
 
 (define %cablecar-base-emacs-packages
   (list
-   ;; (feature-emacs-exwm)
-   ;; (feature-emacs-evil)
    (feature-emacs-appearance
-    #:dark? #t)
+    #:extra-elisp
+    `((setq modus-themes-syntax '(faint))
+      ;; (setq modus-themes-region '(bg-only))
+      ;; (setq modus-themes-paren-match '(underline))
+      (setq modus-themes-org-blocks 'tinted-background)))
    (feature-emacs-faces)
-   ;; (feature-emacs-completion)
-   ;; (feature-vterm)
+   (feature-emacs-tramp)
+   (feature-emacs-completion
+    #:mini-frame? #f
+    #:marginalia-align 'right)
+
+   (feature-emacs-corfu
+    #:corfu-doc-auto #f)
    (feature-emacs-vertico)
-   ;; (feature-emacs-project)
-   ;; (feature-emacs-perspective)
-   ;; (feature-emacs-git)
-   ;; (feature-emacs-input-methods)
+   (feature-emacs-project)
+   (feature-emacs-perspective)
+   (feature-emacs-input-methods)
    (feature-emacs-which-key)
-   ;; (feature-emacs-keycast
-   ;;  #:turn-on? #t)
-   ;; (feature-emacs-dired)
-   ;; (feature-emacs-eshell)
-   ;; (feature-emacs-org
-   ;;  #:org-directory "~/docs/notes")
-   ;; (feature-emacs-org-agenda
-   ;;  #:org-agenda-files '("~/docs/agenda/todo.org"))
-   ;; ;; (feature-emacs-smartparens
-   ;; ;;  #:show-smartparens? #t)
-   ;; (feature-emacs-monocle)
+   (feature-emacs-keycast #:turn-on? #f)
+
+   (feature-emacs-dired)
+   (feature-emacs-eshell)
+   (feature-emacs-monocle)
+
+   ;; TODO: Revisit <https://en.wikipedia.org/wiki/Git-annex>
+   (feature-emacs-git
+    #:project-directory "~/src")
+   (feature-emacs-smartparens
+    #:show-smartparens? #t)
+   (feature-emacs-geiser)
+   (feature-emacs-guix)
+   (feature-emacs-org
+    #:org-directory "~/docs/notes")
+   (feature-emacs-org-agenda
+    #:org-agenda-files '("~/docs/agenda/todo.org"))
    (feature-emacs-cablecar
+    #:default-application-launcher? #t
     #:additional-elisp-packages
     (append
-     (list emacs-consult-dir)
-     (pkgs "emacs-elfeed" "emacs-hl-todo"
-           "emacs-ytdl"
-           "emacs-ement"
-           "emacs-restart-emacs"
-           "emacs-org-present")))))
+     (list emacs-dirvish)
+     (strings->packages
+      "emacs-elfeed" "emacs-hl-todo"
+      "emacs-yasnippet"
+      ;; "emacs-company"
+      "emacs-consult-dir"
+      ;; "emacs-all-the-icons-completion" "emacs-all-the-icons-dired"
+      "emacs-kind-icon"
+      "emacs-nginx-mode" "emacs-yaml-mode"
+      ;; "emacs-lispy"
+      "emacs-ytdl"
+      "emacs-multitran"
+      "emacs-minimap"
+      "emacs-ement"
+      "emacs-restart-emacs"
+      "emacs-org-present")))
+   ))

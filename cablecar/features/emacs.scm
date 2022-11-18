@@ -456,35 +456,37 @@ It can contain settings not yet moved to separate features."
 (define %cablecar-base-emacs-packages
   (list
    ;; (feature-emacs-exwm)
-   (feature-emacs-evil)
-   (feature-emacs-appearance
-    #:dark? #t)
-   (feature-emacs-faces)
-   (feature-emacs-completion)
+   ;; (feature-emacs-evil)
+   ;; (feature-emacs-appearance
+   ;;  #:dark? #t)
+   ;; (feature-emacs-faces)
+   ;; (feature-emacs-completion)
    ;; (feature-vterm)
-   (feature-emacs-vertico)
+   ;; (feature-emacs-vertico)
    ;; (feature-emacs-project)
    ;; (feature-emacs-perspective)
    ;; (feature-emacs-git)
    ;; (feature-emacs-input-methods)
-   (feature-emacs-which-key)
+   ;; (feature-emacs-which-key)
    ;; (feature-emacs-keycast
    ;;  #:turn-on? #t)
-   (feature-emacs-dired)
+   ;; (feature-emacs-dired)
    ;; (feature-emacs-eshell)
    ;; (feature-emacs-org
    ;;  #:org-directory "~/docs/notes")
    ;; (feature-emacs-org-agenda
    ;;  #:org-agenda-files '("~/docs/agenda/todo.org"))
-   ;; (feature-emacs-smartparens
-   ;;  #:show-smartparens? #t)
+   ;; ;; (feature-emacs-smartparens
+   ;; ;;  #:show-smartparens? #t)
    ;; (feature-emacs-monocle)
    (feature-emacs-cablecar
-    #:additional-elisp-packages
-    (append
-     (list emacs-consult-dir)
-     (pkgs "emacs-elfeed" "emacs-hl-todo"
-           "emacs-ytdl"
-           ;; "emacs-ement"
-           "emacs-restart-emacs"
-           "emacs-org-present")))))
+    ;; #:additional-elisp-packages
+    ;; (append
+     ;; (list emacs-consult-dir)
+     ;; (pkgs "emacs-elfeed" "emacs-hl-todo"
+     ;;       "emacs-ytdl"
+     ;;       "emacs-ement"
+     ;;       "emacs-restart-emacs"
+     ;;       "emacs-org-present")
+     ;; )
+    )))

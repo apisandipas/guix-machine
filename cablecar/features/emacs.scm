@@ -467,8 +467,7 @@ It can contain settings not yet moved to separate features."
     #:mini-frame? #f
     #:marginalia-align 'right)
 
-   (feature-emacs-corfu
-    #:corfu-doc-auto #f)
+   (feature-emacs-corfu)
    (feature-emacs-vertico)
    (feature-emacs-project)
    (feature-emacs-perspective)

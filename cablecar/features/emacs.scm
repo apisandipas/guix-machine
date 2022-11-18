@@ -6,6 +6,7 @@
   #:use-module (gnu home-services wm)
   #:use-module (gnu home services xdg)
   #:use-module (gnu services)
+  #:use-module (rde home services emacs)
 
   #:use-module (rde packages)
   #:use-module (rde packages emacs)
@@ -386,15 +387,16 @@ It can contain settings not yet moved to separate features."
         (home-emacs-configuration
          (package emacs)
          (elisp-packages additional-elisp-packages)
-         ;; (emacs-servers (if emacs-server-mode? '(server) '()))
+         (emacs-servers (if emacs-server-mode? '(server) '()))
          (xdg-flavor? #t)
-         ;; (early-init-el
-         ;;  `(,(slurp-file-like (local-file "./emacs/early-init.el"))))
-         ;;; TODO: Rebuilding packages with emacs will be useful for
-         ;;; native-comp, but for some reason dash.el fails to build,
-         ;;; need to investigate the issue.
-         ;; (rebuild-elisp-packages? #t)
-         ))
+         (early-init-el
+         (early-init-el
+          `(,(slurp-file-like (local-file "./emacs/early-init.el"))
+            ,#~""
+            ;; FIXME: Move it back to the configure-rde-emacs package, when it
+            ;; will be built with emacs-29
+            (pixel-scroll-precision-mode 1))))
+         (rebuild-elisp-packages? #t)))
 
        (simple-service
         'emacs-add-to-init-el

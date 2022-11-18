@@ -465,8 +465,8 @@ It can contain settings not yet moved to separate features."
    (feature-emacs-vertico)
    (feature-emacs-project)
    (feature-emacs-perspective)
-   (feature-emacs-git)
-   (feature-emacs-input-methods)
+   ;; (feature-emacs-git)
+   ;; (feature-emacs-input-methods)
    (feature-emacs-which-key)
    (feature-emacs-keycast
     #:turn-on? #t)

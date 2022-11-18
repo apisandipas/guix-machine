@@ -12,7 +12,7 @@
   (name 'engstrand-config)
   (url "https://github.com/engstrand-config/guix-dotfiles.git")
   (branch "main")
-  (commit "f6ffaafc7ee09d17535b8b160a6957b75e21880b"))
+  (commit "364bd3a3bc04955311249767b350b4aef85dc673"))
  (channel
   (name 'channel-x)
   (url "https://github.com/daviwil/channel-x")

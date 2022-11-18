@@ -390,12 +390,11 @@ It can contain settings not yet moved to separate features."
          (emacs-servers (if emacs-server-mode? '(server) '()))
          (xdg-flavor? #t)
          (early-init-el
-         (early-init-el
           `(,(slurp-file-like (local-file "./emacs/early-init.el"))
             ,#~""
             ;; FIXME: Move it back to the configure-rde-emacs package, when it
             ;; will be built with emacs-29
-            (pixel-scroll-precision-mode 1))))
+            (pixel-scroll-precision-mode 1)))
          (rebuild-elisp-packages? #t)))
 
        (simple-service

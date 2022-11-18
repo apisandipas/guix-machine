@@ -112,7 +112,7 @@
      (append
       (pkgs-vanilla
        "icecat" "nyxt"
-       "ungoogled-chromium-wayland" "ublock-origin-chromium")
+       "ungoogled-chromium" "ublock-origin-chromium")
       (pkgs
        "arandr"
        "alsa-utils" "youtube-dl" "imv"

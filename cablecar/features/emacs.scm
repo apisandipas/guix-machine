@@ -456,18 +456,18 @@ It can contain settings not yet moved to separate features."
 (define %cablecar-base-emacs-packages
   (list
    ;; (feature-emacs-exwm)
-   ;; (feature-emacs-evil)
-   ;; (feature-emacs-appearance
-   ;;  #:dark? #t)
-   ;; (feature-emacs-faces)
+   (feature-emacs-evil)
+   (feature-emacs-appearance
+    #:dark? #t)
+   (feature-emacs-faces)
    ;; (feature-emacs-completion)
-   ;; (feature-vterm)
-   ;; (feature-emacs-vertico)
+   (feature-vterm)
+   (feature-emacs-vertico)
    ;; (feature-emacs-project)
    ;; (feature-emacs-perspective)
    ;; (feature-emacs-git)
    ;; (feature-emacs-input-methods)
-   ;; (feature-emacs-which-key)
+   (feature-emacs-which-key)
    ;; (feature-emacs-keycast
    ;;  #:turn-on? #t)
    ;; (feature-emacs-dired)

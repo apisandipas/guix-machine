@@ -99,13 +99,13 @@
      #:system-packages
      (append
       (list cablecar-emacs-exwm)
-      (string->packages "emacs-desktop-environment"))
+      (pkgs "emacs-desktop-environment"))
      #:home-packages
      (append
-      (strings->packages-vanilla
+      (pkgs-vanilla
        "icecat" "nyxt"
        "ungoogled-chromium" "ublock-origin-chromium")
-      (string->packages
+      (pkgs
        "arandr"
        "alsa-utils" "youtube-dl" "imv"
        "obs" "obs-wlrobs"

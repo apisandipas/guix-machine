@@ -495,7 +495,7 @@ It can contain settings not yet moved to separate features."
     #:additional-elisp-packages
     (append
      (list emacs-dirvish)
-     (strings->packages
+     (pkgs
       "emacs-elfeed" "emacs-hl-todo"
       "emacs-yasnippet"
       ;; "emacs-company"

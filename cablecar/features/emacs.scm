@@ -137,6 +137,7 @@ argument, throw an exception otherwise."
           (extra-init-el '())
           (extra-early-init-el '())
           (default-terminal? #t)
+          (default-application-launcher? #t)
           (disable-warnings? #t)
           (auto-update-buffers? #t)
           (auto-clean-space? #t))
@@ -491,7 +492,6 @@ It can contain settings not yet moved to separate features."
    (feature-emacs-org-agenda
     #:org-agenda-files '("~/docs/agenda/todo.org"))
    (feature-emacs-cablecar
-    #:default-application-launcher? #t
     #:additional-elisp-packages
     (append
      (list emacs-dirvish)

@@ -50,6 +50,7 @@
   #:use-module (cablecar features emacs)
   #:use-module (cablecar packages emacs-xyz)
   #:use-module (engstrand features emacs)
+  #:use-module (engstrand features audio)
   #:export (%base-features))
 
 

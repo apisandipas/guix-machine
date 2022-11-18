@@ -454,15 +454,6 @@ It can contain settings not yet moved to separate features."
 
 (define %cablecar-base-emacs-packages
   (list
-   (feature-emacs-cablecar
-     #:additional-elisp-packages
-    (append
-     (list emacs-consult-dir)
-     (pkgs "emacs-elfeed" "emacs-hl-todo"
-           "emacs-ytdl"
-           "emacs-ement"
-           "emacs-restart-emacs"
-           "emacs-org-present")))
    ;; (feature-emacs-exwm)
    (feature-emacs-evil)
    (feature-emacs-appearance
@@ -486,4 +477,13 @@ It can contain settings not yet moved to separate features."
     #:org-agenda-files '("~/docs/agenda/todo.org"))
    ;; (feature-emacs-smartparens
    ;;  #:show-smartparens? #t)
-   (feature-emacs-monocle)))
+   (feature-emacs-monocle)
+   (feature-emacs-cablecar
+    #:additional-elisp-packages
+    (append
+     (list emacs-consult-dir)
+     (pkgs "emacs-elfeed" "emacs-hl-todo"
+           "emacs-ytdl"
+           "emacs-ement"
+           "emacs-restart-emacs"
+           "emacs-org-present")))))

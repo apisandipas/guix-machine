@@ -15,7 +15,7 @@
     (inherit emacs-exwm)
     (name "cablecar-emacs-exwm")
     (arguments
-     `(#:emacs ,emacs-next
+     `(#:emacs ,emacs-native-comp
        #:phases
        (modify-phases %standard-phases
          (add-after 'build 'install-xsession

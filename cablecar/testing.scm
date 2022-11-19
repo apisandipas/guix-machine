@@ -1,4 +1,4 @@
-(define-module (cablecar testing)
+(define-module (rde examples abcdw configs)
   #:use-module (rde features)
   #:use-module (rde features base)
   #:use-module (rde features gnupg)
@@ -121,7 +121,7 @@
 ;;; WARNING: The order can be important for features extending
 ;;; services of other features.  Be careful changing it.
 (define %main-features
-  list
+  (list
 
 
    (feature-base-services)
@@ -358,8 +358,37 @@ subject:/home:/) and tag:new}\"'")
       "libreoffice"
       ;; TODO: Fix telega package!
       "ffmpeg"
-      "ripgrep" "curl"))))
+      "ripgrep" "curl")))))
 
+
+;;; Hardware/host specifis features
+
+;; TODO: Switch from UUIDs to partition labels For better
+;; reproducibilty and easier setup.  Grub doesn't support luks2 yet.
+
+;; (define ixy-file-systems
+;;   (append
+;;    (map (match-lambda
+;; 	  ((subvol . mount-point)
+;; 	   (file-system
+;; 	     (type "btrfs")
+;; 	     (device "/dev/mapper/enc")
+;; 	     (mount-point mount-point)
+;; 	     (options (format #f "subvol=~a" subvol))
+;; 	     (dependencies ixy-mapped-devices))))
+;; 	'((root . "/")
+;; 	  (boot . "/boot")
+;; 	  (gnu  . "/gnu")
+;; 	  (home . "/home")
+;; 	  (data . "/data")
+;; 	  (log  . "/var/log")))
+;;    (list
+;;     (file-system
+;;       (mount-point "/boot/efi")
+;;       (type "vfat")
+;;       (device (uuid "8C99-0704" 'fat32))))))
+
+
 
 (define* (make-config
           #:key
@@ -386,7 +415,7 @@ subject:/home:/) and tag:new}\"'")
      (features
       (append
        %user-features
-       %main-features
+       %base-features
        %system-features))))
 
   (define %cablecar-he

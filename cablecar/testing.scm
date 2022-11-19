@@ -361,61 +361,6 @@ subject:/home:/) and tag:new}\"'")
       "ripgrep" "curl"))))
 
 
-(define %ixy-features
-  (list
-   (feature-host-info
-    #:host-name "ixy"
-    ;; ls `guix build tzdata`/share/zoneinfo
-    #:timezone  "Asia/Tbilisi")
-   ;;; Allows to declare specific bootloader configuration,
-   ;;; grub-efi-bootloader used by default
-   ;; (feature-bootloader)
-   (feature-file-systems
-    #:mapped-devices ixy-mapped-devices
-    #:file-systems   ixy-file-systems)
-   (feature-hidpi)))
-
-
-;;; rde-config and helpers for generating home-environment and
-;;; operating-system records.
-
-;; (define-public ixy-config
-;;   (rde-config
-;;    (features
-;;     (append
-;;      %abcdw-features
-;;      %main-features
-;;      %ixy-features))))
-
-;; ;; TODISCUSS: Make rde-config-os/he to be a feature instead of getter?
-;; (define-public ixy-os
-;;   (rde-config-operating-system ixy-config))
-
-;; (define-public ixy-he
-;;   (rde-config-home-environment ixy-config))
-
-;; 
-
-;; (define (dispatcher)
-;;   (let ((rde-target (getenv "RDE_TARGET")))
-;;     (match rde-target
-;;       ("ixy-home" ixy-he)
-;;       ("ixy-system" ixy-os)
-;;       (_ ixy-he))))
-
-;; (pretty-print-rde-config ixy-config)
-;; (use-modules (gnu services)
-;; 	     (gnu services base))
-;; (display
-;;  (filter (lambda (x)
-;; 	   (eq? (service-kind x) console-font-service-type))
-;; 	 (rde-config-system-services ixy-config)))
-
-;; (use-modules (rde features))
-;; ((@ (ice-9 pretty-print) pretty-print)
-;;  (map feature-name (rde-config-features ixy-config)))
-
-
 (define* (make-config
           #:key
           (user (getenv "RDE_USER"))

@@ -619,25 +619,25 @@ It can contain settings not yet moved to separate features."
                 ([s-down] . windmove-down)
 
                 ;; ;; Launch applications via shell command
-                ([?\s-\\] . (lambda (command)
-                              (interactive (list (read-shell-command " ")))
-                              (start-process-shell-command command nil command)))
+                ;; ([?\s-\\] . (lambda (command)
+                ;;               (interactive (list (read-shell-command " ")))
+                ;;               (start-process-shell-command command nil command)))
 
                 ;; Switch workspace
                 ;; ([?\s-w] . exwm-workspace-switch)
                 ;; ([?\s-w] . counsel-switch-buffer)
                 ;;
                 ;; move window workspace with SUPER+SHIFT+{0-9}
-                ,@(cl-mapcar (lambda (c n)
-                               `(,(kbd (format "s-%c" c)) .
-                                 (lambda ()
-                                   (interactive)
-                                   (exwm-workspace-move-window ,n)
-                                   ;; (exwm-workspace-switch ,n)
-                                   )))
-                             '(?! ?@ ?# ?$ ?% ?^ ?& ?* ?\( ?\))
-                             ;; '(?\) ?! ?@ ?# ?$ ?% ?^ ?& ?* ?\()
-                             (number-sequence 0 9))
+                ;; ,@(cl-mapcar (lambda (c n)
+                ;;                `(,(kbd (format "s-%c" c)) .
+                ;;                  (lambda ()
+                ;;                    (interactive)
+                ;;                    (exwm-workspace-move-window ,n)
+                ;;                    ;; (exwm-workspace-switch ,n)
+                ;;                    )))
+                ;;              '(?! ?@ ?# ?$ ?% ?^ ?& ?* ?\( ?\))
+                ;;              ;; '(?\) ?! ?@ ?# ?$ ?% ?^ ?& ?* ?\()
+                ;;              (number-sequence 0 9))
 
                 ;; Switch to window workspace with SUPER+{0-9}
                 ([?\s-1] . (lambda () (interactive) (exwm-workspace-switch-create 0)))

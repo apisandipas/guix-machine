@@ -96,10 +96,10 @@
       (publicshare "$HOME")
       (templates "$HOME")))
     (feature-base-packages
-     ;; #:system-packages
-     ;; (append
-     ;;  (list cablecar-emacs-exwm)
-     ;;  (pkgs "emacs-desktop-environment"))
+     #:system-packages
+     (append
+      (list cablecar-emacs-exwm)
+      (pkgs "emacs-desktop-environment"))
      #:home-packages
      (append
       (pkgs-vanilla

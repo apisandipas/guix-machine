@@ -28,6 +28,18 @@
   #:use-module (cablecar packages emacs-xyz)
   #:export (%cablecar-base-emacs-packages))
 
+(define* (make-emacs-feature base-name
+                        #:key
+                        (home-services (const '()))
+                        (system-services (const '())))
+  "Creates a basic emacs feature configuration."
+  (let ((f-name (symbol-append 'emacs- base-name)))
+    (feature
+     (name f-name)
+     (values `((,f-name . #t)))
+     (home-services-getter home-services)
+     (system-services-getter system-services))))
+
 (define* (rde-emacs-configuration-package
           name
           #:optional (elisp-expressions '())
@@ -37,7 +49,7 @@
           (autoloads? #f))
   "Returns a package, which configures emacs.  Can be used as a
 dependency for other packages."
-    (let* ((configure-package
+  (let* ((configure-package
           (elisp-configuration-package
            (string-append "configure-" (symbol->string name))
            elisp-expressions
@@ -48,7 +60,7 @@ dependency for other packages."
            #:keywords keywords
            #:url (or url "https://trop.in/rde")
            #:authors (or authors '("Andrew Tropin <andrew@trop.in>")))))
-      configure-package))
+    configure-package))
 
 (define* (rde-elisp-configuration-service
           name config

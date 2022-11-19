@@ -60,7 +60,7 @@
     (feature-custom-services
      #:system-services
      (list
-      ;;(service mate-desktop-service-type)
+      (service mate-desktop-service-type)
       (service sddm-service-type)))
 
     (feature-base-services)

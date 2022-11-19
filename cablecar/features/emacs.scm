@@ -688,7 +688,7 @@ It can contain settings not yet moved to separate features."
         (exwm-enable)
         )
       #:elisp-packages (list
-                        cablecar-emacs-exwm
+                        ;; cablecar-emacs-exwm
                         emacs-desktop-environment))))
 
   (make-emacs-feature emacs-f-name

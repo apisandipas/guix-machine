@@ -1,5 +1,4 @@
 (define-module (cablecar systems)
-  ;; #:use-module (rde features)
   #:use-module (rde features base)
   #:use-module (rde features system)
   #:use-module (rde features keyboard)
@@ -14,8 +13,7 @@
             %cablecar-timezone
             %cablecar-locale
             %cablecar-generic-file-systems
-            %cablecar-initial-os)
-  )
+            %cablecar-initial-os))
 
 (define %cablecar-timezone "America/Chicago")
 (define %cablecar-locale "en_US.utf8")

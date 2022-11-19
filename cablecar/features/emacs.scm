@@ -22,7 +22,6 @@
   #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix transformations)
-  ;; #:use-module (engstrand features emacs)
   #:use-module (cablecar gexp)
   #:use-module (cablecar utils)
   #:use-module (cablecar packages emacs-xyz)
@@ -531,7 +530,7 @@ It can contain settings not yet moved to separate features."
                         resize set 80 ppt 80 ppt)))))))
 
   (feature
-   (name 'emacs)
+   (name 'emacs-cablecar)
    (values (append
             (make-feature-values
              emacs
@@ -571,7 +570,7 @@ It can contain settings not yet moved to separate features."
    ;; ;; (feature-emacs-smartparens
    ;; ;;  #:show-smartparens? #t)
    ;; (feature-emacs-monocle)
-   (feature-emacs-cablecar
+   (feature-emacs
     #:additional-elisp-packages
     (append
      (list emacs-consult-dir)

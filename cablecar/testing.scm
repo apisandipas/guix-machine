@@ -1,5 +1,4 @@
 (define-module (cablecar testing)
-
   #:use-module (rde features)
   #:use-module (rde features base)
   #:use-module (rde features gnupg)

@@ -96,10 +96,10 @@
       (publicshare "$HOME")
       (templates "$HOME")))
     (feature-base-packages
-     #:system-packages
-     (append
-      (list cablecar-emacs-exwm)
-      (pkgs "emacs-desktop-environment"))
+     ;; #:system-packages
+     ;; (append
+     ;;  (list cablecar-emacs-exwm)
+     ;;  (pkgs "emacs-desktop-environment"))
      #:home-packages
      (append
       (pkgs-vanilla
@@ -114,9 +114,9 @@
        "feh"
        "hicolor-icon-theme" "adwaita-icon-theme" "gnome-themes-extra"
        "ripgrep" "curl" "make")))
-    (feature-dotfiles
-     #:dotfiles
-     `((".exwm" ,(local-file "files/emacs/exwm"))))
+    ;; (feature-dotfiles
+    ;;  #:dotfiles
+    ;;  `((".exwm" ,(local-file "files/emacs/exwm"))))
     )
 
    %cablecar-base-emacs-packages

@@ -25,7 +25,11 @@
   #:use-module (cablecar gexp)
   #:use-module (cablecar utils)
   #:use-module (cablecar packages emacs-xyz)
-  #:export (%cablecar-base-emacs-packages))
+  #:export (
+            %cablecar-base-emacs-packages
+            make-emacs-feature
+            rde-elisp-configuration-service
+            rde-emacs-configuration-package))
 
 (define* (make-emacs-feature base-name
                         #:key
@@ -546,30 +550,30 @@ It can contain settings not yet moved to separate features."
 
 (define %cablecar-base-emacs-packages
   (list
-   ;; (feature-emacs-exwm)
+   (feature-emacs-exwm)
    (feature-emacs-evil)
    (feature-emacs-appearance
     #:dark? #t)
    (feature-emacs-faces)
-   ;; (feature-emacs-completion)
+   (feature-emacs-completion)
    (feature-vterm)
    (feature-emacs-vertico)
-   ;; (feature-emacs-project)
-   ;; (feature-emacs-perspective)
-   ;; (feature-emacs-git)
-   ;; (feature-emacs-input-methods)
+   (feature-emacs-project)
+   (feature-emacs-perspective)
+   (feature-emacs-git)
+   (feature-emacs-input-methods)
    (feature-emacs-which-key)
-   ;; (feature-emacs-keycast
-   ;;  #:turn-on? #t)
-   ;; (feature-emacs-dired)
-   ;; (feature-emacs-eshell)
-   ;; (feature-emacs-org
-   ;;  #:org-directory "~/docs/notes")
-   ;; (feature-emacs-org-agenda
-   ;;  #:org-agenda-files '("~/docs/agenda/todo.org"))
-   ;; ;; (feature-emacs-smartparens
-   ;; ;;  #:show-smartparens? #t)
-   ;; (feature-emacs-monocle)
+   (feature-emacs-keycast
+    #:turn-on? #t)
+   (feature-emacs-dired)
+   (feature-emacs-eshell)
+   (feature-emacs-org
+    #:org-directory "~/docs/notes")
+   (feature-emacs-org-agenda
+    #:org-agenda-files '("~/docs/agenda/todo.org"))
+   ;; (feature-emacs-smartparens
+   ;;  #:show-smartparens? #t)
+   (feature-emacs-monocle)
    (feature-emacs
     #:additional-elisp-packages
     (append

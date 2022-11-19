@@ -97,10 +97,7 @@
       (templates "$HOME")))
     (feature-base-packages
      #:system-packages
-     (append
-      (list cablecar-emacs-exwm)
-      (pkgs "emacs-desktop-environment")
-      )
+     (list cablecar-emacs-exwm)
      #:home-packages
      (append
       (list cablecar-emacs-exwm)

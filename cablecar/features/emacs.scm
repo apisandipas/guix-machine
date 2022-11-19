@@ -544,160 +544,10 @@ It can contain settings not yet moved to separate features."
                 '())))
    (home-services-getter emacs-home-services)))
 
-(define* (feature-emacs-exwm)
-  "Add and configure Emacs X Window Manager"
-  (define emacs-f-name 'exwm)
-
-  (define (get-home-services config)
-    (list
-     (rde-elisp-configuration-service
-      emacs-f-name
-      config
-      '(
-        (require 'exwm)
-
-        (defun bp/run-in-background (command)
-          (let ((command-parts (split-string command "[ ]+")))
-            (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
-
-        (defun exwm-async-run (name)
-          "Run a process asynchronously"
-          (interactive)
-          (start-process name nil name))
-
-        (defun bp/exwm-update-class ()
-        (exwm-workspace-rename-buffer exwm-class-name))
-
-        (defun bp/exwm-update-title ()
-        (pcase exwm-class-name
-            ("firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))))
-
-
-        (defun bp/exwm-init-hook ()
-
-          (modify-all-frames-parameters
-           '((right-divider-width . 24)
-             (alpha . (100 . 100))
-             (mouse-color . "white")
-             (internal-border-width . 24)))
-
-          ;; Make workspace 1 be the one where we land at startup
-          (exwm-workspace-switch-create 0)
-
-          ;; Useless gaps
-          (exwm-outer-gaps-mode -1))
-
-        (setq exwm-workspace-number 10)
-        ;; When window "class" updates, use it to set the buffer name
-        (add-hook 'exwm-update-class-hook #'bp/exwm-update-class)
-
-        ;; When window title updates, use it to set the buffer name
-        (add-hook 'exwm-update-title-hook #'bp/exwm-update-title)
-
-        (add-hook 'exwm-init-hook #'bp/exwm-init-hook)
-
-        ;; (setq exwm-input-prefix-keys
-        ;;       '(?\C-x
-        ;;         ?\C-u
-        ;;         ?\C-h
-        ;;         ?\M-x
-        ;;         escape
-        ;;         ?\M-`
-        ;;         ?\M-&
-        ;;         ?\M-:
-        ;;         ?\s-o
-        ;;         ?\s-i
-        ;;         ?\C-\M-j
-        ;;         ?\C-\ ))
-
-        (setq exwm-input-global-keys
-              `(
-                ;; Move between windows
-                ([s-left] . windmove-left)
-                ([s-right] . windmove-right)
-                ([s-up] . windmove-up)
-                ([s-down] . windmove-down)
-
-                ;; ;; Launch applications via shell command
-                ;; ([?\s-\\] . (lambda (command)
-                ;;               (interactive (list (read-shell-command " ")))
-                ;;               (start-process-shell-command command nil command)))
-
-                ;; Switch workspace
-                ;; ([?\s-w] . exwm-workspace-switch)
-                ;; ([?\s-w] . counsel-switch-buffer)
-                ;;
-                ;; move window workspace with SUPER+SHIFT+{0-9}
-                ;; ,@(cl-mapcar (lambda (c n)
-                ;;                `(,(kbd (format "s-%c" c)) .
-                ;;                  (lambda ()
-                ;;                    (interactive)
-                ;;                    (exwm-workspace-move-window ,n)
-                ;;                    ;; (exwm-workspace-switch ,n)
-                ;;                    )))
-                ;;              '(?! ?@ ?# ?$ ?% ?^ ?& ?* ?\( ?\))
-                ;;              ;; '(?\) ?! ?@ ?# ?$ ?% ?^ ?& ?* ?\()
-                ;;              (number-sequence 0 9))
-
-                ;; Switch to window workspace with SUPER+{0-9}
-                ([?\s-1] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
-                ([?\s-2] . (lambda () (interactive) (exwm-workspace-switch-create 1)))
-                ([?\s-3] . (lambda () (interactive) (exwm-workspace-switch-create 2)))
-                ([?\s-4] . (lambda () (interactive) (exwm-workspace-switch-create 3)))
-                ([?\s-5] . (lambda () (interactive) (exwm-workspace-switch-create 4)))
-                ([?\s-6] . (lambda () (interactive) (exwm-workspace-switch-create 5)))
-                ([?\s-7] . (lambda () (interactive) (exwm-workspace-switch-create 6)))
-                ([?\s-8] . (lambda () (interactive) (exwm-workspace-switch-create 7)))
-                ([?\s-9] . (lambda () (interactive) (exwm-workspace-switch-create 8)))
-                ([?\s-0] . (lambda () (interactive) (exwm-workspace-switch-create 9)))))
-
-            (require 'desktop-environment)
-            (desktop-environment-mode)
-            (desktop-environment-brightness-small-increment "2%+")
-            (desktop-environment-brightness-small-decrement "2%-")
-            (desktop-environment-brightness-normal-increment "5%+")
-            (desktop-environment-brightness-normal-decrement "5%-")
-
-
-            (defun exwm-input-line-mode ()
-              "Set exwm window to line-mode and show mode line"
-              (call-interactively #'exwm-input-grab-keyboard))
-
-            (defun exwm-input-char-mode ()
-              "Set Exwm window to char-mode and hide mode line"
-              (call-interactively #'exwm-input-release-keyboard))
-
-            (defun exwm-input-toggle-mode ()
-              "Toggle between line- and char-mode"
-              (with-current-buffer (window-buffer)
-                (when (eq major-mode 'exwm-mode)
-                  (if (equal (nth 1 (nth 1 mode-line-process)) "line")
-                      (exwm-input-char-mode)
-                    (exwm-input-line-mode)))))
-
-            (exwm-input-set-key (kbd "s-i")
-                                (lambda () (interactive)
-                                  (exwm-input-toggle-mode)))
-
-            (exwm-input-set-key (kbd "s-o")
-                                (lambda ()
-                                  (interactive)
-                                  (exwm-input-toggle-mode)
-                                  (org-capture)))
-
-        (exwm-enable)
-        )
-      #:elisp-packages (list
-                        cablecar-emacs-exwm
-                        emacs-desktop-environment))))
-
-  (make-emacs-feature emacs-f-name
-                      #:home-services get-home-services)
-  )
 
 (define %cablecar-base-emacs-packages
   (list
-   (feature-emacs-exwm)
+   ;; (feature-emacs-exwm)
    (feature-emacs-evil)
    (feature-emacs-appearance
     #:dark? #t)
@@ -721,7 +571,7 @@ It can contain settings not yet moved to separate features."
    ;; (feature-emacs-smartparens
    ;;  #:show-smartparens? #t)
    (feature-emacs-monocle)
-   (feature-emacs
+   (feature-emacs-cablecar
     #:additional-elisp-packages
     (append
      (list emacs-consult-dir)

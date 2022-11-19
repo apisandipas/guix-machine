@@ -147,7 +147,7 @@ argument, throw an exception otherwise."
           (leader? #t)
           (undo-fu? #t)
           (commentary? #t)
-          (collection? #t)
+          (collection? #f)
           (surround? #t))
   "Add and configure evil-mode for Emacs."
   (ensure-pred boolean? no-insert-state-message?)

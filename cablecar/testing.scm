@@ -36,7 +36,7 @@
   #:use-module (cablecar systems)
 
   ;; #:use-module (gnu services nix)
-  #:use-modules (gnu system)
+  #:use-module (gnu system)
   #:use-module (gnu system keyboard)
   #:use-module (gnu system file-systems)
   #:use-module (gnu system mapped-devices)

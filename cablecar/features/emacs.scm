@@ -581,19 +581,19 @@ It can contain settings not yet moved to separate features."
 
         (add-hook 'exwm-init-hook #'bp/exwm-init-hook)
 
-        ;; (setq exwm-input-prefix-keys
-        ;;       '(?\C-x
-        ;;         ?\C-u
-        ;;         ?\C-h
-        ;;         ?\M-x
-        ;;         escape
-        ;;         ?\M-`
-        ;;         ?\M-&
-        ;;         ?\M-:
-        ;;         ?\s-o    ;;Allow org-capture to passthru in Xwindows
-        ;;         ?\s-i    ;; Toggles char-mode/line-mode
-        ;;         ?\C-\M-j ;; Buffer list
-        ;;         ?\C-\ )) ;; Ctrl+Space
+        (setq exwm-input-prefix-keys
+              '(?\C-x
+                ?\C-u
+                ?\C-h
+                ?\M-x
+                escape
+                ?\M-`
+                ?\M-&
+                ?\M-:
+                ?\s-o    ;;Allow org-capture to passthru in Xwindows
+                ?\s-i    ;; Toggles char-mode/line-mode
+                ?\C-\M-j ;; Buffer list
+                ?\C-\ )) ;; Ctrl+Space
 
         ;; (setq exwm-input-global-keys
         ;;       `(

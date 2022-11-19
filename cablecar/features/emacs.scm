@@ -555,31 +555,31 @@ It can contain settings not yet moved to separate features."
       config
       '(
         (require 'exwm)
-        ;; (defun bp/run-in-background (command)
-        ;;   (let ((command-parts (split-string command "[ ]+")))
-        ;;     (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+        (defun bp/run-in-background (command)
+          (let ((command-parts (split-string command "[ ]+")))
+            (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
-        ;; (defun exwm-async-run (name)
-        ;;   "Run a process asynchronously"
-        ;;   (interactive)
-        ;;   (start-process name nil name))
+        (defun exwm-async-run (name)
+          "Run a process asynchronously"
+          (interactive)
+          (start-process name nil name))
 
-        ;; (defun bp/exwm-init-hook ()
+        (defun bp/exwm-init-hook ()
 
-        ;;   (modify-all-frames-parameters
-        ;;    '((right-divider-width . 24)
-        ;;      (alpha . (100 . 100))
-        ;;      (mouse-color . "white")
-        ;;      (internal-border-width . 24)))
+          (modify-all-frames-parameters
+           '((right-divider-width . 24)
+             (alpha . (100 . 100))
+             (mouse-color . "white")
+             (internal-border-width . 24)))
 
-        ;;   ;; Make workspace 1 be the one where we land at startup
-        ;;   (exwm-workspace-switch-create 0)
+          ;; Make workspace 1 be the one where we land at startup
+          (exwm-workspace-switch-create 0)
 
-        ;;   ;; Useless gaps
-        ;;   (exwm-outer-gaps-mode -1)
-        ;;   )
+          ;; Useless gaps
+          (exwm-outer-gaps-mode -1)
+          )
 
-        ;; (add-hook 'exwm-init-hook #'bp/exwm-init-hook)
+        (add-hook 'exwm-init-hook #'bp/exwm-init-hook)
 
         ;; (setq exwm-input-prefix-keys
         ;;       '(?\C-x

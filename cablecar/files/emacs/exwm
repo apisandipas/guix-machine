@@ -157,7 +157,7 @@ buffer (=minimizing in other WM/DE)"
         focus-follows-mouse nil)
 
 ;;;  Play nice with firefox, enables modal interactions
-  (require 'exwm-firefox-evil)
+  ;; ;; (require 'exwm-firefox-evil)
   ;; (add-hook 'exwm-manage-finish-hook 'exwm-firefox-evil-activate-if-firefox)
 
 ;;; Start these app in char mode so as to avoid.

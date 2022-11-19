@@ -555,6 +555,7 @@ It can contain settings not yet moved to separate features."
       config
       '(
         (require 'exwm)
+
         (defun bp/run-in-background (command)
           (let ((command-parts (split-string command "[ ]+")))
             (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
@@ -563,6 +564,14 @@ It can contain settings not yet moved to separate features."
           "Run a process asynchronously"
           (interactive)
           (start-process name nil name))
+
+        (defun bp/exwm-update-class ()
+        (exwm-workspace-rename-buffer exwm-class-name))
+
+        (defun bp/exwm-update-title ()
+        (pcase exwm-class-name
+            ("firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))))
+
 
         (defun bp/exwm-init-hook ()
 
@@ -576,24 +585,30 @@ It can contain settings not yet moved to separate features."
           (exwm-workspace-switch-create 0)
 
           ;; Useless gaps
-          (exwm-outer-gaps-mode -1)
-          )
+          (exwm-outer-gaps-mode -1))
+
+        (setq exwm-workspace-number 10)
+        ;; When window "class" updates, use it to set the buffer name
+        (add-hook 'exwm-update-class-hook #'bp/exwm-update-class)
+
+        ;; When window title updates, use it to set the buffer name
+        (add-hook 'exwm-update-title-hook #'bp/exwm-update-title)
 
         (add-hook 'exwm-init-hook #'bp/exwm-init-hook)
 
-        (setq exwm-input-prefix-keys
-              '(?\C-x
-                ?\C-u
-                ?\C-h
-                ?\M-x
-                escape
-                ?\M-`
-                ?\M-&
-                ?\M-:
-                ?\s-o
-                ?\s-i
-                ?\C-\M-j
-                ?\C-\ ))
+        ;; (setq exwm-input-prefix-keys
+        ;;       '(?\C-x
+        ;;         ?\C-u
+        ;;         ?\C-h
+        ;;         ?\M-x
+        ;;         escape
+        ;;         ?\M-`
+        ;;         ?\M-&
+        ;;         ?\M-:
+        ;;         ?\s-o
+        ;;         ?\s-i
+        ;;         ?\C-\M-j
+        ;;         ?\C-\ ))
 
         ;; (setq exwm-input-global-keys
         ;;       `(

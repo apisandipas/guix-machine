@@ -571,7 +571,7 @@ It can contain settings not yet moved to separate features."
    ;; (feature-emacs-smartparens
    ;;  #:show-smartparens? #t)
    (feature-emacs-monocle)
-   (feature-emacs-cablecar
+   (feature-emacs
     #:additional-elisp-packages
     (append
      (list emacs-consult-dir)

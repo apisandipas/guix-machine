@@ -590,10 +590,10 @@ It can contain settings not yet moved to separate features."
                 ?\M-`
                 ?\M-&
                 ?\M-:
-                ?\s-o    ;;Allow org-capture to passthru in Xwindows
-                ?\s-i    ;; Toggles char-mode/line-mode
-                ?\C-\M-j ;; Buffer list
-                ?\C-\ )) ;; Ctrl+Space
+                ?\s-o
+                ?\s-i
+                ?\C-\M-j
+                ?\C-\ ))
 
         ;; (setq exwm-input-global-keys
         ;;       `(

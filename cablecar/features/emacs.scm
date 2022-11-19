@@ -22,7 +22,7 @@
   #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix transformations)
-  #:use-module (engstrand features emacs)
+  ;; #:use-module (engstrand features emacs)
   #:use-module (cablecar gexp)
   #:use-module (cablecar utils)
   #:use-module (cablecar packages emacs-xyz)
@@ -128,6 +128,86 @@ argument, throw an exception otherwise."
   (let ((res (if (procedure? elisp) (elisp config) elisp)))
     (ensure-pred list? res)
     res))
+
+(define* (feature-emacs-evil
+          #:key
+          (no-insert-state-message? #t)
+          (leader? #t)
+          (undo-fu? #t)
+          (commentary? #t)
+          (collection? #t)
+          (surround? #t))
+  "Add and configure evil-mode for Emacs."
+  (ensure-pred boolean? no-insert-state-message?)
+  (ensure-pred boolean? leader?)
+  (ensure-pred boolean? undo-fu?)
+  (ensure-pred boolean? collection?)
+  (ensure-pred boolean? surround?)
+  (define emacs-f-name 'evil)
+
+  (define (get-home-services config)
+    (list
+     (rde-elisp-configuration-service
+      emacs-f-name
+      config
+      `(;; Make the Escape key behave more nicely for evil-mode
+        (global-set-key (kbd "<escape>") 'keyboard-quit)
+        (define-key query-replace-map (kbd "<escape>") 'quit)
+        ;; Hide ``-- INSERT --'' message
+        ,@(if no-insert-state-message?
+              `((setq evil-insert-state-message nil))
+              '())
+        ;; Required by the additional packages... should we toggle this?
+        (setq evil-want-keybinding nil)
+        ;; Use C-u to scroll up
+        (setq evil-want-C-u-scroll t)
+        ;; undo with higher granularity
+        (setq evil-want-fine-undo t)
+        ;; The packages below must be loaded and configured in a certain order
+        (require 'evil)
+        ,@(if leader?
+              `((require 'evil-leader)
+                (global-evil-leader-mode)
+                (evil-leader/set-leader "<SPC>")
+                (evil-leader/set-key
+                 "<SPC>" 'find-file
+                 "b" 'switch-to-buffer
+                 "k" 'kill-buffer
+                 "K" 'kill-this-buffer
+                 "s" 'save-buffer
+                 "S" 'evil-write-all
+                 )
+                '()))
+        ,@(if undo-fu?
+              `((eval-when-compile (require 'undo-fu))
+                (setq evil-undo-system 'undo-fu)
+                (define-key evil-normal-state-map (kbd "u") 'undo-fu-only-undo)
+                (define-key evil-normal-state-map (kbd "C-r") 'undo-fu-only-redo))
+              '())
+        (evil-mode 1)
+        ,@(if commentary?
+              `((require 'evil-commentary)
+                (evil-commentary-mode))
+              '())
+        ,@(if collection?
+              `((when (require 'evil-collection nil t)
+                  (evil-collection-init)))
+              '())
+        ,@(if surround?
+              `((require 'evil-surround)
+                (global-evil-surround-mode 1))
+              '())
+        )
+      #:elisp-packages (list
+                        emacs-evil
+                        (if leader? emacs-evil-leader)
+                        (if undo-fu? emacs-undo-fu)
+                        (if commentary? emacs-evil-commentary)
+                        (if collection? emacs-evil-collection)
+                        (if surround? emacs-evil-surround)))))
+
+  (make-emacs-feature emacs-f-name
+                      #:home-services get-home-services))
 
 (define* (feature-emacs-cablecar
           #:key
@@ -338,7 +418,7 @@ Prefix argument can be used to kill a few words."
           ,#~""
           ,@(if (or disable-warnings?
                     (get-value 'emacs-advanced-user? config))
-                `(;; Don't warn for large files
+                `( ;; Don't warn for large files
                   (setq large-file-warning-threshold nil)
                   ;; Don't warn for followed symlinked files
                   (setq vc-follow-symlinks t)
@@ -348,18 +428,18 @@ Prefix argument can be used to kill a few words."
 
           ,#~""
           ,@(if auto-update-buffers?
-              `(;; Revert Dired and other buffers
-                (setq global-auto-revert-non-file-buffers t)
-                ;; Revert buffers when the underlying file has changed
-                (global-auto-revert-mode 1))
-              '())
+                `( ;; Revert Dired and other buffers
+                  (setq global-auto-revert-non-file-buffers t)
+                  ;; Revert buffers when the underlying file has changed
+                  (global-auto-revert-mode 1))
+                '())
 
           ,#~""
           ,@(if auto-clean-space?
-              `((eval-when-compile (require 'ws-butler))
-                (add-hook 'text-mode-hook 'ws-butler-mode)
-                (add-hook 'prog-mode-hook 'ws-butler-mode))
-              '())
+                `((eval-when-compile (require 'ws-butler))
+                  (add-hook 'text-mode-hook 'ws-butler-mode)
+                  (add-hook 'prog-mode-hook 'ws-butler-mode))
+                '())
 
           ,#~""
           ;; Specifying default action for display-buffer.
@@ -414,26 +494,26 @@ It can contain settings not yet moved to separate features."
           home-sway-service-type
           `((,#~"")
             (exec_always "sleep 2s && " ;; Need to wait until emacs daemon loaded.
-             ,(program-file
-               "update-emacs-env-variables"
-               ;; TODO: Add support for multiple servers.
-               #~(system*
-                  #$emacs-client "--eval"
-                  (string-append
-                   "(mapcar (lambda (lst) (apply #'setenv lst)) '"
-                   (let* ((port   ((@ (ice-9 popen) open-input-pipe)
-                                   (string-append "env")))
-                          (result ((@ (ice-9 rdelim) read-delimited) "" port))
-                          (vars (map (lambda (x)
-                                       (let ((si (string-index x #\=)))
-                                         (list (string-take x si)
-                                               (string-drop x (+ 1 si)))))
-                                     ((@ (srfi srfi-1) remove)
-                                      string-null? (string-split
-                                                    result #\newline)))))
-                     (close-port port)
-                     (format #f "~s" vars))
-                   ")"))))
+                         ,(program-file
+                           "update-emacs-env-variables"
+                           ;; TODO: Add support for multiple servers.
+                           #~(system*
+                              #$emacs-client "--eval"
+                              (string-append
+                               "(mapcar (lambda (lst) (apply #'setenv lst)) '"
+                               (let* ((port   ((@ (ice-9 popen) open-input-pipe)
+                                               (string-append "env")))
+                                      (result ((@ (ice-9 rdelim) read-delimited) "" port))
+                                      (vars (map (lambda (x)
+                                                   (let ((si (string-index x #\=)))
+                                                     (list (string-take x si)
+                                                           (string-drop x (+ 1 si)))))
+                                                 ((@ (srfi srfi-1) remove)
+                                                  string-null? (string-split
+                                                                result #\newline)))))
+                                 (close-port port)
+                                 (format #f "~s" vars))
+                               ")"))))
             (for_window "[title=\".* - Emacs Client\"]"
                         floating enable,
                         resize set 80 ppt 80 ppt)))))))

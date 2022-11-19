@@ -201,10 +201,10 @@ argument, throw an exception otherwise."
               `((require 'evil-commentary)
                 (evil-commentary-mode))
               '())
-        ,@(if collection?
-              `((when (require 'evil-collection nil t)
-                  (evil-collection-init)))
-              '())
+        ;; ,@(if collection?
+        ;;       `((when (require 'evil-collection nil t)
+        ;;           (evil-collection-init)))
+        ;;       '())
         ,@(if surround?
               `((require 'evil-surround)
                 (global-evil-surround-mode 1))
@@ -215,7 +215,7 @@ argument, throw an exception otherwise."
                         (if leader? emacs-evil-leader)
                         (if undo-fu? emacs-undo-fu)
                         (if commentary? emacs-evil-commentary)
-                        (if collection? emacs-evil-collection)
+                        ;; (if collection? emacs-evil-collection)
                         (if surround? emacs-evil-surround)))))
 
   (make-emacs-feature emacs-f-name

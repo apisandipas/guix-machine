@@ -49,6 +49,18 @@
   #:use-module (guix channels)
   #:use-module (ice-9 match))
 
+
+;; Allows dynamic loading of configuration modules based on file name.
+(define* (dynamic-load sub mod var-name #:key (throw? #t))
+  (let ((var (module-variable
+              (resolve-module `(cablecar ,sub ,(string->symbol mod))) var-name)))
+    (if (or (not var) (not (variable-bound? var)))
+        (when throw?
+          (raise-exception
+           (make-exception-with-message
+            (string-append "reconfigure: could not load module '" mod "'"))))
+        (variable-ref var))))
+
 
 ;;; User-specific features
 

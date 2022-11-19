@@ -559,41 +559,41 @@ It can contain settings not yet moved to separate features."
         ;;   (let ((command-parts (split-string command "[ ]+")))
         ;;     (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
-        (defun exwm-async-run (name)
-          "Run a process asynchronously"
-          (interactive)
-          (start-process name nil name))
+        ;; (defun exwm-async-run (name)
+        ;;   "Run a process asynchronously"
+        ;;   (interactive)
+        ;;   (start-process name nil name))
 
-        (defun bp/exwm-init-hook ()
+        ;; (defun bp/exwm-init-hook ()
 
-          (modify-all-frames-parameters
-           '((right-divider-width . 24)
-             (alpha . (100 . 100))
-             (mouse-color . "white")
-             (internal-border-width . 24)))
+        ;;   (modify-all-frames-parameters
+        ;;    '((right-divider-width . 24)
+        ;;      (alpha . (100 . 100))
+        ;;      (mouse-color . "white")
+        ;;      (internal-border-width . 24)))
 
-          ;; Make workspace 1 be the one where we land at startup
-          (exwm-workspace-switch-create 0)
+        ;;   ;; Make workspace 1 be the one where we land at startup
+        ;;   (exwm-workspace-switch-create 0)
 
-          ;; Useless gaps
-          (exwm-outer-gaps-mode -1)
-          )
+        ;;   ;; Useless gaps
+        ;;   (exwm-outer-gaps-mode -1)
+        ;;   )
 
-        (add-hook 'exwm-init-hook #'bp/exwm-init-hook)
+        ;; (add-hook 'exwm-init-hook #'bp/exwm-init-hook)
 
-        (setq exwm-input-prefix-keys
-              '(?\C-x
-                ?\C-u
-                ?\C-h
-                ?\M-x
-                escape
-                ?\M-`
-                ?\M-&
-                ?\M-:
-                ?\s-o    ;;Allow org-capture to passthru in Xwindows
-                ?\s-i    ;; Toggles char-mode/line-mode
-                ?\C-\M-j ;; Buffer list
-                ?\C-\ )) ;; Ctrl+Space
+        ;; (setq exwm-input-prefix-keys
+        ;;       '(?\C-x
+        ;;         ?\C-u
+        ;;         ?\C-h
+        ;;         ?\M-x
+        ;;         escape
+        ;;         ?\M-`
+        ;;         ?\M-&
+        ;;         ?\M-:
+        ;;         ?\s-o    ;;Allow org-capture to passthru in Xwindows
+        ;;         ?\s-i    ;; Toggles char-mode/line-mode
+        ;;         ?\C-\M-j ;; Buffer list
+        ;;         ?\C-\ )) ;; Ctrl+Space
 
         ;; (setq exwm-input-global-keys
         ;;       `(
@@ -636,39 +636,39 @@ It can contain settings not yet moved to separate features."
         ;;         ([?\s-9] . (lambda () (interactive) (exwm-workspace-switch-create 8)))
         ;;         ([?\s-0] . (lambda () (interactive) (exwm-workspace-switch-create 9)))))
 
-            (require 'desktop-environment)
-            (desktop-environment-mode)
-            (desktop-environment-brightness-small-increment "2%+")
-            (desktop-environment-brightness-small-decrement "2%-")
-            (desktop-environment-brightness-normal-increment "5%+")
-            (desktop-environment-brightness-normal-decrement "5%-")
+            ;; (require 'desktop-environment)
+            ;; (desktop-environment-mode)
+            ;; (desktop-environment-brightness-small-increment "2%+")
+            ;; (desktop-environment-brightness-small-decrement "2%-")
+            ;; (desktop-environment-brightness-normal-increment "5%+")
+            ;; (desktop-environment-brightness-normal-decrement "5%-")
 
 
-            (defun exwm-input-line-mode ()
-              "Set exwm window to line-mode and show mode line"
-              (call-interactively #'exwm-input-grab-keyboard))
+            ;; (defun exwm-input-line-mode ()
+            ;;   "Set exwm window to line-mode and show mode line"
+            ;;   (call-interactively #'exwm-input-grab-keyboard))
 
-            (defun exwm-input-char-mode ()
-              "Set Exwm window to char-mode and hide mode line"
-              (call-interactively #'exwm-input-release-keyboard))
+            ;; (defun exwm-input-char-mode ()
+            ;;   "Set Exwm window to char-mode and hide mode line"
+            ;;   (call-interactively #'exwm-input-release-keyboard))
 
-            (defun exwm-input-toggle-mode ()
-              "Toggle between line- and char-mode"
-              (with-current-buffer (window-buffer)
-                (when (eq major-mode 'exwm-mode)
-                  (if (equal (nth 1 (nth 1 mode-line-process)) "line")
-                      (exwm-input-char-mode)
-                    (exwm-input-line-mode)))))
+            ;; (defun exwm-input-toggle-mode ()
+            ;;   "Toggle between line- and char-mode"
+            ;;   (with-current-buffer (window-buffer)
+            ;;     (when (eq major-mode 'exwm-mode)
+            ;;       (if (equal (nth 1 (nth 1 mode-line-process)) "line")
+            ;;           (exwm-input-char-mode)
+            ;;         (exwm-input-line-mode)))))
 
-            (exwm-input-set-key (kbd "s-i")
-                                (lambda () (interactive)
-                                  (exwm-input-toggle-mode)))
+            ;; (exwm-input-set-key (kbd "s-i")
+            ;;                     (lambda () (interactive)
+            ;;                       (exwm-input-toggle-mode)))
 
-            (exwm-input-set-key (kbd "s-o")
-                                (lambda ()
-                                  (interactive)
-                                  (exwm-input-toggle-mode)
-                                  (org-capture)))
+            ;; (exwm-input-set-key (kbd "s-o")
+            ;;                     (lambda ()
+            ;;                       (interactive)
+            ;;                       (exwm-input-toggle-mode)
+            ;;                       (org-capture)))
 
         (exwm-enable)
         )

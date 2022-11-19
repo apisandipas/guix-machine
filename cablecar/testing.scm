@@ -72,55 +72,6 @@
             (name (symbol->string id))
             (urls urls)))))
 
-(define %abcdw-features
-  (list
-   (feature-user-info
-    #:user-name "bob"
-    #:full-name "Andrew Tropin"
-    #:email "andrew@trop.in"
-    #:user-initial-password-hash
-    "$6$abc$3SAZZQGdvQgAscM2gupP1tC.SqnsaLSPoAnEOb2k6jXMhzQqS1kCSplAJ/vUy2rrnpHtt6frW2Ap5l/tIvDsz."
-    ;; (crypt "bob" "$6$abc")
-
-    ;; WARNING: This option can reduce the explorability by hiding
-    ;; some helpful messages and parts of the interface for the sake
-    ;; of minimalistic, less distractive and clean look.  Generally
-    ;; it's not recommended to use it.
-    #:emacs-advanced-user? #t)
-   ;; (feature-gnupg
-   ;;  #:gpg-primary-key "74830A276C328EC2")
-   ;; (feature-security-token)
-   ;; (feature-password-store
-   ;;  #:remote-password-store-url "ssh://abcdw@olorin.lan/~/state/password-store")
-
-   ;; (feature-mail-settings
-   ;;  #:mail-accounts (list (mail-acc 'work       "andrew@trop.in" 'gandi)
-   ;;                        (mail-acc 'personal   "andrewtropin@gmail.com"))
-   ;;  #:mailing-lists (list (mail-lst 'guix-devel "guix-devel@gnu.org"
-   ;;                                  '("https://yhetil.org/guix-devel/0"))
-   ;;                        (mail-lst 'guix-bugs "guix-bugs@gnu.org"
-   ;;                                  '("https://yhetil.org/guix-bugs/0"))
-   ;;                        (mail-lst 'guix-patches "guix-patches@gnu.org"
-   ;;                                  '("https://yhetil.org/guix-patches/1"))))
-
-   (feature-keyboard
-    ;; To get all available options, layouts and variants run:
-    ;; cat `guix build xkeyboard-config`/share/X11/xkb/rules/evdev.lst
-    #:keyboard-layout
-    (keyboard-layout "us"))))
-
-;;; TODO: feature-wallpapers https://wallhaven.cc/
-;;; TODO: feature-icecat
-;; PipeWire/iwd:
-;; https://github.com/J-Lentz/iwgtk
-;; https://github.com/krevedkokun/guix-config/blob/master/system/yggdrasil.scm
-
-
-;;; Generic features should be applicable for various hosts/users/etc
-
-
-;;; WARNING: The order can be important for features extending
-;;; services of other features.  Be careful changing it.
 (define %main-features
   (list
 
@@ -146,9 +97,6 @@
    (feature-direnv)
    (feature-git)
 
-   ;; https://sr.ht/~tsdh/swayr/
-   ;; https://github.com/ErikReider/SwayNotificationCenter
-   ;; https://github.com/swaywm/sway/wiki/i3-Migration-Guide
 
    ;; https://github.com/natpen/awesome-wayland
    (feature-sway
@@ -245,23 +193,6 @@
    (feature-emacs-message)
    (feature-emacs-pdf-tools)
    (feature-emacs-nov-el)
-
-   ;; TODO: Revisit <https://en.wikipedia.org/wiki/Git-annex>
-   ;; (feature-emacs-git
-   ;;  #:project-directory "~/work")
-   ;; ;; TODO: <https://www.labri.fr/perso/nrougier/GTD/index.html#table-of-contents>
-   ;; (feature-emacs-org
-   ;;  #:org-directory "~/work/abcdw/private"
-   ;;  #:org-indent? #f
-   ;;  #:org-capture-templates
-   ;;  `(("t" "Todo" entry (file+headline "" "Tasks") ;; org-default-notes-file
-   ;;     "* TODO %?\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)))
-   ;; (feature-emacs-org-roam
-   ;;  ;; TODO: Rewrite to states
-   ;;  #:org-roam-directory "~/work/abcdw/notes/notes")
-   ;; (feature-emacs-org-agenda
-   ;;  #:org-agenda-files '("~/work/abcdw/private/todo.org"
-   ;;                       "~/work/abcdw/rde/TODO"))
    (feature-emacs-smartparens
     #:show-smartparens? #t)
    (feature-emacs-geiser)
@@ -362,34 +293,6 @@ subject:/home:/) and tag:new}\"'")
       "ripgrep" "curl")))))
 
 
-;;; Hardware/host specifis features
-
-;; TODO: Switch from UUIDs to partition labels For better
-;; reproducibilty and easier setup.  Grub doesn't support luks2 yet.
-
-;; (define ixy-file-systems
-;;   (append
-;;    (map (match-lambda
-;; 	  ((subvol . mount-point)
-;; 	   (file-system
-;; 	     (type "btrfs")
-;; 	     (device "/dev/mapper/enc")
-;; 	     (mount-point mount-point)
-;; 	     (options (format #f "subvol=~a" subvol))
-;; 	     (dependencies ixy-mapped-devices))))
-;; 	'((root . "/")
-;; 	  (boot . "/boot")
-;; 	  (gnu  . "/gnu")
-;; 	  (home . "/home")
-;; 	  (data . "/data")
-;; 	  (log  . "/var/log")))
-;;    (list
-;;     (file-system
-;;       (mount-point "/boot/efi")
-;;       (type "vfat")
-;;       (device (uuid "8C99-0704" 'fat32))))))
-
-
 
 (define* (make-config
           #:key

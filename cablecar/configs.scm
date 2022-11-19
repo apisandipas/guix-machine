@@ -99,14 +99,17 @@
      #:system-packages
      (append
       (list cablecar-emacs-exwm)
-      (pkgs "emacs-desktop-environment"))
+      (pkgs "emacs-desktop-environment")
+      )
      #:home-packages
      (append
+      (list cablecar-emacs-exwm)
       (pkgs-vanilla
        "icecat" "nyxt"
        "ungoogled-chromium" "ublock-origin-chromium")
       (pkgs
        "arandr"
+       "emacs-desktop-environment"
        "alsa-utils" "youtube-dl" "imv"
        "obs" "obs-wlrobs"
        "recutils"
@@ -114,9 +117,9 @@
        "feh"
        "hicolor-icon-theme" "adwaita-icon-theme" "gnome-themes-extra"
        "ripgrep" "curl" "make")))
-    ;; (feature-dotfiles
-    ;;  #:dotfiles
-    ;;  `((".exwm" ,(local-file "files/emacs/exwm"))))
+    (feature-dotfiles
+     #:dotfiles
+     `((".exwm" ,(local-file "files/emacs/exwm"))))
     )
 
    %cablecar-base-emacs-packages

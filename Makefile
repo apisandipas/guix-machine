@@ -28,5 +28,5 @@ system-reconfigure:
 	guix system reconfigure $(CONFIG_FILE)
 
 home-test:
-	HOST=$(HOST) GUILE_LOAD_PATH=$(GLP) RDE_USER=$(RDE_USER) RDE_TARGET=home\
+	HOST=$(HOST) GUILE_LOAD_PATH=$(GLP) RDE_USER=$(RDE_USER) RDE_TARGET=home \
 	guix home reconfigure ./cablecar/testing.scm

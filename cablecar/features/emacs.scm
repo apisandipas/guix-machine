@@ -285,30 +285,35 @@ argument, throw an exception otherwise."
       (display-time)
       (display-battery-mode)
 
-        (defun bp/make-frame-pretty ()
-            "Set the initial look and feel of the frame"
-            (modify-all-frames-parameters
-            '((right-divider-width . 24)
-                (alpha . (85 . 75))
-                (mouse-color . "white")
-                (internal-border-width . 24))))
+      (defun bp/make-frame-pretty ()
+        "Set the initial look and feel of the frame"
+        (modify-all-frames-parameters
+         '((right-divider-width . 24)
+           (alpha . (85 . 75))
+           (mouse-color . "white")
+           (internal-border-width . 24))))
 
-        (add-hook 'before-make-frame-hook 'bp/make-frame-pretty)
+      (add-hook 'before-make-frame-hook 'bp/make-frame-pretty)
 
-        (setq initial-frame-alist
+      (setq initial-frame-alist
             '((right-divider-width . 24)
               (fullscreen . maximized)
-                (alpha . (85 . 75))
-                (internal-border-width. 24)))
+              (alpha . (85 . 75))
+              (internal-border-width. 24)))
 
-        (add-to-list 'default-frame-alist '(internal-border-width . 24))
-        (add-to-list 'default-frame-alist '(alpha . (85 . 75)))
-        (add-to-list 'default-frame-alist '(right-divider-width . 24))
-        (add-to-list 'default-frame-alist '(fullscreen . maximized))
+      (add-to-list 'default-frame-alist '(internal-border-width . 24))
+      (add-to-list 'default-frame-alist '(alpha . (85 . 75)))
+      (add-to-list 'default-frame-alist '(right-divider-width . 24))
+      (add-to-list 'default-frame-alist '(fullscreen . maximized))
         
-        (defalias 'yes-or-no-p 'y-or-n-p)
+      ;; alias y/n to yes/no
+      (defalias 'yes-or-no-p 'y-or-n-p)
 
-    )
+      ;; Default to insert mode in vterm
+      (with-eval-after-load 'evil
+                            (evil-set-initial-state 'vterm-mode 'insert))
+
+      )
     #:additional-elisp-packages
     (append
      (list emacs-consult-dir emacs-exwm-outer-gaps)

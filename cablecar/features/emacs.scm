@@ -140,6 +140,35 @@ argument, throw an exception otherwise."
     (ensure-pred list? res)
     res))
 
+(define (feature-doom-modeline)
+  "Adds and configures the Doom modeline"
+  (define emacs-f-name 'doom-modeline)
+
+  (define (get-home-services config)
+    (list
+     (rde-elisp-configuration-service
+      emacs-f-name
+      config
+      `(
+        (doom-modeline-mode)
+        (with-eval-after-load 'doom-modeline
+            (setq doom-modeline-height 36
+                doom-modeline-bar-width 6
+                doom-modeline-lsp t
+                doom-modeline-github nil
+                doom-modeline-mu4e t
+                doom-modeline-irc t
+                doom-modeline-minor-modes nil
+                doom-modeline-persp-name t
+                doom-modeline-buffer-file-name-style 'truncate-except-project
+                doom-modeline-major-mode-icon t))
+        )
+      #:elisp-packages (list emacs-doom-modeline)))
+
+  (make-emacs-feature emacs-f-name
+                      #:home-services get-home-services)))
+
+
 (define* (feature-emacs-evil
           #:key
           (no-insert-state-message? #t)
@@ -161,7 +190,7 @@ argument, throw an exception otherwise."
      (rde-elisp-configuration-service
       emacs-f-name
       config
-      `(;; Make the Escape key behave more nicely for evil-mode
+      `( ;; Make the Escape key behave more nicely for evil-mode
         (global-set-key (kbd "<escape>") 'keyboard-quit)
         (define-key query-replace-map (kbd "<escape>") 'quit)
         ;; Hide ``-- INSERT --'' message
@@ -218,13 +247,16 @@ argument, throw an exception otherwise."
                         (if surround? emacs-evil-surround)))))
 
   (make-emacs-feature emacs-f-name
-                      #:home-services get-home-services))
+                      #:home-services get-home-services)
+  )
 
 (define %cablecar-base-emacs-packages
   (list
    (feature-emacs-evil)
    (feature-emacs-appearance
+    #:header-line-as-mode-line? #f
     #:dark? #t)
+   (feature-doom-modeline)
    (feature-emacs-faces)
    (feature-emacs-completion)
    (feature-vterm)
@@ -275,23 +307,7 @@ argument, throw an exception otherwise."
         
         (defalias 'yes-or-no-p 'y-or-n-p)
 
-        ;; (defun bp/set-wallpaper ()
-        ;;     (interactive)
-        ;;     (start-process-shell-command
-        ;;         "feh" nil  "~/.fehbg"))
-        ;; (bp/set-wallpaper)
-
-        ;; (defun bp/run-in-background (command)
-        ;;     (let ((command-parts (split-string command "[ ]+")))
-        ;;         (apply 'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
-
-        ;; (bp/run-in-background "picom")
-        ;; (bp/run-in-background "pasystray")
-        ;; (bp/run-in-background "nm-tray")
-        ;; ;; (load-file "~/.exwm")
-        ;; (require 'exwm)
-        ;; (exwm-input-set-key (kbd "s-SPC") 'counsel-linux-app)
-      )
+    )
     #:additional-elisp-packages
     (append
      (list emacs-consult-dir emacs-exwm-outer-gaps)
@@ -299,7 +315,7 @@ argument, throw an exception otherwise."
            "emacs-ytdl"
            "emacs-ement"
            ;; "emacs-vertico-posframe" ;; will require custom package input
-           "emacs-doom-modeline"
+           ;; "emacs-doom-modeline"
            "emacs-counsel"
            "emacs-restart-emacs"
            "emacs-org-present")))))

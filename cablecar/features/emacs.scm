@@ -250,6 +250,8 @@ argument, throw an exception otherwise."
     `(
       (set-frame-parameter nil 'fullscreen 'fullboth)
       (toggle-frame-fullscreen)
+      (display-time)
+      (display-battery-mode)
       )
     #:additional-elisp-packages
     (append

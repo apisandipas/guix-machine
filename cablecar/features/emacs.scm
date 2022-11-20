@@ -268,7 +268,7 @@ argument, throw an exception otherwise."
    (feature-emacs-input-methods)
    (feature-emacs-which-key)
    (feature-emacs-keycast
-    #:turn-on? #t)
+    #:turn-on? #f)
    (feature-emacs-dired)
    (feature-emacs-eshell)
    (feature-emacs-org
@@ -305,7 +305,7 @@ argument, throw an exception otherwise."
       (add-to-list 'default-frame-alist '(alpha . (85 . 75)))
       (add-to-list 'default-frame-alist '(right-divider-width . 24))
       (add-to-list 'default-frame-alist '(fullscreen . maximized))
-        
+
       ;; alias y/n to yes/no
       (defalias 'yes-or-no-p 'y-or-n-p)
 

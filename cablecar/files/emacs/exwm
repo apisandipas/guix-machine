@@ -63,13 +63,13 @@ buffer (=minimizing in other WM/DE)"
   ;; (bp/start-panel)
 
   ;; Launch apps that will run in the background
-  ;; (bp/run-in-background "dropbox")
-  ;; (bp/run-in-background "nm-applet")
-  ;; (bp/run-in-background "pasystray")
+  (bp/run-in-background "picom")
+  (bp/run-in-background "nm-applet")
+  (bp/run-in-background "pasystray")
   ;; ;; (bp/run-in-background "blueman-applet")
   ;; (bp/run-in-background "blueman-tray")
   ;; (bp/run-in-background "~/Apps/KeylightControl.AppImage")
-  ;; (bp/run-in-background "dunst")
+  (bp/run-in-background "dunst")
 
   ;; (bp/run-in-background "companion")
   ;; (bp/run-in-background "kitty")
@@ -252,7 +252,7 @@ buffer (=minimizing in other WM/DE)"
         window-divider-default-right-width 2)
   (window-divider-mode)
 
-  (exwm-input-set-key (kbd "s-SPC") 'counsel-linux-app)
+  (exwm-input-set-key (kbd "c-SPC") 'counsel-linux-app)
   ;; (perspective-exwm-mode)
   (exwm-enable)
 

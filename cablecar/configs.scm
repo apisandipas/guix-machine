@@ -106,6 +106,9 @@
        "ungoogled-chromium" "ublock-origin-chromium")
       (pkgs
        "arandr"
+       "dunst"
+       "nm-applet"
+       "pasystray"
        "emacs-desktop-environment"
        "alsa-utils" "youtube-dl" "imv"
        "obs" "obs-wlrobs"

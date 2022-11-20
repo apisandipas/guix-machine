@@ -279,6 +279,12 @@ argument, throw an exception otherwise."
             (start-process-shell-command
                 "feh" nil  "~/.fehbg"))
         (bp/set-wallpaper)
+
+        (defun bp/run-in-background (command)
+            (let ((command-parts (split-string command "[ ]+")))
+                (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+
+        (bp/run-in-background 'picom')
       )
     #:additional-elisp-packages
     (append

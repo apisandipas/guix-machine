@@ -271,6 +271,14 @@ argument, throw an exception otherwise."
         (add-to-list 'default-frame-alist '(alpha . (85 . 75)))
         (add-to-list 'default-frame-alist '(right-divider-width . 24))
         (add-to-list 'default-frame-alist '(fullscreen . maximized))
+        
+        (defalias 'yes-or-no-p 'y-or-n-p)
+
+        (defun bp/set-wallpaper ()
+            (interactive)
+            (start-process-shell-command
+                "feh" nil  "~/.fehbg"))
+        (bp/set-wallpaper)
       )
     #:additional-elisp-packages
     (append

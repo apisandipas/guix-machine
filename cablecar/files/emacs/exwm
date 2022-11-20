@@ -103,6 +103,7 @@ buffer (=minimizing in other WM/DE)"
 ;;            (string-trim (shell-command-to-string "autorandr --current"))))
 
 (require 'exwm)
+(with-eval-after-load 'exwm
 
   ;; Set the default number of workspaces
   (setq exwm-workspace-number 10)
@@ -294,4 +295,9 @@ buffer (=minimizing in other WM/DE)"
                       (interactive)
                       (exwm-input-toggle-mode)
                       (org-capture)))
+  )
+
+(require 'exwm-systemtray)
+(exwm-systemtray-enable)
+
 (message "Exwm config loaded")

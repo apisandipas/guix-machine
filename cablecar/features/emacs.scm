@@ -279,7 +279,7 @@ argument, throw an exception otherwise."
            "emacs-ytdl"
            "emacs-ement"
            ;; "emacs-vertico-posframe" ;; will require custom package input
-           "emacs-cousel"
+           "emacs-counsel"
            "emacs-restart-emacs"
            "emacs-org-present")))))
 

@@ -105,6 +105,8 @@
        "icecat" "nyxt"
        "ungoogled-chromium" "ublock-origin-chromium")
       (pkgs
+       "firefox"
+       "neofetch"
        "arandr"
        "dunst"
        "nm-tray"

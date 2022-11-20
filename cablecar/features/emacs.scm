@@ -255,7 +255,7 @@ argument, throw an exception otherwise."
   (list
    (feature-emacs-evil)
    (feature-emacs-appearance
-    #:header-line-as-mode-line? #f
+    #:header-line-as-mode-line? #t
     #:dark? #t)
    ;; (feature-doom-modeline) ;; Weird zoom level issues cause gaps to behave strangely
    (feature-emacs-faces)

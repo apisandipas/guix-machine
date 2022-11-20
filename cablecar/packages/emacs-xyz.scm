@@ -69,7 +69,7 @@
              (commit "e9026b1e627e0465e2f4d29ded5ef8cf4a2017b9")))
        (file-name (git-file-name name version))
        (sha256
-        (base32 ""))))
+        (base32 "03wx2ls5shzmqgwzgzzxycpxx813zl6czyxm9scfij06khp46avd"))))
     (build-system emacs-build-system)
     (propagated-inputs
      (list cablecar-emacs-exwm))

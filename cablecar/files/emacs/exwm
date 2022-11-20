@@ -62,7 +62,7 @@ buffer (=minimizing in other WM/DE)"
   (exwm-workspace-switch-create 0)
 
   ;; Useless gaps
-  (exwm-outer-gaps-mode -1)
+  (exwm-outer-gaps-mode +1)
 
   ;; Start the Polybar panel
   ;; (bp/start-panel)

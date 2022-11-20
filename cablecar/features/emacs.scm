@@ -278,7 +278,7 @@ argument, throw an exception otherwise."
      (pkgs "emacs-elfeed" "emacs-hl-todo"
            "emacs-ytdl"
            "emacs-ement"
-           "emacs-vertico-posframe"
+           ;; "emacs-vertico-posframe" ;; will require custom package input
            "emacs-consult"
            "emacs-restart-emacs"
            "emacs-org-present")))))

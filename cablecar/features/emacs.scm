@@ -220,7 +220,7 @@ argument, throw an exception otherwise."
   (make-emacs-feature emacs-f-name
                       #:home-services get-home-services))
 
-(define* (feature-emacs-cablecar
+(define* (feature-emacs
           #:key
           (emacs emacs-next)
           (emacs-server-mode? #t)

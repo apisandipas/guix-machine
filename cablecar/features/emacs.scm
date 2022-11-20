@@ -289,7 +289,8 @@ argument, throw an exception otherwise."
         (bp/run-in-background "pasystray")
         (bp/run-in-background "nm-tray")
         ;; (load-file "~/.exwm")
-        
+        (require 'exwm)
+        (exwm-input-set-key (kbd "s-SPC") 'counsel-linux-app)
       )
     #:additional-elisp-packages
     (append

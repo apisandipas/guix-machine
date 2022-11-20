@@ -39,20 +39,23 @@
                     #t
                     "#!~a ~@
                      ~a +SI:localuser:$USER ~@
-                     exec ~a --exit-with-session ~a \"$@\" -mm --debug-init -l ~/.config/emacs/init.el -fn iosevka-20 ~%"
+                     exec ~a --exit-with-session ~a \"$@\" -mm --debug-init -l ~/.exwm -fn iosevka-20 ~%"
                     (search-input-file inputs "/bin/sh")
                     (search-input-file inputs "/bin/xhost")
                     (search-input-file inputs "/bin/dbus-launch")
-                    (search-input-file inputs "/bin/emacs")
-                    '(cond
-                      ((file-exists-p "~/.exwm")
-                       (load-file "~/.exwm"))
-                      ((not (feature 'exwm))
-                       (require 'exwm)
-                       (require 'exwm-config)
-                       (exwm-config-default)
-                       (message (concat "exwm config not found. "
-                                        "Falling back to default config.."))))
+                    ;; (search-input-file inputs "/bin/emacs")
+                    ;; '(cond
+                    ;;   ((file-exists-p "~/.exwm")
+                    ;;    (load-file "~/.exwm"))
+                    ;;   ((not (feature 'exwm))
+                    ;;    (require 'exwm)
+                    ;;    (require 'exwm-config)
+                    ;;    (exwm-config-default)
+                    ;;    (message (concat "exwm config not found. "
+                    ;;                     "Falling back to default config.."))))
                     )))
                (chmod exwm-executable #o555)
                #t))))))))
+
+(define-public emacs-exwm-out-gaps
+  (package))

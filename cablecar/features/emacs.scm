@@ -284,7 +284,7 @@ argument, throw an exception otherwise."
             (let ((command-parts (split-string command "[ ]+")))
                 (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
-        (bp/run-in-background 'picom')
+        (bp/run-in-background "picom")
       )
     #:additional-elisp-packages
     (append

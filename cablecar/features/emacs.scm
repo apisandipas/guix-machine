@@ -222,7 +222,6 @@ argument, throw an exception otherwise."
 
 (define %cablecar-base-emacs-packages
   (list
-   ;; (feature-emacs-exwm)
    (feature-emacs-evil)
    (feature-emacs-appearance
     #:dark? #t)
@@ -249,8 +248,7 @@ argument, throw an exception otherwise."
    (feature-emacs
     #:extra-init-el
     `(
-      (custom-set-variables
-       '(initial-frame-alist (quote ((fullscreen . maximized)))))
+      (set-frame-parameter nil 'fullscreen 'fullboth)
       )
     #:additional-elisp-packages
     (append

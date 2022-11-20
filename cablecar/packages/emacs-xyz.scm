@@ -94,8 +94,8 @@ is a feature. And therefore Emacs must have it. Sorry, I don’t make the rules.
            (commit "3225ec1803c3da9aee3f53562278c3558c179c26")))
      (file-name (git-file-name name version))
      (sha256
-      (base32 "")))
-    (build-system emacs-build-system))
+      (base32 "1hnap58i90nsajp6a0ib5z96ifykw85p2g21vbij827v419mq1mw"))))
+    (build-system emacs-build-system)
    (propagated-inputs
     (list cablecar-emacs-exwm))
    (home-page "https://github.com/SqrtMinusOne/exwm-modeline")

@@ -317,7 +317,7 @@ argument, throw an exception otherwise."
       )
     #:additional-elisp-packages
     (append
-     (list emacs-consult-dir emacs-exwm-outer-gaps)
+     (list emacs-consult-dir emacs-exwm-outer-gaps emacs-exwm-modeline)
      (pkgs "emacs-elfeed" "emacs-hl-todo"
            "emacs-ytdl"
            "emacs-ement"

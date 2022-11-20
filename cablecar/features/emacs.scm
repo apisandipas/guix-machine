@@ -247,7 +247,7 @@ argument, throw an exception otherwise."
    (feature-emacs-monocle)
    (feature-emacs
     #:extra-init-el
-    `(
+    '(
       (display-time)
       (display-battery-mode)
 

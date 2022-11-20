@@ -8,6 +8,11 @@
   (interactive)
   (start-process name nil name))
 
+(defun bp/set-wallpaper ()
+  (interactive)
+  (start-process-shell-command
+   "feh" nil  "~/.fehbg"))
+
 (defun run-or-raise-or-dismiss (program program-buffer-name)
   "If no instance of the program is running, launch the program.
 If an instance already exists, and its corresponding buffer is
@@ -98,7 +103,7 @@ buffer (=minimizing in other WM/DE)"
 ;; (defun bp/update-displays ()
 ;;   (interactive)
 ;;   (bp/run-in-background "autorandr --change --force")
-;;   (bp/set-wallpaper)
+  (bp/set-wallpaper)
 ;;   (message "Display config: %s"
 ;;            (string-trim (shell-command-to-string "autorandr --current"))))
 

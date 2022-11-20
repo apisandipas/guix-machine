@@ -260,12 +260,12 @@ buffer (=minimizing in other WM/DE)"
   ;; (perspective-exwm-mode)
   (exwm-enable)
 
-(require 'desktop-environment)
-(desktop-environment-mode)
-(desktop-environment-brightness-small-increment "2%+")
-(desktop-environment-brightness-small-decrement "2%-")
-(desktop-environment-brightness-normal-increment "5%+")
-(desktop-environment-brightness-normal-decrement "5%-")
+;; (require 'desktop-environment)
+;; (desktop-environment-mode)
+;; (desktop-environment-brightness-small-increment "2%+")
+;; (desktop-environment-brightness-small-decrement "2%-")
+;; (desktop-environment-brightness-normal-increment "5%+")
+;; (desktop-environment-brightness-normal-decrement "5%-")
 
 ;; (require 'cl-lib)
 ;; (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)

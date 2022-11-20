@@ -252,7 +252,7 @@ buffer (=minimizing in other WM/DE)"
         window-divider-default-right-width 2)
   (window-divider-mode)
 
-  ;; (exwm-input-set-key (kbd "s-SPC") 'counsel-linux-app)
+  (exwm-input-set-key (kbd "s-SPC") 'counsel-linux-app)
   ;; (perspective-exwm-mode)
   (exwm-enable)
 

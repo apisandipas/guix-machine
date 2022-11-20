@@ -248,10 +248,29 @@ argument, throw an exception otherwise."
    (feature-emacs
     #:extra-init-el
     `(
-      ;; (set-frame-parameter nil 'fullscreen 'fullboth)
-      (toggle-frame-maximized)
       (display-time)
       (display-battery-mode)
+
+        (defun bp/make-frame-pretty ()
+            "Set the initial look and feel of the frame"
+            (modify-all-frames-parameters
+            '((right-divider-width . 24)
+                (alpha . (85 . 75))
+                (mouse-color . "white")
+                (internal-border-width . 24))))
+
+        (add-hook 'before-make-frame-hook 'bp/make-frame-pretty)
+
+        (setq initial-frame-alist
+            '((right-divider-width . 24)
+              (fullscreen . maximized)
+                (alpha . (85 . 75))
+                (internal-border-width. 24)))
+
+        (add-to-list 'default-frame-alist '(internal-border-width . 24))
+        (add-to-list 'default-frame-alist '(alpha . (85 . 75)))
+        (add-to-list 'default-frame-alist '(right-divider-width . 24))
+        (add-to-list 'default-frame-alist '(fullscreen . maximized))
       )
     #:additional-elisp-packages
     (append

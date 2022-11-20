@@ -372,7 +372,7 @@ argument, throw an exception otherwise."
             (9 "  Streaming")))
 
         ;; Update panel indicator when workspace changes
-        (add-hook 'exwm-workspace-switch-hook #'bp/send-polybar-exwm-workspace)
+        (add-hook 'exwm-workspace-switch-hook 'bp/send-polybar-exwm-workspace)
 
 
       )

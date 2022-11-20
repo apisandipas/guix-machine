@@ -282,7 +282,7 @@ argument, throw an exception otherwise."
 
         (defun bp/run-in-background (command)
             (let ((command-parts (split-string command "[ ]+")))
-                (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+                (apply 'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
         (bp/run-in-background "picom")
         (bp/run-in-background "pasystray")

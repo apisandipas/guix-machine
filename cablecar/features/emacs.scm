@@ -316,6 +316,65 @@ argument, throw an exception otherwise."
       (with-eval-after-load 'evil
                             (evil-set-initial-state 'vterm-mode 'insert))
 
+        (defvar bp/polybar-processes nil
+        "A list of running polybar processes. So that we can kill them later. 👿")
+
+        (defun bp/get-monitors-list ()
+        "Get a list of the currently connected monitors.
+
+        Requires polybar, instead of relying on xrandr,
+        though you probably want it installed too."
+        (split-string
+        (substring (shell-command-to-string "polybar -m | cut -d: -f 1") 0 -1) "\n"))
+
+
+        (defun bp/kill-panel ()
+        "Stop any running polybar processes. and reset the process list variable"
+        (interactive)
+        (let ((process-list bp/polybar-processes))
+            (dolist (p process-list)
+            (if (process-live-p p)
+                (kill-process p))))
+        (setq bp/polybar-processes nil))
+
+        (defvar bp/polybar-config-location "~/.config/polybar/config"
+        "The customized location of your polybar config.ini ")
+
+        (defun bp/start-panel ()
+        "Start polybar on each connected monitor"
+        (interactive)
+        (bp/kill-panel)
+        (setq bp/polybar-processes
+                (mapcar (lambda (monitor)
+                        (start-process-shell-command "polybar" nil
+                                                    (format "MONITOR=%s polybar -c %s --reload main" monitor bp/polybar-config-location)))
+                        (bp/get-monitors-list))))
+
+
+        (defun bp/send-polybar-hook (module-name hook-index)
+        (start-process-shell-command "polybar-msg" nil (format "polybar-msg hook %s %s" module-name hook-index)))
+
+        (defun bp/send-polybar-exwm-workspace ()
+        (bp/send-polybar-hook "exwm-workspace" 1))
+
+        (defun bp/polybar-exwm-workspace ()
+        (interactive)
+        (pcase exwm-workspace-current-index
+            (0 "ﳜ Video")
+            (1 "  Term")
+            (2 "  Chat")
+            (3 "  Dev")
+            (4 "  Mail")
+            (5 "  Web")
+            (6 "  VCS")
+            (7 "  Music")
+            (8 "  Files")
+            (9 "  Streaming")))
+
+        ;; Update panel indicator when workspace changes
+        (add-hook 'exwm-workspace-switch-hook #'bp/send-polybar-exwm-workspace)
+
+
       )
     #:additional-elisp-packages
     (append

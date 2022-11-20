@@ -44,15 +44,15 @@
                     (search-input-file inputs "/bin/xhost")
                     (search-input-file inputs "/bin/dbus-launch")
                     (search-input-file inputs "/bin/emacs")
-                    ;; '(cond
-                    ;;   ((file-exists-p "~/.exwm")
-                    ;;    (load-file "~/.exwm"))
-                    ;;   ((not (feature 'exwm))
-                    ;;    (require 'exwm)
-                    ;;    (require 'exwm-config)
-                    ;;    (exwm-config-default)
-                    ;;    (message (concat "exwm config not found. "
-                    ;;                     "Falling back to default config.."))))
+                    '(cond
+                      ((file-exists-p "~/.exwm")
+                       (load-file "~/.exwm"))
+                      ((not (feature 'exwm))
+                       (require 'exwm)
+                       (require 'exwm-config)
+                       (exwm-config-default)
+                       (message (concat "exwm config not found. "
+                                        "Falling back to default config.."))))
                     )))
                (chmod exwm-executable #o555)
                #t))))))))

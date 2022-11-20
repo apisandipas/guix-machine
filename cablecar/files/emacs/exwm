@@ -107,7 +107,8 @@ buffer (=minimizing in other WM/DE)"
   ;; (exwm-outer-gaps-balance 16)
 
   ;; Start the Polybar panel
-  (bp/start-panel)
+  ;;(bp/start-panel)
+  
 
   ;; Launch apps that will run in the background
   (bp/run-in-background "picom")

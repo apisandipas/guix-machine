@@ -204,8 +204,8 @@ buffer (=minimizing in other WM/DE)"
 
           ;; ;; Launch applications via shell command
           ([?\s-\\] . (lambda (command)
-                       (interactive (list (read-shell-command " ")))
-                       (start-process-shell-command command nil command)))
+                        (interactive (list (read-shell-command " ")))
+                        (start-process-shell-command command nil command)))
 
           ;; Switch workspace
           ;; ([?\s-w] . exwm-workspace-switch)
@@ -224,16 +224,28 @@ buffer (=minimizing in other WM/DE)"
                        (number-sequence 0 9))
 
           ;; Switch to window workspace with SUPER+{0-9}
-          ([?\s-1] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
-          ([?\s-2] . (lambda () (interactive) (exwm-workspace-switch-create 1)))
-          ([?\s-3] . (lambda () (interactive) (exwm-workspace-switch-create 2)))
-          ([?\s-4] . (lambda () (interactive) (exwm-workspace-switch-create 3)))
-          ([?\s-5] . (lambda () (interactive) (exwm-workspace-switch-create 4)))
-          ([?\s-6] . (lambda () (interactive) (exwm-workspace-switch-create 5)))
-          ([?\s-7] . (lambda () (interactive) (exwm-workspace-switch-create 6)))
-          ([?\s-8] . (lambda () (interactive) (exwm-workspace-switch-create 7)))
-          ([?\s-9] . (lambda () (interactive) (exwm-workspace-switch-create 8)))
-          ([?\s-0] . (lambda () (interactive) (exwm-workspace-switch-create 9)))))
+          ;; ([?\s-1] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
+          ;; ([?\s-2] . (lambda () (interactive) (exwm-workspace-switch-create 1)))
+          ;; ([?\s-3] . (lambda () (interactive) (exwm-workspace-switch-create 2)))
+          ;; ([?\s-4] . (lambda () (interactive) (exwm-workspace-switch-create 3)))
+          ;; ([?\s-5] . (lambda () (interactive) (exwm-workspace-switch-create 4)))
+          ;; ([?\s-6] . (lambda () (interactive) (exwm-workspace-switch-create 5)))
+          ;; ([?\s-7] . (lambda () (interactive) (exwm-workspace-switch-create 6)))
+          ;; ([?\s-8] . (lambda () (interactive) (exwm-workspace-switch-create 7)))
+          ;; ([?\s-9] . (lambda () (interactive) (exwm-workspace-switch-create 8)))
+          ;; ([?\s-0] . (lambda () (interactive) (exwm-workspace-switch-create 9)))
+          ))
+
+        (exwm-input-set-key (kbd "s-1") (lambda () (interactive) (exwm-workspace-switch-create 0)))
+        (exwm-input-set-key (kbd "s-2") (lambda () (interactive) (exwm-workspace-switch-create 1)))
+        (exwm-input-set-key (kbd "s-3") (lambda () (interactive) (exwm-workspace-switch-create 2)))
+        (exwm-input-set-key (kbd "s-4") (lambda () (interactive) (exwm-workspace-switch-create 3)))
+        (exwm-input-set-key (kbd "s-5") (lambda () (interactive) (exwm-workspace-switch-create 4)))
+        (exwm-input-set-key (kbd "s-6") (lambda () (interactive) (exwm-workspace-switch-create 5)))
+        (exwm-input-set-key (kbd "s-7") (lambda () (interactive) (exwm-workspace-switch-create 6)))
+        (exwm-input-set-key (kbd "s-8") (lambda () (interactive) (exwm-workspace-switch-create 7)))
+        (exwm-input-set-key (kbd "s-9") (lambda () (interactive) (exwm-workspace-switch-create 8)))
+        (exwm-input-set-key (kbd "s-0") (lambda () (interactive) (exwm-workspace-switch-create 9)))
 
   (setq window-divider-default-bottom-width 2
         window-divider-default-right-width 2)

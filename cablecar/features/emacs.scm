@@ -248,8 +248,8 @@ argument, throw an exception otherwise."
    (feature-emacs
     #:extra-init-el
     `(
-      (set-frame-parameter nil 'fullscreen 'fullboth)
-      (toggle-frame-fullscreen)
+      ;; (set-frame-parameter nil 'fullscreen 'fullboth)
+      (toggle-frame-maximized)
       (display-time)
       (display-battery-mode)
       )

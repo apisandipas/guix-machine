@@ -347,4 +347,7 @@ buffer (=minimizing in other WM/DE)"
 (require 'exwm-systemtray)
 (exwm-systemtray-enable)
 
+(require 'exwm-modeline)
+(add-hook 'exwm-init-hook 'exwm-modeline-mode)
+
 (message "Exwm config loaded")

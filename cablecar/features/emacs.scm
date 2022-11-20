@@ -278,6 +278,8 @@ argument, throw an exception otherwise."
      (pkgs "emacs-elfeed" "emacs-hl-todo"
            "emacs-ytdl"
            "emacs-ement"
+           "emacs-vertico-posframe"
+           "emacs-consult"
            "emacs-restart-emacs"
            "emacs-org-present")))))
 

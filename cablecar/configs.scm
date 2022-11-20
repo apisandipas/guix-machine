@@ -111,7 +111,7 @@
        "obs" "obs-wlrobs"
        "recutils"
        "fheroes2"
-       "feh"
+       "feh" "picom"
        "hicolor-icon-theme" "adwaita-icon-theme" "gnome-themes-extra"
        "ripgrep" "curl" "make")))
     (feature-dotfiles

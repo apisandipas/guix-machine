@@ -81,3 +81,24 @@
 called “gaps”. It is useless, it is pretty but most importantly it
 is a feature. And therefore Emacs must have it. Sorry, I don’t make the rules.")
     (license license:gpl3+)))
+
+(define-public emacs-exwm-modeline
+  (package
+   (name "emacs-exwm-modeline")
+   (version "0.1.3")
+   (source
+    (origin
+     (method git-fetch)
+     (uri (git-reference
+           (url "https://github.com/SqrtMinusOne/exwm-modeline")
+           (commit "3225ec1803c3da9aee3f53562278c3558c179c26")))
+     (file-name (git-file-name name version))
+     (sha256
+      (base32 "")))
+    (build-system emacs-build-system))
+   (propagated-inputs
+    (list cablecar-emacs-exwm))
+   (home-page "https://github.com/SqrtMinusOne/exwm-modeline")
+   (synopsis "A modeline segment to display exwm workspaces.")
+   (description "A modeline segment to display exwm workspaces.")
+   (license license:gpl3+)))

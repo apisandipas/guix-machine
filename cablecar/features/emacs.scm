@@ -150,6 +150,7 @@ argument, throw an exception otherwise."
       emacs-f-name
       config
       `(
+        (require 'doom-modeline)
         (doom-modeline-mode)
         (with-eval-after-load 'doom-modeline
             (setq doom-modeline-height 36
@@ -163,10 +164,10 @@ argument, throw an exception otherwise."
                 doom-modeline-buffer-file-name-style 'truncate-except-project
                 doom-modeline-major-mode-icon t))
         )
-      #:elisp-packages (list emacs-doom-modeline)))
+      #:elisp-packages (list emacs-doom-modeline))))
 
   (make-emacs-feature emacs-f-name
-                      #:home-services get-home-services)))
+                      #:home-services get-home-services))
 
 
 (define* (feature-emacs-evil

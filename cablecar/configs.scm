@@ -119,7 +119,11 @@
        "ripgrep" "curl" "make")))
     (feature-dotfiles
      #:dotfiles
-     `((".exwm" ,(local-file "files/emacs/exwm"))))
+     `(
+       (".exwm" ,(local-file "files/emacs/exwm"))
+       (".config/dunst/dunstrc" ,(local-file "files/dunst/dunstrc"))
+       )
+     )
     )
 
    %cablecar-base-emacs-packages

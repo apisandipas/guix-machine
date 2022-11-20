@@ -275,20 +275,20 @@ argument, throw an exception otherwise."
         
         (defalias 'yes-or-no-p 'y-or-n-p)
 
-        ;; (defun bp/set-wallpaper ()
-        ;;     (interactive)
-        ;;     (start-process-shell-command
-        ;;         "feh" nil  "~/.fehbg"))
-        ;; (bp/set-wallpaper)
+        (defun bp/set-wallpaper ()
+            (interactive)
+            (start-process-shell-command
+                "feh" nil  "~/.fehbg"))
+        (bp/set-wallpaper)
 
-        ;; (defun bp/run-in-background (command)
-        ;;     (let ((command-parts (split-string command "[ ]+")))
-        ;;         (apply 'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+        (defun bp/run-in-background (command)
+            (let ((command-parts (split-string command "[ ]+")))
+                (apply 'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
-        ;; (bp/run-in-background "picom")
-        ;; (bp/run-in-background "pasystray")
-        ;; (bp/run-in-background "nm-tray")
-        (load-file "~/.exwm")
+        (bp/run-in-background "picom")
+        (bp/run-in-background "pasystray")
+        (bp/run-in-background "nm-tray")
+        ;; (load-file "~/.exwm")
         
       )
     #:additional-elisp-packages

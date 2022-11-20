@@ -281,6 +281,9 @@ argument, throw an exception otherwise."
    (feature-emacs
     #:extra-init-el
     '(
+      (unless (server-running-p)
+        (server-start))
+
       (setq inhibit-startup-screen t)
       (display-time)
       (display-battery-mode)

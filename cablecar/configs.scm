@@ -114,7 +114,7 @@
        "obs" "obs-wlrobs"
        "recutils"
        "fheroes2"
-       "feh" "picom"
+       "feh" "picom" "polybar"
        "hicolor-icon-theme" "adwaita-icon-theme" "gnome-themes-extra"
        "ripgrep" "curl" "make")))
     (feature-dotfiles
@@ -122,6 +122,7 @@
      `(
        (".exwm" ,(local-file "files/emacs/exwm"))
        (".config/dunst/dunstrc" ,(local-file "files/dunst/dunstrc"))
+       (".config/polybar/config" ,(local-file "files/polybar/config.ini"))
        )
      )
     )

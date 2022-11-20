@@ -285,6 +285,8 @@ argument, throw an exception otherwise."
                 (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
         (bp/run-in-background "picom")
+        (bp/run-in-background "pasystray")
+        (bp/run-in-background "nm-tray")
       )
     #:additional-elisp-packages
     (append

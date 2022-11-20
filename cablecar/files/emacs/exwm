@@ -282,3 +282,4 @@ buffer (=minimizing in other WM/DE)"
                       (interactive)
                       (exwm-input-toggle-mode)
                       (org-capture)))
+(message "Exwm config loaded")

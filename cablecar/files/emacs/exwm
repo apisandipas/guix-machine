@@ -69,7 +69,7 @@ buffer (=minimizing in other WM/DE)"
 
   ;; Launch apps that will run in the background
   (bp/run-in-background "picom")
-  (bp/run-in-background "nm-applet")
+  (bp/run-in-background "nm-tray")
   (bp/run-in-background "pasystray")
   ;; ;; (bp/run-in-background "blueman-applet")
   ;; (bp/run-in-background "blueman-tray")

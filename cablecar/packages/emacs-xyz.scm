@@ -56,3 +56,28 @@
                     )))
                (chmod exwm-executable #o555)
                #t))))))))
+
+(define-public emacs-exwm-outer-gaps
+  (package
+    (name "emacs-exwm-outer-gaps")
+    (version "0.0.1")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/lucasgruss/exwm-outer-gaps")
+             (commit "e9026b1e627e0465e2f4d29ded5ef8cf4a2017b9")))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 ""))))
+    (build-system emacs-build-system)
+    (propagated-inputs
+     (list cablecar-emacs-exwm))
+    (home-page
+     "https://github.com/lucasgruss/exwm-outer-gaps")
+    (synopsis "Adds (useless) outer gaps to EXWM")
+    (description
+     "@code{exwm-outer-gaps} A lot of window managers provide a feature
+called “gaps”. It is useless, it is pretty but most importantly it
+is a feature. And therefore Emacs must have it. Sorry, I don’t make the rules.")
+    (license license:gpl3+)))

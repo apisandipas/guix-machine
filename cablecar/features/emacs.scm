@@ -249,6 +249,7 @@ argument, throw an exception otherwise."
     #:extra-init-el
     `(
       (set-frame-parameter nil 'fullscreen 'fullboth)
+      (toggle-frame-fullscreen)
       )
     #:additional-elisp-packages
     (append

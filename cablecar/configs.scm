@@ -107,7 +107,7 @@
       (pkgs
        "arandr"
        "dunst"
-       "nm-applet"
+       "nm-tray"
        "pasystray"
        "emacs-desktop-environment"
        "alsa-utils" "youtube-dl" "imv"

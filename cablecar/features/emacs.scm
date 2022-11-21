@@ -313,6 +313,11 @@ argument, throw an exception otherwise."
       (with-eval-after-load 'evil
                             (evil-set-initial-state 'vterm-mode 'insert))
 
+      (defun bp/show-rofi ()
+        (interactive)
+        (bp/run-in-background "rofi -show drun"))
+
+      (global-set-key (kbd "s-SPC") 'bp/show-rofi)
 
       )
     #:additional-elisp-packages

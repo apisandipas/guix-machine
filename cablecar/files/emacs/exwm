@@ -299,10 +299,10 @@ buffer (=minimizing in other WM/DE)"
         window-divider-default-right-width 2)
   (window-divider-mode)
 
-  (with-eval-after-load 'counsel
-    (setq counsel-linux-app-format-function 'counsel-linux-app-format-function-name-pretty))
+  ;; (with-eval-after-load 'counsel
+  ;;   (setq counsel-linux-app-format-function 'counsel-linux-app-format-function-name-pretty))
 
-  (exwm-input-set-key (kbd "s-SPC") 'counsel-linux-app)
+  ;; (exwm-input-set-key (kbd "s-SPC") 'counsel-linux-app)
   ;; (perspective-exwm-mode)
   (exwm-enable)
 

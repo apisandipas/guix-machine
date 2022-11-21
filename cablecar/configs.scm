@@ -114,6 +114,7 @@
        "emacs-desktop-environment"
        "alsa-utils" "youtube-dl" "imv"
        "obs" "obs-wlrobs"
+       "rofi"
        "recutils"
        "fheroes2"
        "feh" "picom" "polybar"

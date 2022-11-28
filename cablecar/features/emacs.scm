@@ -152,18 +152,37 @@ argument, throw an exception otherwise."
       `(
         (require 'doom-modeline)
         (doom-modeline-mode)
+        (defun bp/s-truncate (len s &optional ellipsis)
+            "Like `s-truncate' but
+            - return S when LEN is nil
+            - return empty string when len is shorter than ELLIPSIS"
+            (declare (pure t) (side-effect-free t))
+            (let ((ellipsis (or ellipsis "...")))
+                (cond
+                ((null len) s)
+                ((< len (length ellipsis)) "")
+                (t (s-truncate len s ellipsis)))))
+
+        (defun fw/doom-modeline-segment--buffer-info (orig-fn &rest args)
+            "`doom-modeline-segment--buffer-info' but truncate for EXWM buffers."
+            (bp/s-truncate
+                (and (derived-mode-p 'exwm-mode)
+                        (max 15 (- (window-width) 45)))
+                (format-mode-line (apply orig-fn args))
+                "..."))
+        (advice-add 'doom-modeline-segment--buffer-info :around 'fw/doom-modeline-segment--buffer-info)
         (with-eval-after-load 'doom-modeline
-            (setq doom-modeline-height 36
-                doom-modeline-bar-width 6
-                doom-modeline-lsp t
-                doom-modeline-github nil
-                doom-modeline-mu4e t
-                doom-modeline-irc t
-                doom-modeline-minor-modes nil
-                doom-modeline-persp-name t
-                doom-modeline-buffer-file-name-style 'truncate-except-project
-                doom-modeline-major-mode-icon t))
-        )
+            (setq doom-modeline-height 18
+                 doom-modeline-bar-width 6
+                 doom-modeline-lsp t
+                 doom-modeline-github nil
+                 doom-modeline-mu4e t
+                 doom-modeline-irc t
+                 doom-modeline-minor-modes nil
+                 doom-modeline-persp-name nil
+                 doom-modeline-buffer-file-name-style 'truncate-except-project
+                 doom-modeline-major-mode-icon t))
+         )
       #:elisp-packages (list emacs-doom-modeline))))
 
   (make-emacs-feature emacs-f-name
@@ -207,18 +226,58 @@ argument, throw an exception otherwise."
         ;; The packages below must be loaded and configured in a certain order
         (require 'evil)
         ,@(if leader?
-              `((require 'evil-leader)
-                (global-evil-leader-mode)
-                (evil-leader/set-leader "<SPC>")
-                (evil-leader/set-key
-                 "<SPC>" 'find-file
-                 "b" 'switch-to-buffer
-                 "k" 'kill-buffer
-                 "K" 'kill-this-buffer
-                 "s" 'save-buffer
-                 "S" 'evil-write-all
-                 )
-                '()))
+              `((require 'general)
+                
+                (defun bp/evil-shift-right ()
+                    (interactive)
+                    (evil-shift-right evil-visual-beginning evil-visual-end)
+                    (evil-normal-state)
+                    (evil-visual-restore))
+
+                (defun bp/evil-shift-left ()
+                    (interactive)
+                    (evil-shift-left evil-visual-beginning evil-visual-end)
+                    (evil-normal-state)
+                    (evil-visual-restore))
+
+                (evil-define-key 'visual global-map (kbd ">") 'bp/evil-shift-right)
+                (evil-define-key 'visual global-map (kbd "<") 'bp/evil-shift-left)
+
+                (general-def :states '(normal motion emacs) "SPC" nil)
+
+                (general-evil-setup)
+
+                (general-create-definer bp/leader-def
+		  :keymaps '(normal visual emacs)
+                  :prefix "SPC")
+
+                (bp/leader-def
+		    "SPC" 'find-file
+                    "b" '(:ignore t :which-key "Buffers")
+                    ;; Buffer-related bindings
+                    "bw"   '(counsel-switch-buffer :which-key "Switch Buffer")
+                    "bc"   '(clone-indirect-buffer-other-window :which-key "Clone indirect buffer other window")
+                    "bk"   '(kill-current-buffer :which-key "Kill current buffer")
+                    "bn"   '(next-buffer :which-key "Next buffer")
+                    "bp"   '(previous-buffer :which-key "Previous buffer")
+                    "bs"   '(save-buffer :which-key "Save buffer")
+                    "bB"   '(ibuffer-list-buffers :which-key "Ibuffer list buffers")
+                    "bK"   '(kill-buffer :which-key "Kill buffer")
+                    "w" '(:ignore t :which-key "Windows")
+                    ;; Window-related bindings
+                    "wc"   '(evil-window-delete :which-key "Close window")
+                    "wn"   '(evil-window-new :which-key "New window")
+                    "ws"   '(evil-window-split :which-key "Horizontal split window")
+                    "wv"   '(evil-window-vsplit :which-key "Vertical split window")
+                    ;; Window motions
+                    "wh"   '(evil-window-left :which-key "Window left")
+                    "wj"   '(evil-window-down :which-key "Window down")
+                    "wk"   '(evil-window-up :which-key "Window up")
+                    "wl"   '(evil-window-right :which-key "Window right")
+                    "ww"   '(evil-window-next :which-key "Goto next window")
+                   )
+                '()
+                ))
         ,@(if undo-fu?
               `((eval-when-compile (require 'undo-fu))
                 (setq evil-undo-system 'undo-fu)
@@ -241,7 +300,7 @@ argument, throw an exception otherwise."
         )
       #:elisp-packages (list
                         emacs-evil
-                        (if leader? emacs-evil-leader)
+                        (if leader? emacs-general)
                         (if undo-fu? emacs-undo-fu)
                         (if commentary? emacs-evil-commentary)
                         ;; (if collection? emacs-evil-collection)
@@ -255,9 +314,9 @@ argument, throw an exception otherwise."
   (list
    (feature-emacs-evil)
    (feature-emacs-appearance
-    #:header-line-as-mode-line? #t
+    #:header-line-as-mode-line? #f
     #:dark? #t)
-   ;; (feature-doom-modeline) ;; Weird zoom level issues cause gaps to behave strangely
+   (feature-doom-modeline) ;; Weird zoom level issues cause gaps to behave strangely
    (feature-emacs-faces)
    (feature-emacs-completion)
    (feature-vterm)
@@ -279,11 +338,39 @@ argument, throw an exception otherwise."
    ;;  #:show-smartparens? #t)
    (feature-emacs-monocle)
    (feature-emacs
+    #:extra-early-init-el
+    '(
+      (eval-when-compile (require 'use-package))
+      )
     #:extra-init-el
     '(
-      (setq inhibit-startup-screen t)
-      (display-time)
-      (display-battery-mode)
+      (use-package general)
+
+        ;; Make Default face a consistent size...
+        (set-face-attribute 'default nil :height 203)
+        (setq display-line-numbers-type 'relative)
+        (column-number-mode)
+        (global-display-line-numbers-mode t)
+        (setq standard-indent 2)
+        (setq-default indent-tabs-mode nil)
+
+        (setq inhibit-startup-screen t)
+
+        (display-time)
+        (display-battery-mode)
+
+        (setq display-line-numbers-type 'relative)
+        (setq standard-indent 2)
+        (setq-default indent-tabs-mode nil)
+
+        (setq window-divider-default-right-width 24)
+        (setq window-divider-default-bottom-width 1)
+        (setq window-divider-default-places 'right-only)
+        (window-divider-mode t)
+        ;; Make sure new frames use window-divider
+        (add-hook 'before-make-frame-hook 'window-divider-mode)
+
+        (set-face-foreground 'window-divider "#212337");; TODO Change this color
 
       (defun bp/make-frame-pretty ()
         "Set the initial look and feel of the frame"
@@ -326,8 +413,9 @@ argument, throw an exception otherwise."
      (pkgs "emacs-elfeed" "emacs-hl-todo"
            "emacs-ytdl"
            "emacs-ement"
-           ;; "emacs-vertico-posframe" ;; will require custom package input
-           ;; "emacs-doom-modeline"
+           "emacs-use-package"
+;;           "emacs-vertico-posframe"     ;
+           "emacs-rainbow-mode"
            "emacs-counsel"
            "emacs-restart-emacs"
            "emacs-org-present")))))

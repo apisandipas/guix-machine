@@ -17,3 +17,7 @@
 ;; Prevent unwanted runtime builds; packages are compiled ahead-of-time when
 ;; they are installed and site files are compiled when gccemacs is installed.
 (setq comp-deferred-compilation nil)
+
+(eval-when-compile
+  ;; Following line is not needed if use-package.el is in ~/.emacs.d
+  (require 'use-package))

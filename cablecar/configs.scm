@@ -126,6 +126,7 @@
        (".exwm" ,(local-file "files/emacs/exwm"))
        (".config/dunst/dunstrc" ,(local-file "files/dunst/dunstrc"))
        (".config/polybar/config" ,(local-file "files/polybar/config.ini"))
+       (".config/rofi/config.rasi" ,(local-file "files/rofi/config.rasi"))
        )
      )
     )

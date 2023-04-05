@@ -65,7 +65,7 @@
     (feature-desktop-services)
     (feature-docker)
     (feature-pulseaudio-control)
-    (feature-pipewire)
+    ;; (feature-pipewire)
     (feature-fonts
      #:font-monospace (font "Iosevka" #:size 18 #:weight 'regular)
      #:font-packages (list font-iosevka font-fira-mono))

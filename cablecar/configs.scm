@@ -68,13 +68,13 @@
     (feature-fonts
      #:font-monospace (font "Iosevka" #:size 18 #:weight 'regular)
      #:font-packages (list font-iosevka font-fira-mono))
-    (feature-alacritty
-     #:config-file (local-file "./files/alacritty/alacritty.yml")
-     #:default-terminal? #f
-     #:backup-terminal? #t
-     #:software-rendering? #f)
-    (feature-tmux
-     #:config-file (local-file "./files/tmux/tmux.conf"))
+    ;; (feature-alacritty
+    ;;  #:config-file (local-file "./files/alacritty/alacritty.yml")
+    ;;  #:default-terminal? #f
+    ;;  #:backup-terminal? #t
+    ;;  #:software-rendering? #f)
+    ;; (feature-tmux
+    ;;  #:config-file (local-file "./files/tmux/tmux.conf"))
     (feature-zsh
      #:enable-zsh-autosuggestions? #t)
     (feature-bash)

@@ -1,5 +1,5 @@
 CONFIG_FILE = ./cablecar/reconfigure.scm
-HOST=norrin
+HOST=atlas
 RDE_USER=bryan
 GLP=./
 

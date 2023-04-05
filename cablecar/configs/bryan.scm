@@ -28,7 +28,7 @@
 
 (define %user-features
   (list (feature-user-info
-         #:user-name "admin"
+         #:user-name "bryan"
          #:full-name "Bryan Paronto"
          #:email "bryan@cablecar.digital"
          #:user-initial-password-hash

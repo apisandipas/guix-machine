@@ -48,9 +48,7 @@
   #:use-module (cablecar configs)
   #:use-module (cablecar features state)
   #:use-module (cablecar features emacs)
-  #:use-module (cablecar packages emacs-xyz)
-  ;; #:use-module (engstrand features emacs)
-  #:use-module (engstrand features audio)
+  #:use-module  (cablecar packages emacs-xyz)
   #:export (%base-features))
 
 

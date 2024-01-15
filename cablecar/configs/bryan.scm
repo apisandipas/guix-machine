@@ -32,7 +32,7 @@
          #:full-name "Bryan Paronto"
          #:email "bryan@cablecar.digital"
          #:user-initial-password-hash
-         "$6$abc$MzYD0nNWVhSPKUohL2rXBInSYrLx2qua8Ls2hYaW0Hop49GOPkfKKcAlVdTiyyxb91XLec6Li8qSqzf6tUI2F0"
+         "$6$abc$JmjYWp0yTCBlvqR4m19zKTi2C3ErCHdW9xXCmNWbhmHhFqfDnMPPW17ieYSYd3sXPisEoG5JKEZ0c4xtP/y6g/"
          #:emacs-advanced-user? #t)
         (feature-gnupg
          #:gpg-primary-key "1447CBC3E2E68A6A")
